@@ -1,10 +1,21 @@
 type: object
+allOf:
+  - $ref: cloud-prompt-fields.schema.yaml
 required:
   - prompt_id
-  - shot_id
   - model
   - prompt
 properties:
+  job_kind: {enum: [shot_render, reference_illustration], default: shot_render}
+  project_id: {type: string, minLength: 1}
+  scene_id: {type: string, minLength: 1}
+  entity_id: {type: string, minLength: 1}
+  sheet_type:
+    description: >-
+      Optional model-sheet layout for a reference_illustration job only (multi-view
+      reference art; crop isolated views with scripts/split_model_sheet.py).
+    enum: [turnaround, expression, outfit, location_layout, floor_plan, prop_sheet]
+  entity_type: {enum: [character, location, prop]}
   prompt_id:
     type: string
   shot_id:
@@ -15,6 +26,9 @@ properties:
       - krea2
       - flux2-klein
       - qwen-image
+      - bytedance-seed/seedream-5-0-flash
+      - google/gemini-3.1-flash-image
+      - google/gemini-3-pro-image
   prompt:
     type: string
   negative_prompt:
@@ -37,3 +51,17 @@ properties:
     type: array
     items:
       type: string
+oneOf:
+  - required: [shot_id]
+    properties:
+      job_kind: {const: shot_render}
+    not:
+      anyOf:
+        - required: [entity_id]
+        - required: [entity_type]
+        - required: [sheet_type]
+  - required: [job_kind, entity_id, entity_type, scene_id, project_id, tier, route]
+    properties:
+      job_kind: {const: reference_illustration}
+      model: {enum: [bytedance-seed/seedream-5-0-flash, google/gemini-3.1-flash-image, google/gemini-3-pro-image]}
+    not: {required: [shot_id]}

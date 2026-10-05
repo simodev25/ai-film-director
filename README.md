@@ -3,14 +3,86 @@
 OpenCode-native pipeline that turns a story idea into a finished film:
 
 ```
-Story → Screenplay → Characters + Sheets → Locations → Props → Storyboard → Shot List → Image Prompts → Krea 2 / FLUX.2 Klein / Qwen Image → Video Prompts → LTX-2.5 / MiniMax H3 → Audio Prompts → Qwen3-TTS → Final Edit (FFmpeg)
+Story → Budget estimate (3 gammes, low/mean/high) → Explicit user review → Screenplay → Characters + Sheets → Locations → Props → Storyboard → Shot List → Image Prompts → Image Generation → Video Prompts → Video Generation → Audio → Continuity → Final Edit
 ```
 
 Continuity, IDs, and schemas are validated at every stage. ComfyUI workflows are executed through adapters that only touch configured prompt/input nodes.
 
+## Cloud gammes and budget review
+
+Read [`docs/cloud-policy.md`](docs/cloud-policy.md) before every stage. The versioned
+[`config/cloud-tiers.yaml`](config/cloud-tiers.yaml) selects **one recommendation per
+stage**, not simultaneous runs over all models. It does **not** change the running
+OpenCode LLM. No API key belongs in this file or in a workflow.
+
+| Gamme | Text recommendation | Images | Video | Non-verbal audio |
+|---|---|---|---|---|
+| Preparation | GPT-6 Luna | Seedream 5.0 Flash, 1K | Veo 3.1 Lite, 720p | Seed Audio 1.0; existing local maquette may be reused |
+| Tests | Gemini 3.8 Flash | Nano Banana 2, 1K | Kling v3.0 Pro, 720p | Seed Audio 1.0 |
+| Production | GPT-6.1 Sol | Nano Banana Pro, 2K | Veo 3.1, 1080p | Seed Audio 1.0 + Foley/mix |
+
+Preparation is a **planning default**, not spending consent. Higher gammes need an
+explicit user selection; there is no automatic upgrade, fallback, or model fan-out.
+Skip TTS without dialogue/narration. Music is optional and not included by default.
+
+After the story and **before screenplay**:
+
+```bash
+PYTHONPATH=src python -m cli budget projects/my-film
+# Or supply explicit sizing using schemas/budget-assumptions.schema.yaml:
+PYTHONPATH=src python -m cli budget projects/my-film --assumptions assumptions.yaml
+```
+
+This offline command writes `budget/estimate.yaml` and `budget/estimate.md`, comparing
+**low / mean / high** in all three gammes with the same duration, image/reference
+counts, video scope, audio sources, token counts and repeat assumptions. Defaults are
+rough sizing, not invented shot IDs. Mean means the specified repeat hypothesis,
+not measured success probability. Rates are bound to profile settings; the report
+discloses rounding, margin, exclusions and price freshness. Unknown prices block
+calculation rather than becoming zero.
+
+Only after a real user review may a decision be recorded, matching
+[`schemas/budget-decision.schema.yaml`](schemas/budget-decision.schema.yaml):
+`approved: true`, `scope: planning_only_not_spend_consent`, `estimate_sha256`,
+`selected_tier`, `max_spend_usd`, and a nonempty `consent_reference` identifying the
+actual affirmative response. **No command automatically creates this approval.**
+Changed estimates, story/project hashes, rates, or missing evidence block advancing.
+Existing screenplays/media remain intact while a retrospective review is pending.
+
+Planning approval is **not paid-job consent**. Every cloud job, including a retry,
+needs separate explicit approval of its model, settings and cost within the ceiling.
+Native OpenRouter media goes only through the project ComfyUI cloud adapter and
+`comfy-mcp`; never directly to generation APIs. Loaded/authenticated plugins are not
+generation-tested. OpenRouter nodes can be paid despite `is_api_node: false`.
+
+The cloud adapter currently prepares a separate graph and verifies a job approval
+offline; it **does not submit jobs**. The exact cloud graph, live input bindings,
+workflow validation and budget ledger must be in place before an approved MCP
+submission. See [`docs/cloud-adapter.md`](docs/cloud-adapter.md). Missing mappings
+or accounting remain blockers; a planning decision is not a paid-job approval.
+
+Existing user JSONs and local adapters are retained as **explicit legacy opt-in**,
+not silent cloud fallbacks. The legacy Python submitter refuses OpenRouter/known
+hosted graphs; cloud jobs require the gated MCP route. POST submissions are never
+automatically retried. No paid-generation or installation test is part of this refactor.
+
+## Tableau de bord web — Atelier
+
+Suivre **tous les projets** sans ouvrir ComfyUI : vues scènes/plans, galerie de
+versions, connexions entre références et rendus, documents et suivi. Site local
+en lecture seule, découverte automatique des projets et actualisation toutes
+les 5 secondes, sans génération ni modification des fichiers.
+
+```bash
+PYTHONPATH=src python3 -m dashboard.server --projects-root projects --port 8765
+```
+
+Ouvrir **http://127.0.0.1:8765**. Voir [le guide Atelier](docs/dashboard.md) pour
+les commandes, les limites et la signification des indicateurs de progression.
+
 ## Requirements
 
-- [OpenCode](https://opencode.ai) >= 1.18
+- [OpenCode V2](https://opencode.ai/v2/docs/) with project agents and skills
 - Python 3.11+
 - [ComfyUI](https://github.com/comfyanonymous/ComfyUI) (local or remote)
 - FFmpeg (`ffmpeg` on PATH or via `FFMPEG_BIN`)
@@ -276,7 +348,7 @@ Primary orchestrator (`opencode.json:4`, `.opencode/agents/film-director.md:1`):
 @film-director
 ```
 
-Full pipeline (story → screenplay → characters → locations → props → storyboard → shots → images → videos → audio → continuity → render):
+Full pipeline (story → budget comparison → explicit review → screenplay → characters → locations → props → storyboard → shots → images → videos → audio → continuity → render):
 
 ```
 /film my-film
@@ -286,14 +358,15 @@ Run stages independently:
 
 ```
 /story my-film        # → story/story.yaml
+/budget my-film       # → budget/estimate.yaml + estimate.md; stops for user review
 /screenplay my-film   # → screenplay/screenplay.yaml
 /characters my-film   # → characters/characters.yaml + characters/sheets/*.yaml
 /locations my-film    # → locations/locations.yaml
 /props my-film        # → props/props.yaml
 /storyboard my-film   # → storyboard/storyboard.yaml
 /shots my-film        # → shots/shots.yaml
-/images my-film [krea2|flux2-klein|qwen-image]  # → prompts/images/<model>/*.yaml + renders/images/ (all 3 models by default, or filter: /images my-film flux2-klein)
-/videos my-film [ltx-2.5|minimax-h3]            # → prompts/videos/<model>/*.yaml + renders/videos/ (both models by default, or filter: /videos my-film ltx-2.5)
+/images my-film       # → one selected cloud image model's prompts; paid generation requires additional consent
+/videos my-film       # → one selected cloud video model's prompts; paid generation requires additional consent
 /audio my-film        # → prompts/audio/*.yaml + audio/
 /render my-film       # → final/film.mp4
 /validate my-film     # schema + continuity checks
@@ -317,22 +390,22 @@ film-director status projects/my-film   # src/cli.py:15 — prints READY/MISSING
 film-director manifest projects/my-film # same as build_manifest.py
 
 # Images — iterate prompts/images/<model>/*.yaml (rglob) → renders/images/ (final outputs only)
-python scripts/generate_images.py projects/my-film
-python scripts/generate_images.py projects/my-film --model krea2
-python scripts/generate_images.py projects/my-film --model flux2-klein
-python scripts/generate_images.py projects/my-film --model qwen-image
+# These scripts are LOCAL LEGACY only; cloud generation uses the gated MCP adapter.
+# A reviewed budget is required, and opt-in is not paid-job consent.
+python scripts/generate_images.py projects/my-film --model krea2 --legacy-opt-in
+python scripts/generate_images.py projects/my-film --model flux2-klein --legacy-opt-in
+python scripts/generate_images.py projects/my-film --model qwen-image --legacy-opt-in
 # src/render/images.py:render_image() saves only type=output to renders/images/ (skips type=temp previews)
 # src/comfyui/client.py:ComfyUIClient (Session + retry + backoff + rglob subfolders)
 # Note: projects/<film>/images/ is removed – do not download from ComfyUI/temp
 
 # Videos — iterate prompts/videos/<model>/*.yaml (rglob) → renders/videos/ (I2V via renders/images/)
-python scripts/generate_videos.py projects/my-film
-python scripts/generate_videos.py projects/my-film --model ltx-2.5  # I2V: uploads renders/images/<shot_id>.png via client.upload_image() + LTX-2.5 timeline_data patch (prompt/duration/fps/LoadImage), T2V fallback if missing; skips temp previews
-python scripts/generate_videos.py projects/my-film --model minimax-h3
+python scripts/generate_videos.py projects/my-film --model ltx-2.5 --legacy-opt-in  # I2V; missing/upload-failed source is a blocker, not a T2V fallback
+python scripts/generate_videos.py projects/my-film --model minimax-h3 --legacy-opt-in
 # src/render/videos.py:render_video() + src/comfyui/adapters.py:prepare_workflow() (cached, dot/underscore workflow fallback) + rglob
 
 # Audio — iterate prompts/audio/*.yaml → audio/
-python scripts/generate_audio.py projects/my-film
+python scripts/generate_audio.py projects/my-film --legacy-opt-in  # speech only; skips non-dialogue plans
 # src/render/audio.py:render_audio()
 
 # Final edit — FFmpeg concat of renders → final/film.mp4
@@ -340,7 +413,7 @@ python scripts/render_final.py projects/my-film
 # src/render/final.py:render_final()
 
 # Ad-hoc ComfyUI execution
-python scripts/run_workflow.py <model> "<prompt>" [--negative "..."] [--seed 42] [--output out.yaml]
+python scripts/run_workflow.py <legacy-model> "<prompt>" --legacy-opt-in [--negative "..."] [--seed 42] [--output out.yaml]
 # src/comfyui/adapters.py:prepare_workflow() + src/comfyui/client.py:ComfyUIClient.execute()
 ```
 
@@ -349,6 +422,7 @@ python scripts/run_workflow.py <model> "<prompt>" [--negative "..."] [--seed 42]
 | # | Stage | Command | Input | Output | Schema |
 |---|-------|---------|-------|--------|--------|
 | 1 | Story | `/story` | user idea | `story/story.yaml` | `story.schema.yaml` |
+| Gate | Budget / review | `/budget` | story, duration, explicit assumptions | `budget/estimate.yaml`, `estimate.md`, user `decision.yaml` | `budget-estimate.schema.yaml`, `budget-decision.schema.yaml` |
 | 2 | Screenplay | `/screenplay` | story | `screenplay/screenplay.yaml` | `screenplay.schema.yaml` |
 | 3 | Characters | `/characters` | story + screenplay | `characters/characters.yaml`, `characters/sheets/*.yaml` | `character.schema.yaml`, `character-sheet.schema.yaml` |
 | 4 | Locations | `/locations` | story + screenplay | `locations/locations.yaml` | `location.schema.yaml` |
@@ -364,7 +438,7 @@ python scripts/run_workflow.py <model> "<prompt>" [--negative "..."] [--seed 42]
 
 Continuity is enforced at every stage by `@continuity-agent` (`.opencode/skills/continuity/SKILL.md`). Director rules (`.opencode/agents/film-director.md:26`): stable IDs, every scene → shots, every shot → image prompt, every motion shot → video prompt, every dialogue → audio prompt, preserve appearance/state/chronology.
 
-`FilmDirector.next_stage()` order (`src/pipeline/director.py:4`): `story → screenplay → characters → locations → props → storyboard → shots → images → videos → audio → final`.
+`FilmDirector.next_stage()` order: `story → budget → screenplay → characters → locations → props → storyboard → shots → images → videos → audio → final`. Budget is ready only with a valid estimate and matching explicit review. `require_stage()` checks the gate before advancing downstream planning.
 
 ## Schemas & Validation
 

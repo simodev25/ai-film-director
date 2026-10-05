@@ -8,10 +8,12 @@ from pathlib import Path
 from comfyui.client import ComfyUIClient
 from config import COMFYUI_TIMEOUT, COMFYUI_URL, POLL_INTERVAL
 from render.audio import render_audio
+from budget import require_budget_review
+import yaml
 
 
 def _render_one(prompt_file: Path, output_dir: Path) -> str:
-    with ComfyUIClient(COMFYUI_URL, COMFYUI_TIMEOUT, POLL_INTERVAL) as client:
+    with ComfyUIClient(COMFYUI_URL, COMFYUI_TIMEOUT, POLL_INTERVAL, legacy_opt_in=True) as client:
         render_audio(prompt_file=prompt_file, output_dir=output_dir, client=client)
     return prompt_file.stem
 
@@ -19,6 +21,7 @@ def _render_one(prompt_file: Path, output_dir: Path) -> str:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Generate audio via ComfyUI")
     parser.add_argument("project", help="Path to project root")
+    parser.add_argument("--legacy-opt-in", action="store_true", help="Explicit Qwen3-TTS route only; not paid-job consent")
     parser.add_argument(
         "--jobs",
         "-j",
@@ -28,12 +31,18 @@ def main() -> None:
     )
     args = parser.parse_args()
 
+    if not args.legacy_opt_in:
+        parser.error("Qwen3-TTS requires --legacy-opt-in. Use the cloud adapter + comfy-mcp for hosted audio.")
+
     root = Path(args.project)
+    require_budget_review(root)
     prompt_dir = root / "prompts" / "audio"
     output_dir = root / "audio"
     output_dir.mkdir(parents=True, exist_ok=True)
 
     prompt_files = sorted(prompt_dir.glob("*.yaml"))
+    # Silence and Foley plans are not speech jobs. Never run TTS over them.
+    prompt_files = [p for p in prompt_files if (lambda d: d.get("model", "qwen3-tts") == "qwen3-tts" and bool(d.get("text", "").strip()) and d.get("event_kind", "dialogue") in {"dialogue", "narration"})(yaml.safe_load(p.read_text(encoding="utf-8")))]
     if not prompt_files:
         print(f"No prompts found in {prompt_dir}", file=sys.stderr)
         return

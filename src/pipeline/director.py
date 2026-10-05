@@ -2,8 +2,11 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from budget import budget_state, require_budget_review
+
 STAGES = [
     "story",
+    "budget",
     "screenplay",
     "characters",
     "locations",
@@ -30,6 +33,7 @@ class FilmDirector:
         root = self.root
         return {
             "story": (root / "story" / "story.yaml").is_file(),
+            "budget": budget_state(root)["reviewed"],
             "screenplay": (root / "screenplay" / "screenplay.yaml").is_file(),
             "characters": (root / "characters" / "characters.yaml").is_file(),
             "locations": (root / "locations" / "locations.yaml").is_file(),
@@ -48,3 +52,11 @@ class FilmDirector:
             if not status.get(stage, False):
                 return stage
         return "complete"
+
+    def require_stage(self, stage: str, *, selected_tier: str | None = None) -> None:
+        if stage not in STAGES:
+            raise ValueError(f"Unknown stage: {stage}")
+        if stage != "story" and not (self.root / "story" / "story.yaml").is_file():
+            raise ValueError("Story required before further planning")
+        if stage not in {"story", "budget"}:
+            require_budget_review(self.root, selected_tier=selected_tier)

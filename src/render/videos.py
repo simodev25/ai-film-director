@@ -73,13 +73,10 @@ def render_video(
         try:
             image_filename = client.upload_image(image_path)
         except Exception as e:
-            # Fallback: keep local filename if upload fails (e.g., mocked client)
-            # Log but continue as T2V
-            print(f"[render_video] warning: upload failed for {image_path}: {e}")
-            image_filename = image_path.name
+            raise ValueError(f"Image upload failed for {shot_id}; refusing unconditioned fallback") from e
     else:
         if model == "ltx-2.5":
-            print(f"[render_video] warning: no image found for {shot_id} in renders/images/ - falling back to T2V")
+            raise ValueError(f"No approved image found for {shot_id}; refusing silent I2V-to-T2V fallback")
 
     workflow = prepare_workflow(
         model=model,

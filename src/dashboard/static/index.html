@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#111312">
+  <title>Atelier — AI Film Director</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Navigation principale">
+      <a class="brand" href="/" aria-label="Atelier, accueil"><span class="brand-symbol">A<span>·</span></span><span>ATELIER<small>AI FILM DIRECTOR</small></span></a>
+      <div class="sidebar-label">ESPACE DE PRODUCTION</div>
+      <label class="sr-only" for="project-select">Projet</label>
+      <select id="project-select"><option>Chargement des projets…</option></select>
+      <nav id="navigation">
+        <button data-view="overview" class="nav-item active"><span>◈</span> Vue d’ensemble</button>
+        <button data-view="scenes" class="nav-item"><span>▤</span> Scènes & plans</button>
+        <button data-view="media" class="nav-item"><span>▧</span> Médiathèque</button>
+        <button data-view="relations" class="nav-item"><span>⌘</span> Connexions</button>
+        <button data-view="sources" class="nav-item"><span>≡</span> Documents & suivi</button>
+      </nav>
+      <div class="sidebar-bottom"><div class="live-status"><i></i><span id="connection">Connexion…</span></div><p>Un regard sur le film.<br>Pas une commande de génération.</p><span class="readonly">LECTURE SEULE</span></div>
+    </aside>
+    <div class="workspace">
+      <header class="topbar"><div class="breadcrumb">LES PROJETS <span>/</span> <b id="project-name">—</b></div><div class="top-actions"><span id="sync-time">Synchronisation automatique</span><button id="refresh" class="icon-button" title="Actualiser" aria-label="Actualiser">↻</button></div></header>
+      <main id="content" aria-live="polite"><div class="loading"><span class="loader"></span>Ouverture de l’atelier…</div></main>
+      <footer class="footer"><span>ATELIER / LE FILM EN CONSTRUCTION</span><span>Les fichiers présents ne constituent pas une validation de production.</span></footer>
+    </div>
+  </div>
+  <dialog id="inspector" aria-labelledby="inspector-title"><div id="inspector-content"></div></dialog>
+</body>
+</html>

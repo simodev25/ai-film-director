@@ -21,8 +21,12 @@ def main():
     parser.add_argument("--negative", default=None)
     parser.add_argument("--seed", type=int, default=None)
     parser.add_argument("--output", type=Path, default=None)
+    parser.add_argument("--legacy-opt-in", action="store_true", help="Explicit local legacy execution; not permission for paid nodes")
 
     args = parser.parse_args()
+
+    if not args.legacy_opt_in:
+        parser.error("Local legacy execution requires --legacy-opt-in; cloud jobs use the gated project adapter + comfy-mcp")
 
     workflow = prepare_workflow(
         args.model,
@@ -35,6 +39,7 @@ def main():
         COMFYUI_URL,
         COMFYUI_TIMEOUT,
         POLL_INTERVAL,
+        legacy_opt_in=True,
     )
 
     result = client.execute(workflow)

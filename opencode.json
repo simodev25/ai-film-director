@@ -1,5 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
+    "default_agent": "film-director",
   "agent": {
     "film-director": {
       "description": "Orchestrates the complete AI film production pipeline.",
@@ -22,6 +23,20 @@
   "permission": {
     "skill": {
       "*": "allow"
+    }
+  },
+  "mcp": {
+    "servers": {
+      "comfy-mcp": {
+        "type": "local",
+        "command": [
+          "/Users/mbensass/.local/share/comfy-mcp/venv/bin/comfy-mcp"
+        ],
+        "environment": {
+          "COMFY_BIN": "/Users/mbensass/.local/share/comfy-mcp/venv/bin/comfy"
+        },
+        "codemode": false
+      }
     }
   }
 }

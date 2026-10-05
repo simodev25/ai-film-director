@@ -1,0 +1,11 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+type: object
+additionalProperties: false
+required: [approved, scope, estimate_sha256, selected_tier, max_spend_usd, consent_reference]
+properties:
+  approved: {const: true}
+  scope: {const: planning_only_not_spend_consent}
+  estimate_sha256: {type: string, pattern: '^[a-f0-9]{64}$'}
+  selected_tier: {enum: [preparation, tests, production]}
+  max_spend_usd: {type: number, minimum: 0}
+  consent_reference: {type: string, minLength: 1, pattern: '\S'}

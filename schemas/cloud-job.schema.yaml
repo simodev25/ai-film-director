@@ -1,0 +1,72 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+title: Offline cloud ComfyUI job plan
+type: object
+additionalProperties: false
+required: [version, tier, modality, model, route, prompt_id, prompt, pricing_checked_at, estimated_cost_usd]
+oneOf:
+  - required: [shot_id]
+    properties:
+      job_kind: {const: shot_render}
+    not:
+      anyOf:
+        - required: [entity_id]
+        - required: [entity_type]
+        - required: [sheet_type]
+  - required: [job_kind, entity_id, entity_type, scene_id, project_id]
+    properties:
+      job_kind: {const: reference_illustration}
+      modality: {const: image}
+    not: {required: [shot_id]}
+properties:
+  version: {const: 1}
+  tier: {enum: [preparation, tests, production]}
+  modality: {enum: [text, image, video, audio]}
+  model: {type: string, pattern: '^[^/\s]+/[^\s]+$'}
+  route:
+    enum: [/api/v1/chat/completions, /api/v1/images, /api/v1/videos, /api/v1/audio/speech]
+  prompt_id: {type: string, minLength: 1}
+  job_kind: {enum: [shot_render, reference_illustration], default: shot_render}
+  project_id: {type: string, minLength: 1}
+  scene_id: {type: string, minLength: 1}
+  shot_id: {type: string, minLength: 1}
+  segment_id:
+    description: Optional clip segment within one shot (e.g. a/b) when a shot is generated as several chained clips; part of the ledger attempt identity.
+    type: string
+    pattern: '^[a-z0-9_]{1,16}$'
+  entity_type: {enum: [character, location, prop]}
+  entity_id: {type: string, minLength: 1}
+  sheet_type:
+    description: >-
+      Optional model-sheet layout for a reference_illustration job only (multi-view
+      reference art; crop isolated views with scripts/split_model_sheet.py).
+    enum: [turnaround, expression, outfit, location_layout, floor_plan, prop_sheet]
+  attempt_number: {type: integer, minimum: 1, default: 1}
+  prompt: {type: string, minLength: 1}
+  pricing_checked_at: {type: string, format: date}
+  estimated_cost_usd:
+    description: Route-specific estimate; null means UNKNOWN and blocks authorization.
+    type: [number, 'null']
+    minimum: 0
+  parameters:
+    type: object
+    additionalProperties: false
+    properties:
+      seed: {type: integer, minimum: 0, maximum: 4294967295}
+      aspect_ratio: {type: string, pattern: '^\d+(\.\d+)?:\d+(\.\d+)?$'}
+      resolution: {type: string, minLength: 1}
+      duration: {type: integer, minimum: 1}
+      width: {type: integer, minimum: 1}
+      height: {type: integer, minimum: 1}
+      frames: {type: integer, minimum: 1}
+      fps: {type: number, exclusiveMinimum: 0}
+      generate_audio: {type: string, enum: ['on', 'off', 'true', 'false']}
+  references:
+    type: array
+    maxItems: 17
+    items:
+      type: object
+      additionalProperties: false
+      required: [role, uploaded_path]
+      properties:
+        role: {enum: [reference, first_frame, last_frame, audio]}
+        uploaded_path: {type: string, minLength: 1}

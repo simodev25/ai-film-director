@@ -1,0 +1,85 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+type: object
+additionalProperties: false
+required: [version, currency, pricing_checked_at, pricing_max_age_days, default_tier, sources, policy, tiers, pricing_notes]
+properties:
+  version: {const: 1}
+  currency: {const: USD}
+  pricing_checked_at: {type: string, format: date}
+  pricing_max_age_days: {type: integer, minimum: 1}
+  default_tier: {enum: [preparation, tests, production]}
+  sources: {type: array, minItems: 1, items: {type: string, format: uri}}
+  policy:
+    type: object
+    additionalProperties: false
+    required: [automatic_spending, automatic_tier_upgrade, automatic_fallback, screenplay_requires_budget_review, execution_route, preserve_user_workflows, planning_approval_is_spend_consent, text_models_are_recommendations_not_opencode_runtime_ids]
+    properties:
+      automatic_spending: {const: false}
+      automatic_tier_upgrade: {const: false}
+      automatic_fallback: {const: false}
+      screenplay_requires_budget_review: {const: true}
+      execution_route: {const: comfyui_project_adapter_via_comfy_mcp}
+      preserve_user_workflows: {const: true}
+      planning_approval_is_spend_consent: {const: false}
+      text_models_are_recommendations_not_opencode_runtime_ids: {const: true}
+  tiers:
+    type: object
+    additionalProperties: false
+    required: [preparation, tests, production]
+    properties:
+      preparation: {$ref: '#/$defs/tier'}
+      tests: {$ref: '#/$defs/tier'}
+      production: {$ref: '#/$defs/tier'}
+  pricing_notes: {type: array, items: {type: string}}
+$defs:
+  nonnegative: {type: number, minimum: 0}
+  model:
+    type: object
+    additionalProperties: false
+    required: [model, pricing, capabilities]
+    properties:
+      model: {type: string, pattern: '^[^/\s]+/[^\s]+$'}
+      pricing:
+        type: object
+        minProperties: 1
+        additionalProperties: false
+        properties:
+          input_per_million: {$ref: '#/$defs/nonnegative'}
+          output_per_million: {$ref: '#/$defs/nonnegative'}
+          output_per_image: {$ref: '#/$defs/nonnegative'}
+          input_per_reference: {$ref: '#/$defs/nonnegative'}
+          output_per_second: {$ref: '#/$defs/nonnegative'}
+          audio_per_second: {$ref: '#/$defs/nonnegative'}
+      capabilities:
+        type: object
+        additionalProperties: false
+        properties:
+          input_modalities: {type: array, items: {enum: [text, image, audio, video, file]}}
+          output_modalities: {type: array, items: {enum: [text, image, audio, video]}}
+          resolutions: {type: array, minItems: 1, items: {type: string}}
+          max_references: {type: integer, minimum: 0}
+          aspect_ratios: {type: array, minItems: 1, items: {type: string}}
+          durations: {type: array, minItems: 1, items: {type: integer, minimum: 1}}
+          min_duration_seconds: {type: integer, minimum: 1}
+          max_duration_seconds: {type: integer, minimum: 1}
+          first_frame: {type: boolean}
+          first_last_frame: {type: boolean}
+          non_speech: {type: boolean}
+          max_prompt_characters: {type: integer, minimum: 1}
+      defaults:
+        type: object
+        additionalProperties: false
+        properties:
+          resolution: {type: string}
+          aspect_ratio: {type: string}
+          audio: {type: boolean}
+  tier:
+    type: object
+    additionalProperties: false
+    required: [label, text, image, video, audio]
+    properties:
+      label: {type: string}
+      text: {$ref: '#/$defs/model'}
+      image: {$ref: '#/$defs/model'}
+      video: {$ref: '#/$defs/model'}
+      audio: {$ref: '#/$defs/model'}

@@ -1,10 +1,30 @@
 type: object
+allOf:
+  - $ref: cloud-prompt-fields.schema.yaml
 required:
   - prompt_id
   - scene_id
-  - speaker_id
-  - text
+anyOf:
+  - required: [speaker_id, text]
+    properties:
+      model: {const: qwen3-tts}
+  - required: [model, event_kind, prompt]
+    properties:
+      model: {const: bytedance-seed/seed-audio-1-0}
+      event_kind: {enum: [sfx, ambience, foley]}
 properties:
+  model:
+    enum: [qwen3-tts, bytedance-seed/seed-audio-1-0]
+  event_kind:
+    enum: [dialogue, narration, sfx, ambience, foley, silence]
+  prompt:
+    type: string
+    minLength: 1
+    maxLength: 3000
+  duration:
+    type: number
+    exclusiveMinimum: 0
+    maximum: 120
   prompt_id:
     type: string
   scene_id:

@@ -1,0 +1,21 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+type: object
+additionalProperties: false
+required: [duration_seconds, images, references_per_image, video_fraction, audio_seconds, text_input_tokens, text_output_tokens, attempts, contingency_fraction]
+properties:
+  duration_seconds: {type: number, exclusiveMinimum: 0}
+  images: {type: integer, minimum: 0}
+  references_per_image: {type: integer, minimum: 0, maximum: 14}
+  video_fraction: {type: number, minimum: 0, maximum: 1}
+  audio_seconds: {type: number, minimum: 0}
+  text_input_tokens: {type: integer, minimum: 0, maximum: 271999}
+  text_output_tokens: {type: integer, minimum: 0}
+  contingency_fraction: {type: number, minimum: 0, maximum: 1}
+  attempts:
+    type: object
+    additionalProperties: false
+    required: [low, mean, high]
+    properties:
+      low: {type: number, minimum: 1}
+      mean: {type: number, minimum: 1}
+      high: {type: number, minimum: 1}

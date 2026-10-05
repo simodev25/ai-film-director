@@ -19,7 +19,8 @@ class ComfyUIClient:
     - Uses ``time.monotonic`` for timeout correctness.
     - Polls ``/history`` with exponential backoff + jitter to reduce
       server load while staying responsive for fast jobs.
-    - Retries transient HTTP errors (429, 5xx) on queue/history.
+    - Retries idempotent read requests only; never retries generation submission.
+    - Legacy local execution requires opt-in; cloud/partner jobs use comfy-mcp.
     """
 
     def __init__(
@@ -30,18 +31,20 @@ class ComfyUIClient:
         *,
         max_retries: int = 3,
         backoff_factor: float = 0.5,
+        legacy_opt_in: bool = False,
     ):
         self.base_url = base_url.rstrip("/")
         self.timeout = float(timeout)
         self.poll_interval = float(poll_interval)
         self.client_id = str(uuid.uuid4())
+        self.legacy_opt_in = legacy_opt_in
         self.session = requests.Session()
         # Retry on transient errors; respect Retry-After for 429.
         retry = Retry(
             total=max_retries,
             backoff_factor=backoff_factor,
             status_forcelist=(429, 500, 502, 503, 504),
-            allowed_methods=("GET", "POST"),
+            allowed_methods=("GET",),
             raise_on_status=False,
         )
         adapter = HTTPAdapter(max_retries=retry, pool_connections=10, pool_maxsize=10)
@@ -60,6 +63,25 @@ class ComfyUIClient:
     # -- low-level API -------------------------------------------------
 
     def queue(self, workflow: dict[str, Any]) -> dict[str, Any]:
+        if not self.legacy_opt_in:
+            raise ValueError("Local legacy execution requires explicit opt-in; use project cloud adapter + comfy-mcp for cloud jobs")
+        if any("openrouter" in str(node.get("class_type", "")).lower() for node in workflow.values() if isinstance(node, dict)):
+            raise ValueError("Paid OpenRouter workflows must use the gated project cloud adapter via comfy-mcp")
+        # A local graph can still contain paid partner nodes. Inspect the live
+        # node registry before submission; absent/unclassified classes fail closed.
+        response = self.session.get(f"{self.base_url}/object_info", timeout=30)
+        response.raise_for_status()
+        classes = response.json()
+        for node in workflow.values():
+            if not isinstance(node, dict) or "class_type" not in node:
+                continue
+            name = node["class_type"]
+            info = classes.get(name)
+            if not isinstance(info, dict):
+                raise ValueError(f"Unclassified node: {name}; validate through comfy-mcp before submission")
+            module = str(info.get("python_module", "")).lower()
+            if info.get("is_api_node") or "openrouter" in module or "api node" in str(info.get("category", "")).lower():
+                raise ValueError(f"Paid/hosted node {name} requires comfy-mcp validation and explicit job consent")
         response = self.session.post(
             f"{self.base_url}/prompt",
             json={"prompt": workflow, "client_id": self.client_id},

@@ -3,6 +3,19 @@ name: minimax-h3
 description: MiniMax H3 structured prompt adapter for T2VA/I2VA/FL2VA/L2VA/Ref2VA.
 ---
 MiniMax H3 Prompt Adapter
+
+Legacy-only guard
+
+Read `docs/cloud-policy.md` and `config/cloud-tiers.yaml` from the repository root
+first. This native dialect is for explicit legacy MiniMax H3 opt-in only, not a
+three-tier default or fallback. Cloud video (Veo/WAN, per selected tier) uses cloud-production or its
+repository SKILL.md, not H3's section/mode contract. Preserve canonical shot and
+prompt IDs, reference order, source links, and separate prompt/media artifacts.
+Native sound/music sections below express creative intent, not authorization for
+audio generation; budget/consent guards still apply and music is not assumed
+free. Use actual project adapters without editing user JSON. Loaded nodes are
+not proof of generation-tested readiness; hosted legacy nodes may be paid.
+
 MiniMax H3 uses structured prompt formats associated with its Context-IR workflow.
 The official public prompt-writing skill defines five modes:
 T2VA
@@ -54,5 +67,8 @@ Timing
 Use monotonically increasing timestamps when describing multiple cuts.
 Output
 Create:
-project/prompts/<shot_id>.h3.yaml
-The compiler validates required sections before writing the artifact.
+prompts/videos/minimax-h3/shot_{number}.yaml
+Keep schemas/video-prompt.schema.yaml's canonical prompt_id, shot_id, model, and
+prompt. Put the native required sections in the prompt body or supported schema
+fields and validate them before saving; do not invent a competing artifact path
+or claim an unavailable compiler was run.

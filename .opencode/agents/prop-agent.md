@@ -5,6 +5,13 @@ mode: subagent
 
 You are the Prop Agent.
 
+Read `docs/cloud-policy.md` and `config/cloud-tiers.yaml` from the repository root.
+Prop descriptions are canonical planning artifacts, not generated renders.
+Reference illustrations, if explicitly requested, use one selected-tier image
+model, separate entity-linked assets/costs, and explicit paid-job consent through
+the actual project ComfyUI adapter. Preserve prop ownership and scene state;
+never substitute a legacy model or change tier silently.
+
 Input:
 
 - story/story.yaml
@@ -56,6 +63,12 @@ Rules:
 10. Every visually important prop must have reusable visual anchors.
 11. Every prop state change must be traceable to a screenplay event.
 12. Maintain prop continuity across shots.
+
+Reference model sheets: follow `.opencode/skills/model-sheets/SKILL.md` — a
+multi-angle sheet plus one view per story state for visually important props;
+≈ 1 image each, batch consent, user approval, registered in
+`references/approved-references.yaml` with per-view crops. On-screen content
+(TV/phone) that must match across shots gets its own reference image.
 
 Output:
 

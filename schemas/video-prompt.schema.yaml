@@ -1,4 +1,6 @@
 type: object
+allOf:
+  - $ref: cloud-prompt-fields.schema.yaml
 required:
   - prompt_id
   - shot_id
@@ -14,6 +16,10 @@ properties:
     enum:
       - ltx-2.5
       - minimax-h3
+      - google/veo-3.1-lite
+      - kwaivgi/kling-v3.0-pro
+      - google/veo-3.1
+      - alibaba/wan-3.0
   prompt:
     type: string
   duration:

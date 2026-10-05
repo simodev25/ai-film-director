@@ -4,6 +4,13 @@ description: Develop production-ready film stories with stable IDs and visual co
 compatibility: opencode
 ---
 
+Read `docs/cloud-policy.md` and `config/cloud-tiers.yaml` from the repository root
+first. Preparation is a planning default, not paid consent or an automatic
+OpenCode LLM change. Preserve story IDs; establish a positive duration and hand
+off to budget-estimation (or read its SKILL.md if unavailable) after the story.
+The next stage is budget estimate and explicit user tier/budget review, then
+screenplay. Never skip that gate or fabricate approval.
+
 Create:
 
 story/story.yaml

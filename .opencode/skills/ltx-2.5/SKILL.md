@@ -4,6 +4,18 @@ description: LTX-2.5 prompt adapter for cinematic video generation.
 ---
 LTX-2.5 Prompt Adapter
 
+Legacy-only guard
+
+Read `docs/cloud-policy.md` and `config/cloud-tiers.yaml` from the repository root
+first. Activate this native dialect only after explicit user opt-in to legacy LTX-2.5,
+never a default three-tier route or silent fallback. Cloud video (Veo/WAN) work uses
+cloud-production or its repository SKILL.md, not LTX frame/prompt constraints.
+Keep canonical IDs, ordered references, source images, and separate prompt/media
+artifacts. Prompt-only rules below describe the prompt body, not the YAML wrapper
+or policy checks. Explicit legacy choice does not waive hardware restrictions,
+budget review, workflow preservation, or paid-job consent; no local Apple-GPU
+video generation. Loading a workflow is not generation-tested readiness.
+
 Use When
 
 Use only for LTX 2.5 video generation.
@@ -174,11 +186,8 @@ Return the final LTX 2.5 prompt only.
 
 Do not return analysis, JSON, field labels, or explanations unless the calling agent explicitly requests metadata.
 
-Create:
-project/prompts/<shot_id>.ltx-2.5.yaml
-with:
-shot_id
-model
-prompt
-duration
-source
+Save through the canonical project artifact contract:
+prompts/videos/ltx-2.5/shot_{number}.yaml
+using schemas/video-prompt.schema.yaml, including prompt_id, shot_id, model,
+prompt, duration, and supported source/reference metadata. Preserve existing IDs
+and source-image links; do not create a competing per-shot filename convention.

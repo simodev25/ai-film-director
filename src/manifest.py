@@ -4,6 +4,8 @@ from pathlib import Path
 
 import yaml
 
+from budget import budget_state
+
 
 def _dir_has_files(path: Path, pattern: str = "*.yaml") -> bool:
     # support both flat prompts/images/*.yaml and model subfolders prompts/images/<model>/*.yaml
@@ -14,6 +16,7 @@ def build_manifest(root: Path) -> dict:
     root = Path(root)
     stages = {
         "story": (root / "story" / "story.yaml").is_file(),
+        "budget": budget_state(root)["reviewed"],
         "screenplay": (root / "screenplay" / "screenplay.yaml").is_file(),
         "characters": (root / "characters" / "characters.yaml").is_file(),
         "locations": (root / "locations" / "locations.yaml").is_file(),

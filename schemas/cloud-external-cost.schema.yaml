@@ -1,0 +1,38 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+title: External image cost evidence, accounting only (never spend consent)
+type: object
+additionalProperties: false
+required: [version, record_type, external_id, project_id, campaign_id, campaign_file, campaign_sha256, decision_sha256, tier, modality, model, route, job_kind, scene_id, entity_type, entity_id, comfy_prompt_id, studio_local_job_id, provider_job_id, observed_status, actual_cost_usd, unknown_hold_usd, evidence_file, evidence_sha256]
+properties:
+  version: {const: 1}
+  record_type: {const: user_initiated_external_submission}
+  external_id: {type: string, pattern: '^comfy:[0-9a-f-]{36}$'}
+  project_id: {type: string, minLength: 1}
+  campaign_id: {type: string, minLength: 1}
+  campaign_file: {type: string, minLength: 1}
+  campaign_sha256: {type: string, pattern: '^[0-9a-f]{64}$'}
+  decision_sha256: {type: string, pattern: '^[0-9a-f]{64}$'}
+  tier: {enum: [preparation, tests, production]}
+  modality: {const: image}
+  model: {type: string, pattern: '^[^/\s]+/[^\s]+$'}
+  route: {const: /api/v1/images}
+  job_kind: {const: reference_illustration}
+  scene_id: {type: string, minLength: 1}
+  entity_type: {enum: [character, location, prop]}
+  entity_id: {type: string, minLength: 1}
+  comfy_prompt_id: {type: string, format: uuid}
+  studio_local_job_id: {type: [string, 'null'], format: uuid}
+  provider_job_id: {type: [string, 'null'], minLength: 1, maxLength: 256}
+  observed_status: {enum: [completed, failed, ambiguous]}
+  actual_cost_usd:
+    anyOf:
+      - {type: 'null'}
+      - {type: number, minimum: 0}
+      - {type: string, pattern: '^(0|[1-9][0-9]*)(\.[0-9]+)?$'}
+  unknown_hold_usd:
+    anyOf:
+      - {type: 'null'}
+      - {type: number, exclusiveMinimum: 0}
+      - {type: string, pattern: '^(0|[1-9][0-9]*)(\.[0-9]+)?$'}
+  evidence_file: {type: string, minLength: 1}
+  evidence_sha256: {type: string, pattern: '^[0-9a-f]{64}$'}

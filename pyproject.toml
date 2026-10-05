@@ -17,8 +17,11 @@ dependencies = [
 film-director = "cli:main"
 
 [tool.setuptools]
-py-modules = ["cli", "config", "manifest", "paths", "validation"]
+py-modules = ["cli", "config", "manifest", "paths", "validation", "budget", "cloud_policy"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
-include = ["comfyui*", "pipeline*", "render*", "utils*"]
+include = ["comfyui*", "pipeline*", "render*", "utils*", "dashboard*"]
+
+[tool.setuptools.package-data]
+dashboard = ["static/*.html", "static/*.css", "static/*.js"]

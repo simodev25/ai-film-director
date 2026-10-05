@@ -1,0 +1,69 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+type: object
+additionalProperties: false
+required: [version, project_id, generated_at, story_sha256, project_sha256, retrospective, pricing_checked_at, pricing_status, pricing_config_sha256, pricing_sources, currency, scope, assumptions, tiers, caveats]
+properties:
+  version: {const: 1}
+  project_id: {type: string, minLength: 1}
+  generated_at: {type: string, format: date-time}
+  story_sha256: {type: string, pattern: '^[a-f0-9]{64}$'}
+  project_sha256: {type: [string, 'null'], pattern: '^[a-f0-9]{64}$'}
+  retrospective: {type: boolean}
+  pricing_checked_at: {type: string, format: date}
+  pricing_status: {enum: [current_snapshot, refresh_required]}
+  pricing_config_sha256: {type: string, pattern: '^[a-f0-9]{64}$'}
+  pricing_sources: {type: array, minItems: 1, items: {type: string, format: uri}}
+  currency: {const: USD}
+  scope: {const: planning_only_not_spend_consent}
+  assumptions: {$ref: 'budget-assumptions.schema.yaml'}
+  tiers:
+    type: object
+    additionalProperties: false
+    required: [preparation, tests, production]
+    properties:
+      preparation: {$ref: '#/$defs/tier'}
+      tests: {$ref: '#/$defs/tier'}
+      production: {$ref: '#/$defs/tier'}
+  caveats: {type: array, minItems: 1, items: {type: string}}
+$defs:
+  money: {type: number, minimum: 0}
+  case:
+    type: object
+    additionalProperties: false
+    required: [attempts, text_usd, image_usd, video_usd, audio_usd, subtotal_usd, contingency_usd, total_usd]
+    properties:
+      attempts: {type: number, minimum: 1}
+      text_usd: {$ref: '#/$defs/money'}
+      image_usd: {$ref: '#/$defs/money'}
+      video_usd: {$ref: '#/$defs/money'}
+      audio_usd: {$ref: '#/$defs/money'}
+      subtotal_usd: {$ref: '#/$defs/money'}
+      contingency_usd: {$ref: '#/$defs/money'}
+      total_usd: {$ref: '#/$defs/money'}
+  tier:
+    type: object
+    additionalProperties: false
+    required: [models, settings, video_billable_seconds_per_pass, video_clips_per_pass, low, mean, high]
+    properties:
+      models:
+        type: object
+        additionalProperties: false
+        required: [text, image, video, audio]
+        properties:
+          text: {type: string}
+          image: {type: string}
+          video: {type: string}
+          audio: {type: string}
+      settings:
+        type: object
+        additionalProperties: false
+        required: [image_resolution, video_resolution, native_video_audio]
+        properties:
+          image_resolution: {type: string}
+          video_resolution: {type: string}
+          native_video_audio: {const: false}
+      video_billable_seconds_per_pass: {type: number, minimum: 0}
+      video_clips_per_pass: {type: integer, minimum: 0}
+      low: {$ref: '#/$defs/case'}
+      mean: {$ref: '#/$defs/case'}
+      high: {$ref: '#/$defs/case'}

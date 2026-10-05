@@ -6,12 +6,15 @@ from validation import validate_file
 
 STAGES = {
     "story/story.yaml": "schemas/story.schema.yaml",
+    "budget/estimate.yaml": "schemas/budget-estimate.schema.yaml",
+    "budget/decision.yaml": "schemas/budget-decision.schema.yaml",
     "screenplay/screenplay.yaml": "schemas/screenplay.schema.yaml",
     "characters/characters.yaml": "schemas/character.schema.yaml",
     "locations/locations.yaml": "schemas/location.schema.yaml",
     "props/props.yaml": "schemas/prop.schema.yaml",
     "storyboard/storyboard.yaml": "schemas/storyboard.schema.yaml",
     "shots/shots.yaml": "schemas/shot.schema.yaml",
+    "references/approved-references.yaml": "schemas/approved-references.schema.yaml",
 }
 
 

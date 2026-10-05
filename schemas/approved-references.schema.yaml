@@ -1,0 +1,60 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+title: Approved entity reference illustrations (projects/*/references/approved-references.yaml)
+description: >-
+  Registry of user-approved reference illustrations / model sheets linked to stable
+  character, location and prop IDs. Separate from shot renders. An approved reference
+  is never spend consent: every new paid job still needs its own explicit approval.
+  A full sheet may list optional cropped views (scripts/split_model_sheet.py); feed
+  models the isolated view matching the shot angle, not the whole grid.
+type: object
+required: [registry_version, project_id, references]
+properties:
+  registry_version: {const: 1}
+  project_id: {type: string, minLength: 1}
+  scope: {type: string, minLength: 1}
+  image_model: {type: string, minLength: 1}
+  tier: {enum: [preparation, tests, production]}
+  approval:
+    type: object
+    properties:
+      approved_at: {type: string, format: date}
+      consent_verbatim: {type: string, minLength: 1}
+      session_id: {type: string, minLength: 1}
+      note: {type: string}
+  references:
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [order, entity_id, entity_type, path, sha256]
+      properties:
+        order: {type: integer, minimum: 1}
+        entity_id: {type: string, minLength: 1}
+        entity_type: {enum: [character, location, prop]}
+        path: {type: string, minLength: 1}
+        sha256: {$ref: '#/$defs/sha256'}
+        approved_at: {type: string, format: date}
+        consent_verbatim: {type: string, minLength: 1}
+        notes: {type: string}
+        sheet_type:
+          enum: [turnaround, expression, outfit, location_layout, floor_plan, prop_sheet]
+        views:
+          description: Optional isolated crops of this sheet, each hash-bound to its file.
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            required: [view, asset_path, sha256]
+            properties:
+              view: {enum: [front, three_quarter, profile, back, top, other]}
+              label: {type: string, minLength: 1}
+              asset_path: {type: string, minLength: 1}
+              sha256: {$ref: '#/$defs/sha256'}
+              box:
+                description: Crop box in source pixels [left, top, right, bottom].
+                type: array
+                minItems: 4
+                maxItems: 4
+                items: {type: integer, minimum: 0}
+$defs:
+  sha256: {type: string, pattern: '^[0-9a-f]{64}$'}

@@ -1,0 +1,30 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+type: object
+properties:
+  tier: {enum: [preparation, tests, production]}
+  route: {const: openrouter_comfyui}
+  resolution: {type: string, minLength: 1}
+  aspect_ratio: {type: string, minLength: 1}
+  source_image: {type: string, minLength: 1}
+  end_image: {type: string, minLength: 1}
+allOf:
+  - if:
+      required: [model]
+      properties:
+        model: {type: string, pattern: '/'}
+    then:
+      required: [tier, route]
+      # Ordered cloud reference images. Legacy (non cloud-ID) prompts keep their
+      # own free-form `references` map, which this cloud contract never constrains.
+      properties:
+        references:
+          type: array
+          maxItems: 14
+          items:
+            type: object
+            additionalProperties: false
+            required: [asset_path, entity_id]
+            properties:
+              asset_path: {type: string, minLength: 1}
+              entity_id: {type: string, minLength: 1}
+              view: {enum: [front, three_quarter, profile, back, top, other]}

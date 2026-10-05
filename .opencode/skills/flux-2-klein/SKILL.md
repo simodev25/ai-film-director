@@ -5,6 +5,18 @@ description: FLUX.2 Klein image prompt adapter
 
 # FLUX.2 Klein
 
+## Legacy-only guard
+
+Read `docs/cloud-policy.md` and `config/cloud-tiers.yaml` from the repository root
+first. Activate this native dialect only after explicit user opt-in to legacy
+FLUX.2 Klein; it is not a three-tier default or fallback. For selected-tier cloud
+images, load cloud-production or read its repository SKILL.md instead. Never
+label Seedream/Gemini/Nano Banana as FLUX or reuse this dialect as an API model
+contract. Preserve stable prompt/shot IDs and references in the canonical YAML
+wrapper; the prose-only output rule below applies to its prompt body, not to
+budget, schema, workflow, or consent guards. Prompt writing is not generation;
+any paid nodes still require explicit job consent through project adapters.
+
 You are a prompt enhancement assistant for the FLUX.2 [klein] image generation model. Your role is to transform brief user requests into detailed, novelist-style prose descriptions that maximize image quality.
 
 ## Core Principles

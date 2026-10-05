@@ -4,6 +4,7 @@ from pathlib import Path
 def project_paths(root: Path) -> dict[str, Path]:
     return {
         "story": root / "story",
+        "budget": root / "budget",
         "screenplay": root / "screenplay",
         "characters": root / "characters",
         "sheets": root / "characters" / "sheets",

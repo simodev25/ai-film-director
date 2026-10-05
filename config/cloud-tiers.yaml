@@ -1,0 +1,95 @@
+version: 1
+currency: USD
+pricing_checked_at: '2026-10-05'
+pricing_max_age_days: 30
+default_tier: preparation
+sources:
+  - https://openrouter.ai/api/v1/models
+  - https://openrouter.ai/api/v1/images/models
+  - https://openrouter.ai/api/v1/videos/models
+  - https://openrouter.ai/docs/guides/overview/multimodal/tts.md
+policy:
+  automatic_spending: false
+  automatic_tier_upgrade: false
+  automatic_fallback: false
+  screenplay_requires_budget_review: true
+  execution_route: comfyui_project_adapter_via_comfy_mcp
+  preserve_user_workflows: true
+  planning_approval_is_spend_consent: false
+  text_models_are_recommendations_not_opencode_runtime_ids: true
+tiers:
+  preparation:
+    label: '1 — Préparation'
+    text:
+      model: openai/gpt-6-luna
+      pricing: {input_per_million: 0.10, output_per_million: 0.50}
+      capabilities: {input_modalities: [text, image, file], output_modalities: [text]}
+    image:
+      model: bytedance-seed/seedream-5-0-flash
+      pricing: {output_per_image: 0.018, input_per_reference: 0.0}
+      capabilities: {resolutions: [1K, 2K], max_references: 14, aspect_ratios: ['16:9', '9:16', '1:1']}
+      defaults: {resolution: 1K, aspect_ratio: '16:9'}
+    video:
+      model: google/veo-3.1-lite
+      pricing: {output_per_second: 0.03, audio_per_second: 0.02}
+      capabilities: {durations: [4, 6, 8], resolutions: [720p, 1080p], first_last_frame: true}
+      defaults: {resolution: 720p, audio: false}
+    audio:
+      model: bytedance-seed/seed-audio-1-0
+      pricing: {output_per_second: 0.0025}
+      capabilities: {max_duration_seconds: 120, non_speech: true, max_prompt_characters: 3000}
+  tests:
+    label: '2 — Tests intermédiaires'
+    text:
+      model: google/gemini-3.8-flash
+      pricing: {input_per_million: 0.75, output_per_million: 3.75}
+      capabilities: {input_modalities: [text, image, file, audio, video], output_modalities: [text]}
+    image:
+      model: google/gemini-3.1-flash-image
+      pricing: {output_per_image: 0.0672, input_per_reference: 0.00056}
+      capabilities: {resolutions: [1K, 2K, 4K], max_references: 14, aspect_ratios: ['16:9', '9:16', '1:1']}
+      defaults: {resolution: 1K, aspect_ratio: '16:9'}
+    # 2026-10-05: tests video switched from kwaivgi/kling-v3.0-pro (0.112 $/s 720p,
+    # 3-15 s, first+last frame) to alibaba/wan-3.0 by EXPLICIT user choice
+    # (session ses_ef724b4ecffeZcEFGaQ2eCBbJU: « WAN 3.0 en 720p »), not a fallback.
+    # Live OpenRouterStudioVideo branch alibaba/wan-3.0: first_frame only (no
+    # last_frame, no size, no negative prompt); public catalogue SKUs 480p 0.05,
+    # 720p 0.10, 1080p 0.20 $/s; no separate audio SKU published -> audio unpriced.
+    video:
+      model: alibaba/wan-3.0
+      pricing: {output_per_second: 0.10}
+      capabilities: {min_duration_seconds: 2, max_duration_seconds: 30, resolutions: [480p, 720p, 1080p], first_frame: true, first_last_frame: false}
+      defaults: {resolution: 720p, audio: false}
+    audio:
+      model: bytedance-seed/seed-audio-1-0
+      pricing: {output_per_second: 0.0025}
+      capabilities: {max_duration_seconds: 120, non_speech: true, max_prompt_characters: 3000}
+  production:
+    label: '3 — Production'
+    text:
+      model: openai/gpt-6.1-sol
+      pricing: {input_per_million: 2.0, output_per_million: 10.0}
+      capabilities: {input_modalities: [text, image, file], output_modalities: [text]}
+    image:
+      model: google/gemini-3-pro-image
+      pricing: {output_per_image: 0.1344, input_per_reference: 0.00112}
+      capabilities: {resolutions: [1K, 2K, 4K], max_references: 14, aspect_ratios: ['16:9', '9:16', '1:1']}
+      defaults: {resolution: 2K, aspect_ratio: '16:9'}
+    video:
+      model: google/veo-3.1
+      pricing: {output_per_second: 0.20, audio_per_second: 0.20}
+      capabilities: {durations: [4, 6, 8], resolutions: [720p, 1080p, 4K], first_last_frame: true}
+      defaults: {resolution: 1080p, audio: false}
+    audio:
+      model: bytedance-seed/seed-audio-1-0
+      pricing: {output_per_second: 0.0025}
+      capabilities: {max_duration_seconds: 120, non_speech: true, max_prompt_characters: 3000}
+pricing_notes:
+  - 'Rates are tied to defaults, not all supported resolutions. Refresh before execution.'
+  - 'Google image costs are token-derived estimates; text/reasoning are not included.'
+  - 'Reference-image estimates vary with tokenisation; they are not observed invoices.'
+  - 'GPT Luna and Sol rates are standard-context rates; >=272000 prompt tokens cost more.'
+  - 'No model quality or identity consistency has been validated on the film.'
+  - 'OpenRouter nodes may be billable even when is_api_node is false.'
+  - 'tests.video was kwaivgi/kling-v3.0-pro until 2026-10-05; alibaba/wan-3.0 (720p 0.10/s) is an explicit user choice (session ses_ef724b4ecffeZcEFGaQ2eCBbJU), not an automatic swap.'
+  - 'alibaba/wan-3.0 native audio has no published separate SKU; generate_audio=true is unpriced and blocked.'

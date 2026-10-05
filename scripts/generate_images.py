@@ -8,11 +8,13 @@ from pathlib import Path
 from comfyui.client import ComfyUIClient
 from config import COMFYUI_TIMEOUT, COMFYUI_URL, POLL_INTERVAL
 from render.images import render_image
+from budget import require_budget_review
+import yaml
 
 
 def _render_one(prompt_file: Path, output_dir: Path, model_override: str | None) -> str:
     # Each thread gets its own client/Session to avoid Session thread-safety issues
-    with ComfyUIClient(COMFYUI_URL, COMFYUI_TIMEOUT, POLL_INTERVAL) as client:
+    with ComfyUIClient(COMFYUI_URL, COMFYUI_TIMEOUT, POLL_INTERVAL, legacy_opt_in=True) as client:
         render_image(
             prompt_file=prompt_file,
             output_dir=output_dir,
@@ -38,9 +40,14 @@ def main() -> None:
         help="Parallel ComfyUI jobs (default: 3). Use 1 for sequential.",
     )
     parser.add_argument("--force", action="store_true", help="Re-render even if output exists")
+    parser.add_argument("--legacy-opt-in", action="store_true", help="Explicit local legacy route only; not paid-job consent")
     args = parser.parse_args()
 
+    if not args.legacy_opt_in or not args.model:
+        parser.error("Select one --model and --legacy-opt-in. Cloud uses the project cloud adapter through comfy-mcp, never this legacy batch renderer.")
+
     root = Path(args.project)
+    require_budget_review(root)
     prompt_dir = root / "prompts" / "images"
     output_dir = root / "renders" / "images"
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -53,15 +60,17 @@ def main() -> None:
     if not prompt_files:
         print(f"No prompts found in {prompt_dir}", file=sys.stderr)
         return
+    for prompt_file in prompt_files:
+        data = yaml.safe_load(prompt_file.read_text(encoding="utf-8"))
+        if data.get("model") != args.model:
+            parser.error(f"Prompt model mismatch in {prompt_file}; do not silently replace its model")
 
     # Skip already-rendered unless --force
     if not args.force:
-        todo = [p for p in prompt_files if not (output_dir / f"{p.stem.split('.')[0]}.yaml").exists()]
-        # Fallback: check by shot_id inside yaml would require loading; use prompt stem heuristic
-        # If heuristic fails we keep all to avoid false skips — caller can use --force.
+        todo = [p for p in prompt_files if not (output_dir / f"{yaml.safe_load(p.read_text(encoding='utf-8'))['shot_id']}.yaml").exists()]
         if not todo:
-            # No new prompts detected, keep full list to avoid silent no-op
-            todo = prompt_files
+            print("All outputs already exist; no automatic retry.")
+            return
     else:
         todo = prompt_files
 

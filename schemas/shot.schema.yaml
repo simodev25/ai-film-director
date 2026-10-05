@@ -1,5 +1,79 @@
-anyOf:
-  - type: object
+$defs:
+  image_model:
+    description: >-
+      Legacy explicit opt-in dialects (krea2, flux2-klein, qwen-image) or an exact
+      cloud image model ID from config/cloud-tiers.yaml. Never relabel one as the other.
+    type: string
+    enum:
+      - krea2
+      - flux2-klein
+      - qwen-image
+      - bytedance-seed/seedream-5-0-flash
+      - google/gemini-3.1-flash-image
+      - google/gemini-3-pro-image
+  video_model:
+    description: >-
+      Legacy explicit opt-in dialects (ltx-2.5, minimax-h3) or an exact cloud video
+      model ID from config/cloud-tiers.yaml.
+    type: string
+    enum:
+      - ltx-2.5
+      - minimax-h3
+      - google/veo-3.1-lite
+      - alibaba/wan-3.0
+      - google/veo-3.1
+  reference_view:
+    description: One isolated model-sheet view used as an ordered shot reference.
+    type: object
+    additionalProperties: false
+    required: [entity_id, view, asset_path]
+    properties:
+      entity_id: {type: string, minLength: 1}
+      view: {enum: [front, three_quarter, profile, back, top, other]}
+      asset_path: {type: string, minLength: 1}
+  cloud_route:
+    description: >-
+      Planning-only resolution of one selected tier model per stage. Not spend
+      consent; each paid job still needs its own approval.
+    type: object
+    required: [tier, route]
+    properties:
+      tier: {enum: [preparation, tests, production]}
+      route: {const: openrouter_comfyui}
+      image:
+        type: object
+        required: [model]
+        properties:
+          model:
+            enum: [bytedance-seed/seedream-5-0-flash, google/gemini-3.1-flash-image, google/gemini-3-pro-image]
+          resolution: {type: string, minLength: 1}
+          aspect_ratio: {type: string, minLength: 1}
+          reference_entity_ids: {type: array, items: {type: string, minLength: 1}}
+          reference_count: {type: integer, minimum: 0}
+          max_references: {type: integer, minimum: 0}
+          reference_registry: {type: string, minLength: 1}
+      video:
+        type: object
+        required: [model]
+        properties:
+          model:
+            enum: [google/veo-3.1-lite, alibaba/wan-3.0, google/veo-3.1]
+          resolution: {type: string, minLength: 1}
+          aspect_ratio: {type: string, minLength: 1}
+          requested_duration_s: {type: number, exclusiveMinimum: 0}
+          generate_audio: {type: boolean}
+          mode: {type: string, minLength: 1}
+          clip_count: {type: integer, minimum: 1}
+          segmentation: {type: string}
+          padding_s: {type: number, minimum: 0}
+          trim_s: {type: number, minimum: 0}
+      cap_check: {type: string}
+      estimated_cost_usd:
+        type: object
+        additionalProperties: {type: [number, 'null'], minimum: 0}
+      status: {type: string, minLength: 1}
+  shot:
+    type: object
     required:
       - shot_id
       - scene_id
@@ -46,75 +120,21 @@ anyOf:
       transition:
         type: string
       image_model:
-        type: string
-        enum:
-          - krea2
-          - flux2-klein
-          - qwen-image
+        $ref: '#/$defs/image_model'
       video_model:
-        type: string
-        enum:
-          - ltx-2.5
-          - minimax-h3
+        $ref: '#/$defs/video_model'
+      reference_views:
+        type: array
+        maxItems: 14
+        items:
+          $ref: '#/$defs/reference_view'
+      cloud_route:
+        $ref: '#/$defs/cloud_route'
+anyOf:
+  - $ref: '#/$defs/shot'
   - type: array
     items:
-      type: object
-      required:
-        - shot_id
-        - scene_id
-        - sequence
-        - shot_size
-        - subject
-        - action
-        - duration
-      properties:
-        shot_id:
-          type: string
-        scene_id:
-          type: string
-        sequence:
-          type: integer
-        shot_size:
-          type: string
-        angle:
-          type: string
-        lens:
-          type: string
-        camera_height:
-          type: string
-        camera_movement:
-          type: string
-        framing:
-          type: string
-        composition:
-          type: string
-        subject:
-          type: string
-        characters:
-          type: array
-          items:
-            type: string
-        action:
-          type: string
-        duration:
-          type: number
-        fps:
-          type: number
-        lighting:
-          type: string
-        transition:
-          type: string
-        image_model:
-          type: string
-          enum:
-            - krea2
-            - flux2-klein
-            - qwen-image
-        video_model:
-          type: string
-          enum:
-            - ltx-2.5
-            - minimax-h3
+      $ref: '#/$defs/shot'
   - type: object
     required:
       - shots
@@ -122,60 +142,4 @@ anyOf:
       shots:
         type: array
         items:
-          type: object
-          required:
-            - shot_id
-            - scene_id
-            - sequence
-            - shot_size
-            - subject
-            - action
-            - duration
-          properties:
-            shot_id:
-              type: string
-            scene_id:
-              type: string
-            sequence:
-              type: integer
-            shot_size:
-              type: string
-            angle:
-              type: string
-            lens:
-              type: string
-            camera_height:
-              type: string
-            camera_movement:
-              type: string
-            framing:
-              type: string
-            composition:
-              type: string
-            subject:
-              type: string
-            characters:
-              type: array
-              items:
-                type: string
-            action:
-              type: string
-            duration:
-              type: number
-            fps:
-              type: number
-            lighting:
-              type: string
-            transition:
-              type: string
-            image_model:
-              type: string
-              enum:
-                - krea2
-                - flux2-klein
-                - qwen-image
-            video_model:
-              type: string
-              enum:
-                - ltx-2.5
-                - minimax-h3
+          $ref: '#/$defs/shot'

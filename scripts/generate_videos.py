@@ -8,10 +8,12 @@ from pathlib import Path
 from comfyui.client import ComfyUIClient
 from config import COMFYUI_TIMEOUT, COMFYUI_URL, POLL_INTERVAL
 from render.videos import render_video
+from budget import require_budget_review
+import yaml
 
 
 def _render_one(prompt_file: Path, output_dir: Path, model_override: str | None) -> str:
-    with ComfyUIClient(COMFYUI_URL, COMFYUI_TIMEOUT, POLL_INTERVAL) as client:
+    with ComfyUIClient(COMFYUI_URL, COMFYUI_TIMEOUT, POLL_INTERVAL, legacy_opt_in=True) as client:
         render_video(
             prompt_file=prompt_file,
             output_dir=output_dir,
@@ -37,9 +39,14 @@ def main() -> None:
         help="Parallel ComfyUI jobs (default: 2, videos are heavier)",
     )
     parser.add_argument("--force", action="store_true", help="Re-render even if output exists")
+    parser.add_argument("--legacy-opt-in", action="store_true", help="Explicit local legacy route only; not paid-job consent")
     args = parser.parse_args()
 
+    if not args.legacy_opt_in or not args.model:
+        parser.error("Select one --model and --legacy-opt-in. Cloud uses the project cloud adapter through comfy-mcp.")
+
     root = Path(args.project)
+    require_budget_review(root)
     prompt_dir = root / "prompts" / "videos"
     output_dir = root / "renders" / "videos"
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -49,6 +56,12 @@ def main() -> None:
     # filter by model if specified (match either folder name or filename suffix .<model>.yaml)
     if args.model:
         prompt_files = [p for p in prompt_files if p.parent.name == args.model or f".{args.model}." in p.name]
+    for prompt_file in prompt_files:
+        data = yaml.safe_load(prompt_file.read_text(encoding="utf-8"))
+        if data.get("model") != args.model:
+            parser.error(f"Prompt model mismatch in {prompt_file}; do not silently replace its model")
+    if not args.force:
+        prompt_files = [p for p in prompt_files if not (output_dir / f"{yaml.safe_load(p.read_text(encoding='utf-8'))['shot_id']}.yaml").exists()]
     if not prompt_files:
         print(f"No prompts found in {prompt_dir}", file=sys.stderr)
         return
