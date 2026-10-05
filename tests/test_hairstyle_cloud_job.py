@@ -1,4 +1,4 @@
-"""Offline preparation checks only: no upload, HTTP, reserve, approval or run."""
+"""Offline preparation/approval-record checks only: no upload, HTTP, reserve or run."""
 import copy
 import json
 from pathlib import Path
@@ -7,7 +7,8 @@ import pytest
 import yaml
 
 from cloud_policy import file_sha256, load_cloud_policy
-from comfyui.cloud_adapters import CloudAdapterError, CloudBinding, ReferenceInput, prepare_cloud_workflow, validate_cloud_job
+from comfyui.cloud_adapters import (CloudAdapterError, CloudBinding, ReferenceInput, authorize_cloud_job,
+                                    prepare_cloud_workflow, sha256_document, validate_cloud_job)
 from comfyui.cloud_targets import ProjectScope
 from validation import validate_data
 
@@ -85,4 +86,40 @@ def test_ui_has_correct_dynamic_prompt_and_visible_reference_wire():
     assert nodes["22"]["widgets_values"][0] == api["22"]["inputs"]["model"]
     assert nodes["22"]["widgets_values"][1] == api["22"]["inputs"]["model.prompt"]
     assert nodes["22"]["inputs"] == [{"name": "model.reference_images.reference_1", "type": "IMAGE", "link": 1}]
-    assert not list(FILES.glob("*approval*"))
+
+
+def test_any_recorded_approval_binds_exact_prepared_job_and_reviewed_estimate():
+    """Preparation never manufactures approval; a later recorded approval must bind this exact
+    plan/graph/reference order and the estimate reviewed at approval time, not today's estimate."""
+    approvals = sorted(FILES.glob("*approval*"))
+    review = read("review.json")
+    assert review["paid_approval"] is None and review["technical_go_is_paid_consent"] is False
+    if not approvals:
+        return
+    assert [a.name for a in approvals] == ["approval.json"]
+    approval = read("approval.json")
+    job, prepared, hashes = read("plan.json"), read("prepared.api.json"), review["hashes"]
+    assert approval["approved"] is True and approval["scope"] == "paid_generation_job"
+    assert approval["consent_reference"].strip()
+    assert approval["plan_sha256"] == sha256_document(job) == hashes["plan_canonical_sha256"]
+    assert approval["workflow_sha256"] == sha256_document(prepared) == hashes["workflow_canonical_sha256"]
+    assert approval["estimate_sha256"] == hashes["estimate_file_sha256"]
+    assert approval["decision_sha256"] == hashes["decision_file_sha256"]
+    assert (approval["tier"], approval["model"], approval["route"]) == (job["tier"], job["model"], job["route"])
+    assert approval["attempt_number"] == job["attempt_number"] == 2
+    assert approval["retry_permitted"] is False and approval["other_paid_jobs_permitted"] is False
+    assert approval["identity_approved"] is False
+    refs = read("bindings.json")["ordered_reference_assets"]
+    assert [(r["order"], r["uploaded_path"], r["source_sha256"]) for r in approval["ordered_reference_assets"]] == \
+        [(r["order"], r["uploaded_path"], r["source_sha256"]) for r in refs]
+    assert [r["uploaded_path"] for r in job["references"]] == [r["uploaded_path"] for r in refs]
+    assert job["estimated_cost_usd"] <= approval["ceiling_usd"]
+    saved = {file_sha256(p) for p in [PROJECT / "budget/estimate.yaml", *(PROJECT / "budget/archive").rglob("estimate.yaml")]}
+    assert approval["estimate_sha256"] in saved, "Approved estimate bytes must stay preserved"
+    current = file_sha256(PROJECT / "budget/estimate.yaml")
+    if current != approval["estimate_sha256"]:
+        # A re-estimated project never silently re-authorizes an old approval.
+        with pytest.raises(CloudAdapterError):
+            authorize_cloud_job(prepared, job, load_cloud_policy(), approval, budget_estimate_sha256=current,
+                                workflow_validated=True, project=PROJECT,
+                                scope=ProjectScope(("scene_la_pomme_01",), ("char_marc",)))

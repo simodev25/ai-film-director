@@ -1,4 +1,4 @@
-"""Offline integrity tests of this local delegated prompt/plan; no approval/run."""
+"""Offline integrity tests of this local delegated prompt/plan/approval record; no run."""
 import copy
 import json
 from pathlib import Path
@@ -7,7 +7,8 @@ import pytest
 import yaml
 
 from cloud_policy import file_sha256, load_cloud_policy
-from comfyui.cloud_adapters import discover_cloud_binding, prepare_cloud_workflow, sha256_document, validate_cloud_job
+from comfyui.cloud_adapters import (CloudAdapterError, authorize_cloud_job, discover_cloud_binding,
+                                    prepare_cloud_workflow, sha256_document, validate_cloud_job)
 from comfyui.cloud_targets import ProjectScope
 from validation import validate_data
 
@@ -53,8 +54,46 @@ def test_real_prepared_graph_is_adapter_copy_and_hash_bound():
     review = read("char_marc-attempt-01.review.json")
     assert sha256_document(job) == review["hashes"]["plan_sha256"]
     assert sha256_document(saved) == review["hashes"]["workflow_sha256"]
-    assert file_sha256(PROJECT / "budget/estimate.yaml") == review["hashes"]["estimate_sha256"]
-    assert file_sha256(PROJECT / "budget/decision.yaml") == review["hashes"]["decision_sha256"]
+    assert_estimate_bound_to_recorded_approval(review["hashes"], job, saved)
+
+
+def archived_hashes(name):
+    """SHA-256 of every saved budget artifact (current + archive) named ``name``."""
+    paths = [PROJECT / "budget" / name, *(PROJECT / "budget/archive").rglob(name)]
+    return {file_sha256(path) for path in paths if path.is_file()}
+
+
+def assert_estimate_bound_to_recorded_approval(hashes, job, graph):
+    """The paid approval binds the estimate/decision reviewed WHEN IT WAS GIVEN, not today's files.
+
+    The project may re-estimate later (new scope); that must never silently re-bind or
+    re-authorize an old approval. Invariant: review == approval hashes, the approved estimate
+    and decision bytes are still preserved (current or archive), and if the current estimate
+    differs the recorded approval no longer authorizes the job (fail closed).
+    """
+    approval_path = FILES / "char_marc-attempt-01.approval.json"
+    if not approval_path.exists():
+        # Before approval the review must match the live estimate/decision exactly.
+        assert file_sha256(PROJECT / "budget/estimate.yaml") == hashes["estimate_sha256"]
+        assert file_sha256(PROJECT / "budget/decision.yaml") == hashes["decision_sha256"]
+        return
+    approval = json.loads(approval_path.read_text())
+    assert approval["approved"] is True and approval["scope"] == "paid_generation_job"
+    assert approval["consent_reference"].strip()
+    assert approval["estimate_sha256"] == hashes["estimate_sha256"]
+    assert approval["decision_sha256"] == hashes["decision_sha256"]
+    assert approval["plan_sha256"] == sha256_document(job) == hashes["plan_sha256"]
+    assert approval["workflow_sha256"] == sha256_document(graph) == hashes["workflow_sha256"]
+    assert (approval["tier"], approval["model"], approval["route"]) == (job["tier"], job["model"], job["route"])
+    assert approval["retry_permitted"] is False and approval["future_paid_jobs_permitted"] is False
+    assert approval["estimate_sha256"] in archived_hashes("estimate.yaml"), "Approved estimate bytes lost"
+    assert approval["decision_sha256"] in archived_hashes("decision.yaml"), "Approved decision bytes lost"
+    current = file_sha256(PROJECT / "budget/estimate.yaml")
+    if current != approval["estimate_sha256"]:
+        with pytest.raises(CloudAdapterError):
+            authorize_cloud_job(graph, job, load_cloud_policy(), approval, budget_estimate_sha256=current,
+                                workflow_validated=True, project=PROJECT,
+                                scope=ProjectScope(("scene_la_pomme_01",), ("char_marc",)))
 
 
 def test_prepared_does_not_manufacture_consent_or_unknown_costs():

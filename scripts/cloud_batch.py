@@ -9,6 +9,8 @@ the OpenRouter Studio job database. Submission stays caller-owned via
 comfy-mcp ``run_workflow(wait=false, confirm_spend=false)``.
 
   prepare  --project P --batch BATCH.yaml [--out DIR]
+  uploads-refresh --batch-dir D (--descriptor NODES_GET.json | --choices-from UPLOAD_RESULT.json)
+  validations --batch-dir D --from VALIDATE_RESULTS.json
   approve  --batch-dir D --consent-verbatim TXT --question TXT --ceiling-per-job X
   record   --batch-dir D --results results.json
   status   --project P
@@ -485,13 +487,16 @@ def print_prepare_summary(out, manifest):
             print(f"   {path}")
         print(f"   then save fresh nodes(action='get', name='LoadImage') to {out}/live-descriptors/LoadImage.json"
               " and re-run prepare if any job is awaiting_upload.")
+        print(f"   (or: cloud_batch.py uploads-refresh --batch-dir {out} --descriptor NODES_GET.json"
+              " [--choices-from UPLOAD_RESULT.json])")
     total = Decimal(0)
     for job in manifest["jobs"]:
         print(f"- {job['job_id']}: {job['status']}" + (f" -> {job['blocker']}" if job.get("blocker") else
               f" attempt {job['attempt_number']} est ${job['estimated_cost_usd']}"))
         if job["status"] == "prepared":
             total += Decimal(str(job["estimated_cost_usd"]))
-            print(f"   validate_workflow({job['prepared']}) -> save result as {job['job_dir']}/validation.json")
+            print(f"   validate_workflow({job['prepared']}) -> save result as {job['job_dir']}/validation.json"
+                  f" (or collect all and run: validations --batch-dir {out} --from RESULTS.json)")
     print(f"Estimated total (prepared jobs): ${total}  (no generation, nothing reserved)")
 
 
@@ -500,6 +505,162 @@ def load_batch(batch_dir):
     batch_dir = Path(batch_dir).resolve()
     manifest = read_json(batch_dir / "manifest.json")
     return batch_dir, manifest, Path(manifest["project"])
+
+
+# ------------------------------------------------- uploads-refresh / validations
+def unwrap_envelope(data):
+    """comfy-cli envelope/1 -> payload; a failed envelope is never treated as evidence."""
+    if isinstance(data, dict) and data.get("schema") == "envelope/1":
+        if data.get("ok") is not True:
+            raise BatchError(f"Envelope reports failure ({data.get('command')}); not usable as live evidence")
+        return data.get("data")
+    return data
+
+
+def loadimage_descriptor(data, source):
+    data = unwrap_envelope(data)
+    if isinstance(data, dict) and "LoadImage" in data and "inputs" not in data:
+        data = data["LoadImage"]
+    if not isinstance(data, dict) or data.get("name", data.get("id")) != "LoadImage":
+        raise BatchError(f"{source} is not a nodes(action='get', name='LoadImage') descriptor")
+    specs = [i for i in data.get("inputs", []) if isinstance(i, dict) and i.get("name") == "image"]
+    if len(specs) != 1 or not isinstance(specs[0].get("choices"), list):
+        raise BatchError(f"{source}: LoadImage descriptor has no image choices list")
+    return data, specs[0]
+
+
+def strings_in(value):
+    if isinstance(value, str):
+        yield value
+    elif isinstance(value, dict):
+        for item in value.values():
+            yield from strings_in(item)
+    elif isinstance(value, list):
+        for item in value:
+            yield from strings_in(item)
+
+
+def batch_uploads(manifest):
+    rows = {}
+    for job in manifest["jobs"]:
+        for upload in job.get("uploads", []):
+            rows[upload["uploaded_path"]] = upload
+    return rows
+
+
+def cmd_uploads_refresh(args):
+    """Write live-descriptors/LoadImage.json from a fresh nodes(get) and/or upload_file evidence.
+
+    Only this batch's own content-addressed upload names are ever added, and only when the
+    evidence file names them (a successful upload_file result or a live descriptor). The live
+    validate_workflow run remains the authority that the server really has each file.
+    """
+    batch_dir, manifest, _ = load_batch(args.batch_dir)
+    if not args.descriptor and not args.choices_from:
+        raise BatchError("Provide --descriptor (nodes get LoadImage JSON) and/or --choices-from (upload result)")
+    uploads = batch_uploads(manifest)
+    if not uploads:
+        raise BatchError("This batch stages no uploads; nothing to refresh")
+    for name, row in uploads.items():
+        staged = Path(row["staged_file"])
+        if not staged.is_file() or bytes_sha256(staged) != row["sha256"]:
+            raise BatchError(f"Staged upload {name} missing or changed since prepare")
+    target = batch_dir / "live-descriptors" / "LoadImage.json"
+    if args.descriptor:
+        source = Path(args.descriptor).resolve()
+        descriptor, spec = loadimage_descriptor(read_json(source), source)
+    elif target.is_file():
+        source = target
+        descriptor, spec = loadimage_descriptor(read_json(target), target)
+    else:
+        raise BatchError(f"No live LoadImage descriptor: pass --descriptor (none saved at {target})")
+    descriptor = copy.deepcopy(descriptor)
+    spec = next(i for i in descriptor["inputs"] if i.get("name") == "image")
+    live = set(spec["choices"])
+    evidence, ignored = set(), []
+    if args.choices_from:
+        path = Path(args.choices_from).resolve()
+        if path.suffix.lower() == ".json":
+            values = list(strings_in(unwrap_envelope(read_json(path))))
+        else:
+            values = [line.strip() for line in path.read_text(encoding="utf-8").splitlines()]
+        for value in values:
+            name = Path(value).name if value else ""
+            if name in uploads:
+                evidence.add(name)
+            elif name.lower().endswith((".png", ".jpg", ".jpeg", ".webp")):
+                ignored.append(name)
+    added = sorted(evidence - live)
+    spec["choices"] = list(spec["choices"]) + added
+    still_missing = sorted(set(uploads) - live - evidence)
+    write_json(target, descriptor)
+    report = {"refreshed_at": now_utc().isoformat(), "descriptor_source": str(source),
+              "descriptor_source_sha256": bytes_sha256(source), "choices_from": args.choices_from,
+              "batch_uploads": sorted(uploads), "already_in_live_choices": sorted(set(uploads) & live),
+              "added_from_upload_evidence": added, "ignored_non_batch_names": sorted(set(ignored)),
+              "still_missing": still_missing,
+              "note": "Live validate_workflow on each prepared graph remains the authority."}
+    write_json(batch_dir / "uploads-refresh.json", report)
+    print(json.dumps(report, indent=2, ensure_ascii=False))
+    if still_missing:
+        print(f"Still missing from live choices: {still_missing} -> upload_file them, then refresh again.",
+              file=sys.stderr)
+        return 2
+    print(f"Now re-run prepare for {batch_dir} (jobs awaiting_upload become prepared).")
+    return 0
+
+
+def validation_entries(data):
+    data = unwrap_envelope(data)
+    if isinstance(data, dict) and isinstance(data.get("jobs"), list):
+        data = data["jobs"]
+    if isinstance(data, list):
+        entries = []
+        for item in data:
+            if not isinstance(item, dict) or "job_id" not in item:
+                raise BatchError("Each validation entry needs job_id")
+            report = item.get("validation", item.get("result"))
+            entries.append((str(item["job_id"]), unwrap_envelope(report), item.get("workflow_path")))
+        return entries
+    if isinstance(data, dict):
+        return [(str(k), unwrap_envelope(v), None) for k, v in data.items()]
+    raise BatchError("Unrecognized validation results file")
+
+
+def cmd_validations(args):
+    """Write <job>/validation.json from saved live validate_workflow results (verbatim report)."""
+    batch_dir, manifest, _ = load_batch(args.batch_dir)
+    rows = {j["job_id"]: j for j in manifest["jobs"]}
+    entries = validation_entries(read_json(Path(args.source).resolve()))
+    ids = [e[0] for e in entries]
+    unknown = sorted(set(ids) - set(rows))
+    if unknown or len(ids) != len(set(ids)):
+        raise BatchError(f"Unknown or duplicate job ids in validation results: {unknown or ids}")
+    checks = []
+    for job_id, report, workflow_path in entries:  # full pre-check before any write
+        row = rows[job_id]
+        if row.get("status") != "prepared":
+            raise BatchError(f"{job_id}: status {row.get('status')}, only prepared jobs can carry a validation")
+        job_dir = Path(row["job_dir"])
+        prepared = job_dir / "prepared.api.json"
+        if (job_dir / "approval.json").exists():
+            raise BatchError(f"{job_id}: already approved; validation is frozen")
+        if not prepared.is_file() or bytes_sha256(prepared) != row["prepared_file_sha256"]:
+            raise BatchError(f"{job_id}: prepared.api.json missing or changed since prepare")
+        if workflow_path is not None and Path(workflow_path).resolve() != prepared.resolve():
+            raise BatchError(f"{job_id}: validation was run on {workflow_path}, not {prepared}")
+        if not isinstance(report, dict) or "valid" not in report:
+            raise BatchError(f"{job_id}: not a validate_workflow report (no 'valid' key)")
+        clean = (report.get("valid") is True and report.get("partner_nodes") in ([], None)
+                 and report.get("spends_credits") is False)
+        checks.append((job_dir, report, clean, job_id))
+    for job_dir, report, clean, job_id in checks:
+        write_json(job_dir / "validation.json", report)
+        print(f"- {job_id}: {'clean' if clean else 'NOT CLEAN (approve will refuse)'} -> {job_dir / 'validation.json'}")
+    missing = sorted(j for j, r in rows.items() if r.get("status") == "prepared" and j not in ids)
+    if missing:
+        print(f"Prepared jobs without a validation result: {missing}", file=sys.stderr)
+    return 0 if all(c[2] for c in checks) and not missing else 2
 
 
 def cmd_approve(args):
@@ -732,6 +893,14 @@ def main(argv=None):
     p.add_argument("--project", required=True)
     p.add_argument("--batch", required=True)
     p.add_argument("--out")
+    u = sub.add_parser("uploads-refresh")
+    u.add_argument("--batch-dir", required=True)
+    u.add_argument("--descriptor", help="saved nodes(action='get', name='LoadImage') JSON (envelope or bare)")
+    u.add_argument("--choices-from", help="upload_file result JSON or a text list of uploaded names")
+    v = sub.add_parser("validations")
+    v.add_argument("--batch-dir", required=True)
+    v.add_argument("--from", dest="source", required=True,
+                   help="JSON: {job_id: report} or {jobs:[{job_id, validation|result, workflow_path?}]}")
     a = sub.add_parser("approve")
     a.add_argument("--batch-dir", required=True)
     a.add_argument("--consent-verbatim", required=True)
@@ -750,7 +919,8 @@ def main(argv=None):
     s = sub.add_parser("status")
     s.add_argument("--project", required=True)
     args = parser.parse_args(argv)
-    handler = {"prepare": cmd_prepare, "approve": cmd_approve, "record": cmd_record, "status": cmd_status}
+    handler = {"prepare": cmd_prepare, "uploads-refresh": cmd_uploads_refresh, "validations": cmd_validations,
+               "approve": cmd_approve, "record": cmd_record, "status": cmd_status}
     try:
         return handler[args.command](args)
     except (BatchError, CloudAdapterError, LedgerError) as exc:

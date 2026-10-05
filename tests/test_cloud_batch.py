@@ -542,3 +542,103 @@ def test_real_live_scaffolds_fit_live_branches(model, catalog, graph, node):
     else:
         assert specs["model.duration"]["choices"] == list(range(2, 31))
         assert "model.last_frame" not in specs and not any("negative" in k for k in specs)
+
+
+# ------------------------------------------------- uploads-refresh / validations
+def test_uploads_refresh_from_envelope_descriptor_then_prepare(project, tmp_path, capsys):
+    code, out, manifest = prepare(project, tmp_path, choices=False)
+    assert code == 2 and {j["status"] for j in manifest["jobs"]} == {"awaiting_upload"}
+    n = names(project)
+    live = image_catalog(["clipspace.png", *n.values()])["LoadImage"]
+    dump(tmp_path / "nodes_get.json", {"schema": "envelope/1", "ok": True, "command": "nodes show", "data": live})
+    assert cb.main(["uploads-refresh", "--batch-dir", str(out), "--descriptor", str(tmp_path / "nodes_get.json")]) == 0
+    saved = json.loads((out / "live-descriptors/LoadImage.json").read_text())
+    assert saved == live  # verbatim live descriptor, nothing added
+    report = json.loads((out / "uploads-refresh.json").read_text())
+    assert report["added_from_upload_evidence"] == [] and report["still_missing"] == []
+    code = cb.main(["prepare", "--project", str(project), "--batch", str(tmp_path / "batch.yaml"), "--out", str(out)])
+    assert code == 0
+
+
+def test_uploads_refresh_adds_only_batch_names_named_by_upload_evidence(project, tmp_path):
+    code, out, manifest = prepare(project, tmp_path, choices=False)
+    n = names(project)
+    dump(tmp_path / "nodes_get.json", image_catalog(["unrelated.png"])["LoadImage"])
+    # partial evidence: two uploads + a foreign name -> foreign ignored, others still missing
+    dump(tmp_path / "upload.json", {"uploaded": [{"name": n["char"]}, {"name": f"sub/{n['loc']}"}, "evil.png"]})
+    args = ["uploads-refresh", "--batch-dir", str(out), "--descriptor", str(tmp_path / "nodes_get.json"),
+            "--choices-from", str(tmp_path / "upload.json")]
+    assert cb.main(args) == 2
+    report = json.loads((out / "uploads-refresh.json").read_text())
+    assert report["added_from_upload_evidence"] == sorted([n["char"], n["loc"]])
+    assert report["ignored_non_batch_names"] == ["evil.png"]
+    assert report["still_missing"] == sorted([n["ka"], n["kb"]])
+    choices = json.loads((out / "live-descriptors/LoadImage.json").read_text())["inputs"][0]["choices"]
+    assert choices == ["unrelated.png", *sorted([n["char"], n["loc"]])] and "evil.png" not in choices
+    # text evidence for the rest; saved descriptor reused without --descriptor
+    (tmp_path / "rest.txt").write_text(f"{n['ka']}\n{n['kb']}\n")
+    assert cb.main(["uploads-refresh", "--batch-dir", str(out), "--choices-from", str(tmp_path / "rest.txt")]) == 0
+    code = cb.main(["prepare", "--project", str(project), "--batch", str(tmp_path / "batch.yaml"), "--out", str(out)])
+    assert code == 0
+
+
+@pytest.mark.parametrize("bad", [
+    {"schema": "envelope/1", "ok": False, "command": "nodes show", "data": None},
+    {"name": "SaveImage", "inputs": []},
+    {"name": "LoadImage", "inputs": [{"name": "image", "type": "COMBO"}]},
+])
+def test_uploads_refresh_rejects_non_live_descriptors(project, tmp_path, bad):
+    code, out, manifest = prepare(project, tmp_path, choices=False)
+    dump(tmp_path / "bad.json", bad)
+    assert cb.main(["uploads-refresh", "--batch-dir", str(out), "--descriptor", str(tmp_path / "bad.json")]) == 2
+    assert not (out / "live-descriptors/LoadImage.json").exists()
+
+
+def test_uploads_refresh_refuses_changed_staged_upload(project, tmp_path):
+    code, out, manifest = prepare(project, tmp_path, choices=False)
+    staged = Path(manifest["jobs"][0]["uploads"][0]["staged_file"])
+    staged.write_bytes(b"tampered")
+    dump(tmp_path / "nodes_get.json", image_catalog(list(names(project).values()))["LoadImage"])
+    assert cb.main(["uploads-refresh", "--batch-dir", str(out), "--descriptor", str(tmp_path / "nodes_get.json")]) == 2
+    assert not (out / "live-descriptors/LoadImage.json").exists()
+
+
+def test_validations_writes_verbatim_reports_then_approve(project, tmp_path):
+    code, out, manifest = prepare(project, tmp_path)
+    clean = {"valid": True, "error_count": 0, "errors": [], "warnings": [], "partner_nodes": [], "spends_credits": False}
+    rows = {j["job_id"]: j for j in manifest["jobs"]}
+    dump(tmp_path / "vr.json", {"jobs": [
+        {"job_id": "img_a", "validation": {"schema": "envelope/1", "ok": True, "data": clean},
+         "workflow_path": rows["img_a"]["prepared"]},
+        {"job_id": "vid_a", "result": clean}]})
+    assert cb.main(["validations", "--batch-dir", str(out), "--from", str(tmp_path / "vr.json")]) == 0
+    assert json.loads((out / "img_a/validation.json").read_text()) == clean
+    assert approve(out) == 0
+
+
+def test_validations_unclean_or_missing_is_reported_and_blocks_approve(project, tmp_path):
+    code, out, manifest = prepare(project, tmp_path)
+    dump(tmp_path / "vr.json", {"img_a": {"valid": True, "partner_nodes": ["OpenRouterStudioImage"],
+                                          "spends_credits": True}})
+    assert cb.main(["validations", "--batch-dir", str(out), "--from", str(tmp_path / "vr.json")]) == 2
+    assert (out / "img_a/validation.json").exists() and not (out / "vid_a/validation.json").exists()
+    assert approve(out) == 2
+    assert not (project / "budget/cloud-ledger.sqlite3").exists()
+
+
+@pytest.mark.parametrize("case", ["unknown_job", "wrong_path", "not_report", "changed_graph", "awaiting"])
+def test_validations_refusals_write_nothing(project, tmp_path, case):
+    code, out, manifest = prepare(project, tmp_path, choices=(case != "awaiting"))
+    clean = {"valid": True, "partner_nodes": [], "spends_credits": False}
+    data = {"jobs": [{"job_id": "img_a", "validation": clean}, {"job_id": "vid_a", "validation": clean}]}
+    if case == "unknown_job":
+        data["jobs"].append({"job_id": "ghost", "validation": clean})
+    elif case == "wrong_path":
+        data["jobs"][1]["workflow_path"] = str(out / "img_a/prepared.api.json")
+    elif case == "not_report":
+        data["jobs"][1]["validation"] = {"ok": True}
+    elif case == "changed_graph":
+        (out / "vid_a/prepared.api.json").write_text("{}")
+    dump(tmp_path / "vr.json", data)
+    assert cb.main(["validations", "--batch-dir", str(out), "--from", str(tmp_path / "vr.json")]) == 2
+    assert not list(out.glob("*/validation.json"))

@@ -408,9 +408,18 @@ python scripts/generate_videos.py projects/my-film --model minimax-h3 --legacy-o
 python scripts/generate_audio.py projects/my-film --legacy-opt-in  # speech only; skips non-dialogue plans
 # src/render/audio.py:render_audio()
 
-# Final edit — FFmpeg concat of renders → final/film.mp4
+# Final edit — FFmpeg concat of renders → final/film.mp4 (does not read final/edit.yaml)
 python scripts/render_final.py projects/my-film
-# src/render/final.py:render_final()
+# src/render/final.py:render_final()  — exits with a clear message when FFmpeg is absent
+# No FFmpeg (macOS): local, free Swift route from an ordered clips file (tools/edit/*.swift)
+python scripts/render_final.py projects/my-film --clips-file production/scene-01/cuts.txt \
+  --out final/scene-01/finished.mp4 --audio audio/bed.wav [--tool finish_anime|concat_cuts] [--letterbox 2.39]
+# src/render/swift_edit.py:run_swift_edit()
+
+# Model sheets — crop an approved sheet into isolated views (local, free; Pillow)
+python scripts/split_model_sheet.py SHEET.png --grid 1x4 --views front,three_quarter,profile,back \
+  --out-dir projects/my-film/references/views/char_x \
+  [--registry projects/my-film/references/approved-references.yaml --entity-id char_x --sheet-type turnaround]
 
 # Ad-hoc ComfyUI execution
 python scripts/run_workflow.py <legacy-model> "<prompt>" --legacy-opt-in [--negative "..."] [--seed 42] [--output out.yaml]
