@@ -60,6 +60,16 @@ properties:
     type: array
     items:
       type: string
+  locations:
+    description: Optional existing typed location IDs; not production location sheets.
+    type: array
+    uniqueItems: true
+    items: {type: string, minLength: 1}
+  props:
+    description: Optional existing typed prop IDs; not production prop sheets.
+    type: array
+    uniqueItems: true
+    items: {type: string, minLength: 1}
   acts:
     type: array
     items:

@@ -44,7 +44,7 @@ from comfyui.cloud_adapters import (  # noqa: E402
     authorize_cloud_job, prepare_cloud_workflow, sha256_document,
 )
 from comfyui.cloud_ledger import CloudLedger, LedgerError, _json as ledger_key  # noqa: E402
-from comfyui.cloud_targets import ProjectScope  # noqa: E402
+from comfyui.cloud_targets import ProjectScope, exploratory_target_evidence  # noqa: E402
 
 DEFAULT_STUDIO_DB = Path(os.environ.get(
     "OPENROUTER_STUDIO_JOBS_DB",
@@ -143,7 +143,7 @@ def upload_name(prefix, label, sha, suffix):
 def load_catalog(project, batch, modality, batch_dir, model=None):
     defaults = {**DEFAULT_CATALOGS, **MODEL_DEFAULTS.get(model, {}).get("catalogs", {})}
     rel = (batch.get("node_catalogs") or {}).get(modality, defaults[modality])
-    path = (project / rel).resolve()
+    path = rel_inside(project, rel, "live node catalog")
     if not path.is_file():
         raise BatchError(
             f"Live node catalog missing: {rel}. Save comfy-mcp nodes(action='get') descriptors "
@@ -208,10 +208,24 @@ def template_for(project, batch, modality, roles, model=None):
         graph_path = rel_inside(project, spec["graph"], "image template")
         bindings = read_json(rel_inside(project, spec["bindings"], "image template bindings"))
         ids = bindings["declared_node_ids"]
+        configured = bindings["binding"].get("references")
+        if configured is None:
+            # Compatibility with old bindings: discover links of DECLARED loaders
+            # only, never derive IDs or invent slot names. Bundles need explicit slots.
+            original = read_json(graph_path)
+            configured = []
+            for loader in ids["loaders"]:
+                targets = [key for key, value in original[ids["image"]]["inputs"].items()
+                           if value == [loader, 0]]
+                if len(targets) != 1:
+                    raise BatchError("Declared loader needs an explicit unambiguous reference binding")
+                configured.append({"node_id": loader, "input_key": "image",
+                                   "target_input": targets[0], "role": "reference"})
         return {"kind": "image", "graph_path": graph_path, "graph": read_json(graph_path),
                 "paid": ids["image"], "output": ids["output"], "loaders": list(ids["loaders"]),
                 "class_type": bindings["binding"]["class_type"],
-                "input_map": dict(bindings["binding"]["input_map"])}
+                "input_map": dict(bindings["binding"]["input_map"]),
+                "references": tuple(ReferenceInput(**r) for r in configured)}
     if roles == ["first_frame"]:
         key = "video_first"
     elif roles == ["first_frame", "last_frame"]:
@@ -265,29 +279,10 @@ def build_source(tpl, modality, refs, uploads, catalog, model, filename_prefix, 
     out_specs = _input_specs(catalog[graph[out]["class_type"]], model)
     refs_bind = []
     if tpl["kind"] == "image":
-        # Declared pattern: LoadImage xN -> reference_images.reference_1..N -> SaveImage.
-        for loader in tpl["loaders"]:
-            if graph.get(loader, {}).get("class_type") != "LoadImage":
-                raise BatchError("Template loader IDs do not match declared bindings")
-            del graph[loader]
-        inputs = graph[paid]["inputs"]
-        for key in [k for k in inputs if k.startswith("model.reference_images.")]:
-            del inputs[key]
-        if any(isinstance(v, list) for k, v in inputs.items() if k != "model"):
-            raise BatchError("Unexpected linked input in image template")
-        if not all(t.isdigit() for t in tpl["loaders"]):
-            raise BatchError("Template loader IDs are not numeric; cannot derive new IDs")
-        base = int(tpl["loaders"][0])
-        for index, (ref, name) in enumerate(zip(refs, uploads), start=1):
-            node_id = str(base + index - 1)
-            target = f"model.reference_images.reference_{index}"
-            if node_id in graph or target not in paid_specs:
-                raise BatchError(f"Cannot place reference {index}: ID collision or no live slot")
-            graph[node_id] = {"class_type": "LoadImage", "inputs": {"image": name},
-                              "_meta": {"title": f"Reference {index}: {ref.get('entity_id', ref['role'])}"}}
-            inputs[target] = [node_id, 0]
-            refs_bind.append(ReferenceInput(node_id, "image", target, "reference"))
-        construction = f"image template expanded to {len(refs)} ordered LoadImage references"
+        refs_bind = list(tpl["references"])
+        if len(refs) != len(refs_bind):
+            raise BatchError("Reference count must exactly match configured existing slots; topology preserved")
+        construction = "image template copied with unchanged topology and explicit existing reference slots"
     else:
         for role, name in zip([r["role"] for r in refs], uploads):
             node_id = tpl["frame_loaders"][role]
@@ -300,7 +295,6 @@ def build_source(tpl, modality, refs, uploads, catalog, model, filename_prefix, 
     if negative is not None:
         literal(graph[paid], negative_input, negative, paid_specs, "negative prompt")
     literal(graph[out], "filename_prefix", filename_prefix, out_specs, "output")
-    graph[paid]["_meta"] = {"title": f"{title} - PAID OpenRouter node (is_api_node=false but billable)"}
     binding = CloudBinding(paid, tpl["class_type"], tpl["input_map"], tuple(refs_bind))
     return graph, binding, construction
 
@@ -418,13 +412,21 @@ def prepare_job(project, project_id, batch, item, config, tier, scope, out, job_
            "prompt": prompt, "pricing_checked_at": pricing_date}
     if item.get("job_kind", "shot_render") == "reference_illustration":
         job.update(job_kind="reference_illustration", entity_type=item["entity_type"],
-                   entity_id=item["entity_id"], scene_id=item["scene_id"])
+                   entity_id=item["entity_id"])
+        if "reference_scope" in item:
+            job["reference_scope"] = item["reference_scope"]
+        if "scene_id" in item:
+            job["scene_id"] = item["scene_id"]
+        if "shot_id" in item:
+            job["shot_id"] = item["shot_id"]
     else:
         job.update(job_kind="shot_render", shot_id=item.get("shot_id") or prompt_doc["shot_id"])
         if item.get("scene_id") or prompt_doc.get("scene_id"):
             job["scene_id"] = item.get("scene_id") or prompt_doc["scene_id"]
     if item.get("segment_id"):
         job["segment_id"] = item["segment_id"]
+    if "reference_scope" in item and "reference_scope" not in job:
+        job["reference_scope"] = item["reference_scope"]  # schema rejects scope on shot jobs
     base_prompt_id = item.get("prompt_id") or prompt_doc.get("prompt_id")
     if not base_prompt_id:
         raise BatchError("prompt_id missing (batch item or prompt file)")
@@ -436,6 +438,12 @@ def prepare_job(project, project_id, batch, item, config, tier, scope, out, job_
         job["parameters"] = params
     if refs:
         job["references"] = refs
+    if job.get("reference_scope") == "exploratory":
+        for ref, asset in zip(refs, upload_rows):
+            original = item["references"][asset["order"] - 1]
+            ref.update(entity_id=original.get("entity_id"), entity_type=original.get("entity_type"),
+                       asset_path=asset["asset_path"], sha256=asset["sha256"])
+        _, job["target_evidence_sha256"] = exploratory_target_evidence(job, project, scope)
     tpl = template_for(project, batch, modality, [r["role"] for r in refs], model)
     target = job.get("shot_id") or job.get("entity_id")
     filename_prefix = (f"{project.name}/cloud/{tier}/batches/{batch['name']}/{item['job_id']}/"
@@ -457,7 +465,7 @@ def prepare_job(project, project_id, batch, item, config, tier, scope, out, job_
                 "binding": {"node_id": binding.node_id, "class_type": binding.class_type,
                             "input_map": dict(binding.input_map),
                             "references": [asdict(r) for r in binding.references]},
-                "scope": asdict(scope), "ordered_reference_assets": upload_rows,
+                 "scope": asdict(scope), "ordered_reference_assets": upload_rows,
                 "prompt_file": item["prompt_file"], "prompt_file_sha256": bytes_sha256(prompt_path),
                 "negative_prompt_input": negative_mode,
                 "parameter_mapping": mapping_report(graph, binding, params),
@@ -651,7 +659,7 @@ def cmd_validations(args):
             raise BatchError(f"{job_id}: validation was run on {workflow_path}, not {prepared}")
         if not isinstance(report, dict) or "valid" not in report:
             raise BatchError(f"{job_id}: not a validate_workflow report (no 'valid' key)")
-        clean = (report.get("valid") is True and report.get("partner_nodes") in ([], None)
+        clean = (report.get("valid") is True and report.get("partner_nodes") == []
                  and report.get("spends_credits") is False)
         checks.append((job_dir, report, clean, job_id))
     for job_dir, report, clean, job_id in checks:
@@ -709,7 +717,7 @@ def cmd_approve(args):
         if not validation_path.exists():
             raise BatchError(f"{row['job_id']}: missing validation.json (live validate_workflow result)")
         validation = read_json(validation_path)
-        if (validation.get("valid") is not True or validation.get("partner_nodes") not in ([], None)
+        if (validation.get("valid") is not True or validation.get("partner_nodes") != []
                 or validation.get("spends_credits") is not False):
             raise BatchError(f"{row['job_id']}: live validation not clean for the confirm_spend=false route")
         graph, job = read_json(job_dir / "prepared.api.json"), read_json(job_dir / "plan.json")
@@ -735,6 +743,9 @@ def cmd_approve(args):
                     "consent_reference": consent, "consent_user_verbatim": args.consent_verbatim.strip(),
                     "consent_question": args.question.strip(),
                     "consent_bundle_ceiling_usd": args.batch_ceiling}
+        if job.get("reference_scope") == "exploratory":
+            approval.update(reference_scope="exploratory", canonical_stage_completion=False,
+                            target_evidence_sha256=job["target_evidence_sha256"])
         authorize_cloud_job(graph, job, config, approval, budget_estimate_sha256=estimate_sha,
                             workflow_validated=True, today=today, project=project, scope=scope)
         staged.append((row, job_dir, graph, job, approval))

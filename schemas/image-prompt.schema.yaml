@@ -16,6 +16,7 @@ properties:
       reference art; crop isolated views with scripts/split_model_sheet.py).
     enum: [turnaround, expression, outfit, location_layout, floor_plan, prop_sheet]
   entity_type: {enum: [character, location, prop]}
+  reference_scope: {enum: [scene, exploratory]}
   prompt_id:
     type: string
   shot_id:
@@ -60,8 +61,20 @@ oneOf:
         - required: [entity_id]
         - required: [entity_type]
         - required: [sheet_type]
+        - required: [reference_scope]
   - required: [job_kind, entity_id, entity_type, scene_id, project_id, tier, route]
     properties:
       job_kind: {const: reference_illustration}
+      reference_scope: {const: scene}
       model: {enum: [bytedance-seed/seedream-5-0-flash, google/gemini-3.1-flash-image, google/gemini-3-pro-image]}
     not: {required: [shot_id]}
+  - required: [job_kind, entity_id, entity_type, project_id, tier, route, reference_scope]
+    properties:
+      job_kind: {const: reference_illustration}
+      reference_scope: {const: exploratory}
+      model: {enum: [bytedance-seed/seedream-5-0-flash, google/gemini-3.1-flash-image, google/gemini-3-pro-image]}
+    not:
+      anyOf:
+        - required: [shot_id]
+        - required: [scene_id]
+        - required: [segment_id]

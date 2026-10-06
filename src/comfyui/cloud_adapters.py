@@ -89,6 +89,9 @@ class GatedRun:
     entity_type: str | None = None
     project_id: str | None = None
     scene_id: str | None = None
+    reference_scope: str | None = None
+    target_evidence_sha256: str | None = None
+    canonical_stage_completion: bool = False
 
 
 def sha256_document(data: Any) -> str:
@@ -453,6 +456,8 @@ def authorize_cloud_job(graph: Mapping[str, Any], job: Mapping[str, Any],
     checks = {"tier": job["tier"], "model": job["model"], "route": job["route"],
               "workflow_sha256": workflow_hash, "plan_sha256": plan_hash,
               "estimate_sha256": budget_estimate_sha256}
+    if job.get("reference_scope") == "exploratory":
+        checks["target_evidence_sha256"] = job["target_evidence_sha256"]
     if (len(budget_estimate_sha256) != 64
             or any(c not in "0123456789abcdef" for c in budget_estimate_sha256)
             or any(approval.get(key) != value for key, value in checks.items())):
@@ -471,4 +476,6 @@ def authorize_cloud_job(graph: Mapping[str, Any], job: Mapping[str, Any],
                     job_kind=job.get("job_kind", "shot_render"),
                     entity_id=job.get("entity_id"), entity_type=job.get("entity_type"),
                     project_id=resolved_target[0] if resolved_target else job.get("project_id"),
-                    scene_id=resolved_target[1] if resolved_target else job.get("scene_id"))
+                    scene_id=resolved_target[1] if resolved_target else job.get("scene_id"),
+                    reference_scope=job.get("reference_scope"),
+                    target_evidence_sha256=job.get("target_evidence_sha256"))

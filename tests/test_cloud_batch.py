@@ -117,11 +117,13 @@ def project(tmp_path):
     wf = p / "workflows/cloud/preparation"
     dump(wf / "img/prepared.api.json", {
         "11": {"class_type": "LoadImage", "inputs": {"image": "old.png"}},
+        "12": {"class_type": "LoadImage", "inputs": {"image": "old2.png"}},
         "50": {"class_type": "OpenRouterStudioImage", "inputs": {
             "model": IMG_MODEL, "model.prompt": "old", "model.resolution": "1K", "model.aspect_ratio": "16:9",
-            "model.n": 1, "model.seed": -1, "model.reference_images.reference_1": ["11", 0]}},
+            "model.n": 1, "model.seed": -1, "model.reference_images.reference_1": ["11", 0],
+            "model.reference_images.reference_2": ["12", 0]}},
         "51": {"class_type": "SaveImage", "inputs": {"images": ["50", 0], "filename_prefix": "old"}}})
-    dump(wf / "img/bindings.json", {"declared_node_ids": {"loaders": ["11"], "image": "50", "output": "51"},
+    dump(wf / "img/bindings.json", {"declared_node_ids": {"loaders": ["11", "12"], "image": "50", "output": "51"},
                                     "binding": {"class_type": "OpenRouterStudioImage", "input_map": {
                                         "model": "model", "prompt": "model.prompt",
                                         "resolution": "model.resolution", "aspect_ratio": "model.aspect_ratio"}}})
@@ -418,6 +420,19 @@ def make_tests_tier_files(p):
 
 def prepare_tests_tier(p, tmp, jobs, *, wan_template=True):
     make_tests_tier_files(p)
+    # Explicit fixture topology; the helper must never expand a supplied graph.
+    count = next((len(j.get("references", [])) for j in jobs if j["modality"] == "image"), 1)
+    graph_path = p / "workflows/cloud/tests/nb2/scaffold.api.json"
+    graph = json.loads(graph_path.read_text())
+    binding_path = p / "workflows/cloud/tests/nb2/bindings.json"
+    binding = json.loads(binding_path.read_text())
+    for i in range(2, min(count, 14) + 1):
+        loader = str(3000 + i)
+        graph[loader] = {"class_type": "LoadImage", "inputs": {"image": "placeholder.png"}}
+        graph["3050"]["inputs"][f"model.reference_images.reference_{i}"] = [loader, 0]
+        binding["declared_node_ids"]["loaders"].append(loader)
+    dump(graph_path, graph)
+    dump(binding_path, binding)
     choices = [cb.upload_name("fx", "first_frame", hashlib.sha256((p / "renders/key_a.png").read_bytes()).hexdigest(), ".png")]
     choices += [cb.upload_name("fx", f"r{i:02d}", hashlib.sha256((p / f"refs/r{i:02d}.png").read_bytes()).hexdigest(), ".png")
                 for i in range(1, 16)]

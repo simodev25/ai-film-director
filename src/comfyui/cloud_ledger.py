@@ -316,6 +316,11 @@ class CloudLedger:
             if (file_sha256(self.project / "budget/decision.yaml") != decision_hash
                     or file_sha256(self.project / "budget/estimate.yaml") != gated.estimate_sha256):
                 raise LedgerError("Budget hash changed during reservation")
+            if job.get("reference_scope") == "exploratory":
+                try:
+                    validate_project_target(job, self.project, scope)
+                except (ValueError, OSError, KeyError, TypeError) as exc:
+                    raise LedgerError("Exploratory target evidence changed during reservation") from exc
             account = db.execute("SELECT metadata FROM account WHERE id=1").fetchone()
             if account is not None and account["metadata"] != encoded_meta:
                 raise LedgerError("Project/opening balance differs from durable ledger")

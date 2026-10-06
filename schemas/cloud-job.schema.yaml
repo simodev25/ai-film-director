@@ -12,11 +12,24 @@ oneOf:
         - required: [entity_id]
         - required: [entity_type]
         - required: [sheet_type]
+        - required: [reference_scope]
+        - required: [target_evidence_sha256]
   - required: [job_kind, entity_id, entity_type, scene_id, project_id]
     properties:
       job_kind: {const: reference_illustration}
       modality: {const: image}
+      reference_scope: {const: scene}
     not: {required: [shot_id]}
+  - required: [job_kind, entity_id, entity_type, project_id, reference_scope, target_evidence_sha256]
+    properties:
+      job_kind: {const: reference_illustration}
+      modality: {const: image}
+      reference_scope: {const: exploratory}
+    not:
+      anyOf:
+        - required: [scene_id]
+        - required: [shot_id]
+        - required: [segment_id]
 properties:
   version: {const: 1}
   tier: {enum: [preparation, tests, production]}
@@ -35,6 +48,8 @@ properties:
     pattern: '^[a-z0-9_]{1,16}$'
   entity_type: {enum: [character, location, prop]}
   entity_id: {type: string, minLength: 1}
+  reference_scope: {enum: [scene, exploratory]}
+  target_evidence_sha256: {type: string, pattern: '^[0-9a-f]{64}$'}
   sheet_type:
     description: >-
       Optional model-sheet layout for a reference_illustration job only (multi-view
@@ -70,3 +85,7 @@ properties:
       properties:
         role: {enum: [reference, first_frame, last_frame, audio]}
         uploaded_path: {type: string, minLength: 1}
+        entity_id: {type: string, minLength: 1}
+        entity_type: {enum: [character, location, prop]}
+        asset_path: {type: string, minLength: 1}
+        sha256: {type: string, pattern: '^[0-9a-f]{64}$'}
