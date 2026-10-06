@@ -1,0 +1,45 @@
+{
+  "approved": true,
+  "scope": "paid_generation_job",
+  "approved_at": "2026-10-05",
+  "tier": "preparation",
+  "model": "bytedance-seed/seedream-5-0-flash",
+  "route": "/api/v1/images",
+  "project_id": "project_la_pomme",
+  "scope_sha256": "7f842ea276265e05d255b83970ee42a65a02397621f82bbccbb2c2b8a22146b8",
+  "job_kind": "reference_illustration",
+  "scene_id": null,
+  "shot_id": null,
+  "entity_id": "char_001",
+  "segment_id": null,
+  "prompt_id": "ref_char_001_turnaround_exploration_01",
+  "parameters": {
+    "resolution": "1K",
+    "aspect_ratio": "16:9"
+  },
+  "ordered_references": [
+    {
+      "role": "reference",
+      "uploaded_path": "la_pomme_refexplore_char_001_7e85faaddab814f5.png",
+      "entity_id": "char_001",
+      "entity_type": "character",
+      "asset_path": "art-direction/Homme fatigué dans un appartement nocturne.png",
+      "sha256": "7e85faaddab814f55012065755fc28d2651891567b642ad11053551d9aee1314"
+    }
+  ],
+  "count": 1,
+  "attempt_number": 1,
+  "estimated_cost_usd": 0.018,
+  "ceiling_usd": 0.02,
+  "workflow_sha256": "5f555f93e100809ab872ee588cc1146376f8468b91108e3ed42aa88ee7e27f6b",
+  "plan_sha256": "f5afe56d37b4522e63fb1df5d3ad3e50f22742eacdde95a7efed789f4afe04c8",
+  "estimate_sha256": "4a49770e662e28f4117c739201b67cec34d0b4a3a4873c8859699b24cedde770",
+  "decision_sha256": "85cfb88b9d12223e02d86ac53571c37144a4158087d64a06ba53b94858d62b88",
+  "consent_reference": "ses_ef27d5cdcffefU62W3ufHMHm2L ; 2026-10-05 ; question: « Autorises-tu la génération de ce lot unique, estimé à 0,018 $, avec un plafond de 0,02 $ et une seule tentative ? » ; réponse utilisateur verbatim « go » ; batch char-001-reference-exploration ; job char-001-turnaround-exploration tentative 1 ; plan f5afe56d37b4",
+  "consent_user_verbatim": "go",
+  "consent_question": "Autorises-tu la génération de ce lot unique, estimé à 0,018 $, avec un plafond de 0,02 $ et une seule tentative ?",
+  "consent_bundle_ceiling_usd": 0.02,
+  "reference_scope": "exploratory",
+  "canonical_stage_completion": false,
+  "target_evidence_sha256": "6c73861fb6e50eb16ab008558865b9dcd72e2b2db90a21c65d99d88c9054752c"
+}

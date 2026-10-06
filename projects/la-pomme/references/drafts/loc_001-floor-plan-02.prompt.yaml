@@ -1,0 +1,54 @@
+# Planning draft — targeted correction of the rejected floor plan. Not spend consent.
+status: draft_planning_only_pending_priced_batch_consent
+prompt_id: ref_loc_001_floor_plan_02
+project_id: project_la_pomme
+entity_id: loc_001
+entity_type: location
+job_kind: reference_illustration
+sheet_type: floor_plan
+prompt: |-
+  Create ONE strict top-down ORTHOGRAPHIC floor plan of the living room shown in the
+  two reference images: camera exactly vertical above the room, ceiling removed,
+  no perspective, no visible wall faces, no tilt. Walls drawn as thick dark outlines
+  seen from above. No people, no animals, no text, labels, numbers, dimensions,
+  arrows, compass or legend.
+
+  REFERENCE IMAGE 1 is a wide view of this room taken from the entrance; REFERENCE
+  IMAGE 2 is a closer view of the same room. Both show the SAME room: reproduce
+  exactly their furniture, proportions and positions, seen from above. Orientation
+  of the plan: the window wall at the TOP, the entrance side (where the camera stood)
+  at the BOTTOM, the TV wall on the RIGHT, the sofa side on the LEFT.
+
+  Place, as in the references: the large floor-to-ceiling window with curtains centred
+  on the TOP wall; the entrance door at the BOTTOM-LEFT corner, opening inward; the dark
+  grey L-shaped sofa on the LEFT half: one long section running from bottom to top
+  along the left side with its seat facing RIGHT toward the TV, joined at the top-left
+  corner to a section running along the top toward the centre with its seat facing
+  DOWN, cushions and the knitted throw on it; behind the sofa in the TOP-LEFT corner
+  a small side table with the warm amber lamp and a large potted plant beside it; the
+  rectangular wooden coffee table in the CENTRE, in front of the sofa's corner, with a
+  dark mug, a small bowl, a remote and a few books, on a dark patterned rectangular rug;
+  on the RIGHT wall a long low wooden TV cabinet with the flat TV facing LEFT toward the
+  sofa, a small plant at its lower end; a tall bookshelf against the right wall near the
+  TOP-RIGHT corner with a small plant at its foot; warm wooden parquet everywhere.
+  Same furniture count and scale as the references; nothing added.
+
+  Painted illustration in the same graphic language as the references: fine visible
+  contours, flat painted tones, dark grey sofa, warm wood, dark rug, soft even light
+  so every piece is legible; small warm glow at the lamp, the TV seen from above as a
+  thin dark rectangle with a faint cool-green edge. Room centred in a 16:9 frame.
+reference_path_base: projects/la-pomme
+references:
+  - order: 1
+    entity_id: loc_001
+    entity_type: location
+    path: references/generated/loc_001/attempt-01-angles/crops/panel-top-right.png
+    sha256: 3f20008515ce38fcb64ce5b687c4e4c02f1bf75e022b9d66f81e7627c4ecc486
+  - order: 2
+    entity_id: loc_001
+    entity_type: location
+    path: references/generated/loc_001/attempt-01-angles/crops/panel-bottom-left.png
+    sha256: ea80a9ec1bafa43c2573fb0ed86af114ac1c3b9428f5ec1cdb249802b240161d
+notes:
+  - Single panels, not the whole grid, to avoid the model reproducing a grid.
+  - Off-screen entrance wall geometry remains a plausible completion pending review.

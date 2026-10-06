@@ -1,0 +1,137 @@
+{
+  "evidence_version": 1,
+  "project_id": "project_la_pomme",
+  "scope": "read_only_public_pricing_not_spend_consent",
+  "pricing_checked_at": "2026-10-05",
+  "currency": "USD",
+  "config_source": "config/cloud-tiers.yaml",
+  "pricing_max_age_days": 30,
+  "sources": [
+    {
+      "url": "https://openrouter.ai/api/v1/images/models",
+      "method": "GET",
+      "retrieved_at_utc": "2026-10-05T21:01:17.784067+00:00",
+      "response_body_sha256": "93552cff32e332709384b83f97fe2112371133df395aba983080e3c4f78ca881",
+      "response_body_length_bytes": 45292,
+      "preservation": "Exact targeted model record; SHA-256 covers the full received response bytes, not this extracted record. Full catalogue body is not retained.",
+      "targeted_evidence": {
+        "id": "bytedance-seed/seedream-5-0-flash",
+        "name": "ByteDance Seed: Seedream 5.0 Flash",
+        "description": "Seedream 5.0 Flash is an image generation and editing model from ByteDance Seed. It is the fast, cost-efficient tier of the Seedream 5.0 family, suited for high-volume production and interactive...",
+        "created": 1790889880,
+        "architecture": {
+          "input_modalities": ["text", "image"],
+          "output_modalities": ["image"]
+        },
+        "supported_parameters": {
+          "resolution": {"type": "enum", "values": ["1K", "2K"]},
+          "aspect_ratio": {"type": "enum", "values": ["1:1", "1:2", "2:1", "2:3", "3:2", "3:4", "4:3", "4:5", "5:4", "9:16", "16:9", "9:19.5", "19.5:9", "9:20", "20:9", "9:21", "21:9", "auto"]},
+          "n": {"type": "range", "min": 1, "max": 1},
+          "input_references": {"type": "range", "min": 0, "max": 14},
+          "seed": {"type": "boolean"}
+        },
+        "supports_streaming": false,
+        "endpoints": "/api/v1/images/models/bytedance-seed/seedream-5-0-flash/endpoints"
+      }
+    },
+    {
+      "url": "https://openrouter.ai/api/v1/images/models/bytedance-seed/seedream-5-0-flash/endpoints",
+      "method": "GET",
+      "retrieved_at_utc": "2026-10-05T21:01:17.850187+00:00",
+      "response_body_sha256": "3f61bb59eab839f93e4f21ef47470fe2595533d60466eba3dfd50664d419e2eb",
+      "response_body_length_bytes": 670,
+      "preservation": "Complete parsed provider-pricing response. SHA-256 covers received response bytes, not this reformatted JSON file.",
+      "targeted_evidence": {
+        "id": "bytedance-seed/seedream-5-0-flash",
+        "endpoints": [
+          {
+            "provider_name": "Seed",
+            "provider_slug": "seed",
+            "provider_tag": "seed",
+            "supported_parameters": {
+              "resolution": {"type": "enum", "values": ["1K", "2K"]},
+              "aspect_ratio": {"type": "enum", "values": ["1:1", "1:2", "2:1", "2:3", "3:2", "3:4", "4:3", "4:5", "5:4", "9:16", "16:9", "9:19.5", "19.5:9", "9:20", "20:9", "9:21", "21:9", "auto"]},
+              "n": {"type": "range", "min": 1, "max": 1},
+              "input_references": {"type": "range", "min": 0, "max": 14},
+              "seed": {"type": "boolean"}
+            },
+            "allowed_passthrough_parameters": [],
+            "supports_streaming": false,
+            "pricing": [
+              {"billable": "output_image", "unit": "image", "cost_usd": 0.018},
+              {"billable": "input_image", "unit": "image", "cost_usd": 0}
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "future_single_image_quote": {
+    "status": "pricing_known_not_authorized_not_reserved_not_submitted",
+    "tier": "preparation",
+    "model": "bytedance-seed/seedream-5-0-flash",
+    "route": "/api/v1/images",
+    "provider_slug": "seed",
+    "parameters": {"resolution": "1K", "aspect_ratio": "16:9", "n": 1},
+    "attempts": 1,
+    "generated_images": 1,
+    "shot_images": 0,
+    "standalone_exploratory_illustrations": 1,
+    "input_reference_count": 1,
+    "ordered_input_references": [
+      {
+        "order": 1,
+        "entity_id": "char_001",
+        "entity_type": "character",
+        "path": "art-direction/Homme fatigué dans un appartement nocturne.png",
+        "sha256": "7e85faaddab814f55012065755fc28d2651891567b642ad11053551d9aee1314",
+        "provenance": "Existing user-supplied external GPT portrait; exact historical model/version/cost unknown. Source approval is not paid-job approval."
+      }
+    ],
+    "audio_seconds": 0,
+    "output_image_cost_usd": 0.018,
+    "input_reference_cost_usd": 0,
+    "estimated_media_cost_usd": 0.018,
+    "actual_cost_usd": null,
+    "per_job_ceiling_usd": null,
+    "paid_consent_reference": null,
+    "automatic_retry": false,
+    "notes": [
+      "Endpoint publishes one flat output-image rate and one input-image rate, without a separate 1K/2K price discriminator; 1K and 16:9 are explicitly supported.",
+      "No separate text/reasoning SKU is published in this image endpoint response. The quote uses its two published billables only; this is not a claim that unrelated runtime/planning costs are free.",
+      "Any failed/ambiguous attempt may be billable; actual charge is unknown until provider evidence exists. Additional attempts require new explicit consent.",
+      "No automatic fallback, resolution upgrade, new audio, music or extra reference illustration. This is a quote, not a canonical cloud-job plan or approval."
+    ]
+  },
+  "existing_planning_review": {
+    "schema_validation": "passed for assumptions, estimate and decision",
+    "budget_state": "reviewed_planning_only",
+    "selected_tier": "preparation",
+    "max_spend_usd": 30,
+    "scope": "planning_only_not_spend_consent",
+    "estimate_sha256": "4a49770e662e28f4117c739201b67cec34d0b4a3a4873c8859699b24cedde770",
+    "decision_sha256": "85cfb88b9d12223e02d86ac53571c37144a4158087d64a06ba53b94858d62b88",
+    "assumptions_sha256": "828a14a8f02f60faa0cf05b1245d9caebe4077c4638a64b1a809fc338634bb08",
+    "consent_reference": "projects/la-pomme/budget/review-consent-02.md — session ses_ef27d5cdcffefU62W3ufHMHm2L",
+    "cli_action": "No budget regeneration: existing saved estimate was validated and recomputed read-only by require_budget_review. Re-estimation would change the reviewed bytes and is outside this task.",
+    "unchanged": true
+  },
+  "accounting_guard": {
+    "ledger_path": "projects/la-pomme/budget/cloud-ledger.sqlite3",
+    "ledger_exists_at_check": false,
+    "opening_hold_usd": null,
+    "opening_balance_reference": null,
+    "historical_external_gpt_actual_cost_usd": null,
+    "remaining_budget_usd": null,
+    "reason": "No reconciled opening liabilities or initialized ledger; 30 USD is a reviewed planning ceiling, not a proven available balance. Missing invoice cannot establish zero opening hold.",
+    "future_required": [
+      "Reconcile historical/external liabilities with an explicit finite nonnegative opening_hold_usd and nonempty traceable opening_balance_reference; zero requires affirmative evidenced reconciliation.",
+      "Live-validate the exact separately prepared project-adapter ComfyUI graph, provider seed, model branch, parameters and single ordered uploaded portrait reference; public pricing is not execution proof.",
+      "Obtain explicit affirmative paid_generation_job consent with a positive per-job ceiling at least covering the estimate, one attempt only, exact tier/model/route, workflow_sha256, plan_sha256, estimate_sha256, project_id, scope_sha256, decision_sha256, exploratory target_evidence_sha256 and actual consent_reference.",
+      "Reserve the entire approved per-job ceiling in the one canonical project ledger, require aggregate committed exposure plus that hold not to exceed 30 USD, then claim once before main-session comfy-mcp submission.",
+      "Keep actual charges null and retain holds until evidenced; no automatic retry or generation API bypass."
+    ]
+  },
+  "exclusions": ["taxes", "credit purchase fees", "external historical GPT costs", "inherited OpenCode/runtime LLM costs", "human work", "local compute", "licences", "editing/compositing", "optional music (unknown; separate quote if requested)"],
+  "actions_not_taken": ["paid job approval", "reservation", "ledger initialization", "submission", "generation test", "installation", "download", "media API POST", "estimate change", "decision change", "assumptions change", "canonical artifact or ID change", "script/core modification"]
+}

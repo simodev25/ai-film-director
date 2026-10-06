@@ -1,0 +1,42 @@
+{
+ "panel-top-left": {
+  "box": [
+   0,
+   0,
+   644,
+   353
+  ],
+  "path": "references/generated/loc_001/attempt-01-angles/crops/panel-top-left.png",
+  "sha256": "9ed8d79532a8f1fb248b69d6274fd99822d4f2047026949fd0b80e19f49a99be"
+ },
+ "panel-top-right": {
+  "box": [
+   654,
+   0,
+   1280,
+   353
+  ],
+  "path": "references/generated/loc_001/attempt-01-angles/crops/panel-top-right.png",
+  "sha256": "3f20008515ce38fcb64ce5b687c4e4c02f1bf75e022b9d66f81e7627c4ecc486"
+ },
+ "panel-bottom-left": {
+  "box": [
+   0,
+   361,
+   644,
+   720
+  ],
+  "path": "references/generated/loc_001/attempt-01-angles/crops/panel-bottom-left.png",
+  "sha256": "ea80a9ec1bafa43c2573fb0ed86af114ac1c3b9428f5ec1cdb249802b240161d"
+ },
+ "panel-bottom-right": {
+  "box": [
+   654,
+   361,
+   1280,
+   720
+  ],
+  "path": "references/generated/loc_001/attempt-01-angles/crops/panel-bottom-right.png",
+  "sha256": "453e7a6ad067cdd7fa73cf0146a4d4fcb340abe1b4844fc90eb2f44f4d079f49"
+ }
+}

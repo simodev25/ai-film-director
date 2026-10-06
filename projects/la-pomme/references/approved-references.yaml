@@ -1,0 +1,410 @@
+registry_version: 1
+project_id: project_la_pomme
+scope: user_approved_source_and_generated_appearance_references_not_spend_consent
+approval:
+  approved_at: '2026-10-05'
+  consent_verbatim: 'oui'
+  session_id: ses_ef27d5cdcffefU62W3ufHMHm2L
+  note: >-
+    Approbation globale historique « oui » de l'import des sources aux ordres
+    1 à 3 ; leurs approbations et leur provenance restent inchangées. Sources annoncées
+    comme essais externes GPT, modèle exact/version/coût inconnus. Ordre 4 ajouté
+    ensuite sur l'accord distinct « oui go », apparence/tenue/chaussures de la
+    sortie projet uniquement, pas validation stricte des quatre angles. Questions
+    et périmètres par entrée ; aucun message ID inventé. Les crops de l'ordre 4
+    sont des dérivés locaux de la sortie approuvée, sans nouvel accord distinct
+    prétendu. Le registre a des provenances mixtes : image_model et tier globaux
+    omis, Seedream ne doit pas être attribué aux sources GPT. Aucun accord de ce
+    registre n'autorise une nouvelle dépense. Profil corrigé ensuite approuvé
+    séparément à l'ordre 5 sur « oui » ; l'ordre 4 et son défaut historique restent
+    inchangés. Réunion locale des quatre vues autorisée par ce dernier accord,
+    pas approbation directe du composite non encore montré ; composite hors registre.
+    Dérivés locaux des chats ajoutés dans views des ordres 2 et 3 pour préparer
+    leurs références : crop brut et crop à nettoyage de fond pour char_002,
+    crop brut pour char_003. Pas de nouvelle approbation de planches générées,
+    pas de stylisation réalisée, pas d'autorisation payante par ces dérivés.
+references:
+  - order: 1
+    entity_id: char_001
+    entity_type: character
+    path: 'art-direction/Homme fatigué dans un appartement nocturne.png'
+    sha256: 7e85faaddab814f55012065755fc28d2651891567b642ad11053551d9aee1314
+    approved_at: '2026-10-05'
+    consent_verbatim: 'oui'
+    notes: >-
+      Session source ses_ef27d5cdcffefU62W3ufHMHm2L. Question exacte :
+      « tu confirmes aussi le visage, la coiffure, la barbe et le costume de
+      l’homme sur ta première image comme apparence définitive du personnage
+      adulte ? ». Portrait vertical source complet, variante adulte uniquement.
+      Visage anguleux/cernes, cheveux bruns foncés courts désordonnés, barbe courte,
+      costume anthracite, chemise gris clair col ouvert sans cravate retenus.
+      Ni apparence enfant, âge exact, taille, ethnie, couleur précise des yeux,
+      chaussures ou détails hors champ inférés. Pas un turnaround, une fiche
+      multi-vues, un keyframe de shot ni une illustration produite par le projet.
+      Chemin relatif à la racine projects/la-pomme ; source PNG conservée intacte.
+  - order: 2
+    entity_id: char_002
+    entity_type: character
+    path: 'art-direction/Salon chaleureux, chats sous les lumières nocturnes.png'
+    sha256: 89015ce187d726d5560edc92d4f8f20d4f08d1406117ad2e8963a5199254b5a8
+    approved_at: '2026-10-05'
+    consent_verbatim: 'oui'
+    notes: >-
+      Session source ses_ef27d5cdcffefU62W3ufHMHm2L. Question exacte :
+      « Tu valides ces deux chats comme références d’apparence, avec cette
+      légère harmonisation graphique ? ». Apparence visible du tigré gris-brun,
+      assis au premier plan sur le tapis, retenue ; tigré est un motif de pelage,
+      pas une race. Silhouette naturelle, rayures et yeux tels qu'ils paraissent
+      sous cet éclairage, sans teinte numérique ou détail caché inventés.
+      Source complète commune aux deux chats ; char_003 reste visible, ce n'est
+      pas une vue isolée de char_002. Légère harmonisation vers le style du
+      portrait approuvée créativement mais non réalisée. Pose et emplacement
+      non permanents ; décor, nouvelle géométrie, keyframe, batch et dépense
+      exclus. Aucun crop ou turnaround. Chemin relatif à projects/la-pomme.
+      Mise à jour préparatoire 2026-10-05 : la phrase « Aucun crop » décrit
+      l'import initial. Extraction locale ultérieure [470, 390, 1070, 885],
+      600 × 495, chat assis avec oreilles, pieds et queue visibles complets.
+      Le crop brut conserve un fragment de fourrure de char_003 en haut à gauche.
+      Fichier conditioning distinct : masque plat RGB [128, 128, 128] limité
+      au rectangle [0, 0, 240, 55] dans ce crop, soit [470, 390, 710, 445] dans
+      le parent, pour cacher ce fragment non cible. Aucune partie de char_002
+      dans ce rectangle selon examen visuel ; tous les pixels hors masque sont
+      identiques au crop brut. Ni pure crop pour ce fichier nettoyé, ni retouche
+      d'apparence du chat, harmonisation, resize ou appel modèle. Le champ box
+      n'est déclaré que pour le crop brut. Dérivés de l'apparence déjà approuvée,
+      pas accords nouveaux ; détails/hashes/transforms dans
+      references/source-crops/cats/derivation.json et derivation.md. Parent intact.
+    views:
+      - view: other
+        label: Tigré assis observé — crop brut, fragment du Persan en haut à gauche
+        asset_path: references/source-crops/cats/char_002-source-raw.png
+        sha256: b60bd334c871bb383c7c183c57cf591c1be7632e4cb39ee85a24bc5dd144c67b
+        box: [470, 390, 1070, 885]
+      - view: other
+        label: Tigré assis observé — conditioning avec nettoyage du fond non cible, pas pure crop
+        asset_path: references/source-crops/cats/char_002-source-conditioning.png
+        sha256: 5245c6f54dcd1bc237c2b1dbd00ef48e1a9adf014511ac1037915ef85a05f863
+  - order: 3
+    entity_id: char_003
+    entity_type: character
+    path: 'art-direction/Salon chaleureux, chats sous les lumières nocturnes.png'
+    sha256: 89015ce187d726d5560edc92d4f8f20d4f08d1406117ad2e8963a5199254b5a8
+    approved_at: '2026-10-05'
+    consent_verbatim: 'oui'
+    notes: >-
+      Session source ses_ef27d5cdcffefU62W3ufHMHm2L. Question exacte :
+      « Tu valides ces deux chats comme références d’apparence, avec cette
+      légère harmonisation graphique ? ». Apparence visible du Persan crème,
+      couché sur le canapé à l'arrière gauche, retenue ; fourrure longue épaisse,
+      volume distinct et yeux tels qu'ils paraissent sous cet éclairage, sans
+      mesure ou détail anatomique caché inventés. Source complète commune aux
+      deux chats ; char_002 reste visible, ce n'est pas une vue isolée de char_003.
+      Légère harmonisation vers le style du portrait approuvée créativement mais
+      non réalisée. Pose et emplacement non permanents ; décor, nouvelle
+      géométrie, keyframe, batch et dépense exclus. Aucun crop ou turnaround.
+      Chemin relatif à projects/la-pomme ; même fichier et hash que l'ordre 2,
+      volontairement lié à deux IDs existants, pas deux images générées.
+      Mise à jour préparatoire 2026-10-05 : la phrase « Aucun crop » décrit
+      l'import initial. Crop local [275, 235, 725, 452], 450 × 217, Persan couché
+      observé ; oreilles, fourrure/corps/queue visibles et pattes dans le champ,
+      sans char_002. Pixels exacts du parent, aucun masque/resize/stylisation
+      ou appel modèle. Dérivé de l'apparence déjà approuvée, sans nouvel accord
+      prétendu. Ce n'est ni une fiche multi-vues ni un pose/angle encore produit.
+      Parent intact ; détails/hashes dans references/source-crops/cats/derivation.json.
+    views:
+      - view: other
+        label: Persan crème couché observé — crop local brut, pas approbation de nouvelle planche
+        asset_path: references/source-crops/cats/char_003-source-crop.png
+        sha256: 9bf67e5fb35316a52929c3652f6f59c6e4abe33f02b5655425459617c79d2d54
+        box: [275, 235, 725, 452]
+  - order: 4
+    entity_id: char_001
+    entity_type: character
+    path: references/generated/char_001/attempt-01/fbe7c67f_000.png
+    sha256: 06d3c347e907508d69885257b08d222c465525bdacea7a993052077a3d6ea4dd
+    approved_at: '2026-10-05'
+    consent_verbatim: 'oui go'
+    sheet_type: turnaround
+    notes: >-
+      Session source ses_ef27d5cdcffefU62W3ufHMHm2L. Question exacte :
+      « Tu valides son apparence et sa tenue, chaussures comprises ? Le profil
+      reste à corriger ; cette validation n’autorisera pas automatiquement une
+      nouvelle génération. ». Accord limité à l'apparence adulte, silhouette
+      visible et tenue, chaussures comprises, de cette sortie. Turnaround partiel
+      de quatre figures, 1280 × 720 : front, trois-quarts gauche, troisième figure
+      encore trois-quarts au lieu d'un vrai profil corporel, dos. Pas d'approbation
+      de la géométrie stricte des quatre vues ou de stade canonique complet.
+      Provenance de cette entrée uniquement : bytedance-seed/seedream-5-0-flash,
+      preparation, 1K 16:9, tentative 01, job
+      fbe7c67f-895e-4333-8181-ce1967d46d49 exécuté par la session principale via
+      le projet ; coût réel transmis du record : 0,018 USD. Portrait adulte de
+      l'ordre 1 fourni comme unique référence de génération. PNG parent conservé
+      intact. Trois crops locaux sans génération, retouche, resize ou nouvelle
+      approbation autonome : front, trois-quarts, dos ; parent et hash liés par
+      cette entrée, boxes en pixels [left, top, right, bottom], right/bottom exclus.
+      Aucun crop profil du troisième panneau non conforme. « Go » permet de
+      préparer la correction, pas de consentir à son coût non nouvellement cité.
+      L'enfant, âge exact, taille métrique, ethnie et couleur précise des yeux
+      restent non définis. Chemins relatifs à projects/la-pomme ; détail de preuve
+      et crops dans references/generated/char_001/attempt-01/approval.md.
+    views:
+      - view: front
+        label: Front — dérivé local de l'apparence approuvée, pas accord autonome
+        asset_path: references/generated/char_001/attempt-01/crops/front.png
+        sha256: b476d09210ae02681be1fa35eb67de44350ff031697e2cf4fe5cf3549435c4a2
+        box: [0, 0, 320, 720]
+      - view: three_quarter
+        label: Left 3/4 — dérivé local de l'apparence approuvée, pas accord autonome
+        asset_path: references/generated/char_001/attempt-01/crops/left-three-quarter.png
+        sha256: 9269ab7400fb3d073bfdaf3ade5be30b92efeb25279fd1fa709f70cd3d51e0ba
+        box: [320, 0, 640, 720]
+      - view: back
+        label: Back — dérivé local de l'apparence approuvée, pas accord autonome
+        asset_path: references/generated/char_001/attempt-01/crops/back.png
+        sha256: 0d63ae9fdc4080e2f9efa9cff1394fd2495b7b227b7c4031da515c85a2b65e4e
+        box: [960, 0, 1280, 720]
+  - order: 5
+    entity_id: char_001
+    entity_type: character
+    path: references/generated/char_001/attempt-02-profile/4a1494bf_000.png
+    sha256: 4e5ccd3a03574eeec15c93f9d4841f599a1c239b7f33d74dac1346a1252150ac
+    approved_at: '2026-10-05'
+    consent_verbatim: 'oui'
+    notes: >-
+      Session source ses_ef27d5cdcffefU62W3ufHMHm2L. Question exacte :
+      « Tu valides ce profil pour compléter les références de l’homme ? Après
+      ton accord, je pourrai réunir les quatre vues localement, sans nouvelle
+      génération payante. ». Profil gauche adulte plein corps isolé accepté,
+      PNG natif 720 × 1280, pas une feuille quatre vues ; aucune certification
+      géométrique d'un angle parfait à 90°. Petites différences de mèches/modelé
+      du visage documentées dans la QA ; cette image telle que montrée est
+      approuvée sans garantie biométrique ni nouvelles mesures/couleur d'yeux.
+      Provenance de cette entrée seulement : bytedance-seed/seedream-5-0-flash,
+      preparation, 1K 9:16, une correction ciblée générée par la session principale
+      après l'accord de lancement distinct « Oui, lancer la correction ».
+      Portrait initial ordre 1 comme seul conditioning. Coût réel transmis du
+      helper : 0,018 USD pour ce job ; cumul projet ComfyUI/OpenRouter 0,036 USD,
+      coût GPT externe initial inconnu et séparé. View profile pointe vers le
+      PNG natif approuvé : pas de crop ou resampling prétendu. Source conservée
+      intacte, préférable pour conditioning isolé. L'accord autorise une réunion
+      locale des quatre vues approuvées, pas un nouveau job ni une approbation
+      directe du composite avant présentation. Historique du faux profil ordre 4
+      et trois crops inchangés. Stade canonique personnages non déclaré complet.
+      Chemins relatifs à projects/la-pomme ; preuve dans
+      references/generated/char_001/attempt-02-profile/approval.md.
+    views:
+      - view: profile
+        label: Profil gauche plein corps — image native approuvée, pas un crop
+        asset_path: references/generated/char_001/attempt-02-profile/4a1494bf_000.png
+        sha256: 4e5ccd3a03574eeec15c93f9d4841f599a1c239b7f33d74dac1346a1252150ac
+  - order: 6
+    entity_id: char_002
+    entity_type: character
+    path: references/generated/char_002/attempt-01/aeb23bf4_000.png
+    sha256: aadd35d5e94a591b70d9560afe11e1e6ad548b6997822f17256a7e5e9e85739f
+    approved_at: '2026-10-06'
+    consent_verbatim: 'pour moi ca alire bon'
+    sheet_type: turnaround
+    notes: >-
+      Session source ses_ef27d5cdcffefU62W3ufHMHm2L. Question exacte :
+      « Tu valides l'apparence des deux chats ? Les profils seront corrigés à part si tu le souhaites : une correction par chat, à 0,018 $ chacune, avec un nouvel accord de ta part. » Réponse verbatim conservée. Accord sur l'apparence du tigré gris-brun
+      (pelage, marques, silhouette, proportions, style) de cette planche six vues
+      1280 × 720 telle que montrée. Vue de face : tête de face mais corps de trois-quarts. Troisième vue : tête
+      encore trois-quarts, pas un vrai profil ; aucune correction demandée ni
+      autorisée à ce stade. Pas de certification géométrique stricte des angles.
+      Provenance de cette entrée uniquement : bytedance-seed/seedream-5-0-flash,
+      preparation, 1K 16:9, tentative 01, job aeb23bf4-e9c2-4c7b-b0dd-813cab974e2d, lot cats-reference-exploration,
+      accord de lancement distinct « Oui, lancer les deux » ; coût réel helper
+      0,018 USD. Références ordonnées : crop source du chat (identité) puis portrait
+      adulte (style uniquement). Six crops locaux pixel-identiques, sans modèle,
+      resize ni retouche ; boxes [left, top, right, bottom]. Parent intact.
+    views:
+      - view: front
+        label: 'Face — crop local de la planche approuvée'
+        asset_path: references/generated/char_002/attempt-01/crops/front.png
+        sha256: 4a8936a49cb416e822948a7003947e06d212e87a0f71f8d11b4c6321752a18d5
+        box: [0, 0, 400, 358]
+      - view: three_quarter
+        label: 'Trois-quarts gauche — crop local de la planche approuvée'
+        asset_path: references/generated/char_002/attempt-01/crops/left-three-quarter.png
+        sha256: 6c248ab5c0d024dfb2250d13458084659aa5b29c3dcecf665da5b4c70ea5b4cf
+        box: [400, 0, 808, 358]
+      - view: other
+        label: 'Pseudo-profil : corps latéral, tête trois-quarts — PAS un vrai profil — crop local de la planche approuvée'
+        asset_path: references/generated/char_002/attempt-01/crops/pseudo-profile.png
+        sha256: d44d5dcb1d52dcd51a528778d91dc703837ba35751fb68f0895e38e6672447b1
+        box: [808, 0, 1280, 358]
+      - view: back
+        label: 'Dos debout — crop local de la planche approuvée'
+        asset_path: references/generated/char_002/attempt-01/crops/back.png
+        sha256: 8c627f05685486444fd949405059cd1521cc28727eb45101d77f4fa63576d307
+        box: [0, 358, 400, 720]
+      - view: other
+        label: 'Assis trois-quarts — crop local de la planche approuvée'
+        asset_path: references/generated/char_002/attempt-01/crops/sitting.png
+        sha256: 1384e3c25188b23d9cf83f2d6a626a5896956e93c4893e190c8e6996c357c8dc
+        box: [400, 358, 808, 720]
+      - view: other
+        label: 'Couché trois-quarts — crop local de la planche approuvée'
+        asset_path: references/generated/char_002/attempt-01/crops/lying.png
+        sha256: 17d8830aa841d560c00da547142e6b3327515d97cce50491cc2868696f7a9a25
+        box: [808, 358, 1280, 720]
+  - order: 7
+    entity_id: char_003
+    entity_type: character
+    path: references/generated/char_003/attempt-01/58df90d9_000.png
+    sha256: 86ba85bc7f8716a8f442d4df947c9c2bbe203eb8eaa0b9cf7ff7ebc42eaea291
+    approved_at: '2026-10-06'
+    consent_verbatim: 'pour moi ca alire bon'
+    sheet_type: turnaround
+    notes: >-
+      Session source ses_ef27d5cdcffefU62W3ufHMHm2L. Question exacte :
+      « Tu valides l'apparence des deux chats ? Les profils seront corrigés à part si tu le souhaites : une correction par chat, à 0,018 $ chacune, avec un nouvel accord de ta part. » Réponse verbatim conservée. Accord sur l'apparence du Persan crème
+      (pelage, marques, silhouette, proportions, style) de cette planche six vues
+      1280 × 720 telle que montrée. Vue de face : face acceptable. Troisième vue : tête
+      encore trois-quarts, pas un vrai profil ; aucune correction demandée ni
+      autorisée à ce stade. Pas de certification géométrique stricte des angles.
+      Provenance de cette entrée uniquement : bytedance-seed/seedream-5-0-flash,
+      preparation, 1K 16:9, tentative 01, job 58df90d9-a037-499d-935c-0c967a505e06, lot cats-reference-exploration,
+      accord de lancement distinct « Oui, lancer les deux » ; coût réel helper
+      0,018 USD. Références ordonnées : crop source du chat (identité) puis portrait
+      adulte (style uniquement). Six crops locaux pixel-identiques, sans modèle,
+      resize ni retouche ; boxes [left, top, right, bottom]. Parent intact.
+    views:
+      - view: front
+        label: 'Face — crop local de la planche approuvée'
+        asset_path: references/generated/char_003/attempt-01/crops/front.png
+        sha256: 149cd61614de70e23a6cf0f5bdd87062c0f288fc9b31dc7f793d27335b62b32a
+        box: [0, 0, 424, 362]
+      - view: three_quarter
+        label: 'Trois-quarts gauche — crop local de la planche approuvée'
+        asset_path: references/generated/char_003/attempt-01/crops/left-three-quarter.png
+        sha256: eeec7a34ffa9da696035b1d5323133a2d5d7a37f6cf16d62a86904af8067e602
+        box: [424, 0, 855, 362]
+      - view: other
+        label: 'Pseudo-profil : corps latéral, tête trois-quarts — PAS un vrai profil — crop local de la planche approuvée'
+        asset_path: references/generated/char_003/attempt-01/crops/pseudo-profile.png
+        sha256: 3deeaad4e5cd6647303f2c8bec7c3eb61ad9b516fffd2abce39c1c205a91ef72
+        box: [855, 0, 1280, 362]
+      - view: back
+        label: 'Dos debout — crop local de la planche approuvée'
+        asset_path: references/generated/char_003/attempt-01/crops/back.png
+        sha256: 2305efb6e1cae62aa42872bfa17c57ab429da9284d0e2f5d59a644faee2dfe77
+        box: [0, 362, 406, 720]
+      - view: other
+        label: 'Assis trois-quarts — crop local de la planche approuvée'
+        asset_path: references/generated/char_003/attempt-01/crops/sitting.png
+        sha256: c9004b0ffeee2cb9af2af9386a98d43b171b3d1b9910766b0a39100f487a176e
+        box: [406, 362, 795, 720]
+      - view: other
+        label: 'Couché trois-quarts — crop local de la planche approuvée'
+        asset_path: references/generated/char_003/attempt-01/crops/lying.png
+        sha256: b590ebf1c3fd94260de5b829dc8283094fc0ab74ea77085c7466d671fa3a5938
+        box: [795, 362, 1280, 720]
+  - order: 8
+    entity_id: loc_001
+    entity_type: location
+    path: art-direction/Unknown.png
+    sha256: e7f162790e20fa4079a1f638eb6c87495834c5254869f0ef7f5df885d42c3d7f
+    approved_at: '2026-10-05'
+    consent_verbatim: 'oui'
+    sheet_type: location_layout
+    notes: >-
+      Session source ses_ef27d5cdcffefU62W3ufHMHm2L. Question exacte :
+      « Tu valides cette image comme référence du salon — disposition, mobilier
+      et lumière compris ? Ce sera référence décor pas plan définitif film. ».
+      Aperçu horizontal du salon (essai GPT externe, modèle/coût inconnus), approuvé
+      créativement pour disposition, mobilier et lumière : entrée à gauche, canapé
+      en L gris foncé, table basse rectangulaire en bois au centre, parquet et tapis
+      sombre, lampe ambrée derrière le canapé, plantes/livres, baie vitrée sur ville
+      nocturne, TV à droite face au canapé. L'homme visible n'est pas une référence
+      de lieu. ID loc_001 créé le 2026-10-06 sur réponse utilisateur « Créer loc_001
+      (Recommandé) » et déclaré dans story/story.yaml ; budget revu (review-consent-03).
+      Dimensions, géométrie hors champ et détails illisibles non définis. Aucun crop.
+  - order: 9
+    entity_id: loc_001
+    entity_type: location
+    path: references/generated/loc_001/attempt-01-angles/1daaa865_000.png
+    sha256: 36fb9f02a4806c6acb4cd19ea19e9374ae045548735b36c2196a52edffddab47
+    approved_at: '2026-10-06'
+    consent_verbatim: 'Plan vu de dessus et pas bon par rapooort au Salon quatre angles il faut donnr Salon quatre angles comme refrance pour généré le Plan vu de dessus'
+    sheet_type: location_layout
+    notes: >-
+      Session source ses_ef27d5cdcffefU62W3ufHMHm2L. Réponse à la question « Tu valides
+      ces deux références du salon ? ». L'utilisateur rejette le plan vu de dessus
+      (attempt-02-floor-plan, non enregistré) et désigne la planche quatre angles comme
+      référence du salon pour générer le plan. Accord limité à la disposition, au mobilier
+      et à la lumière visibles ; les quatre panneaux restent pris du même côté (entrée),
+      pas de vrai contrechamp : géométrie côté entrée et côté fenêtre non approuvée.
+      Provenance de cette entrée uniquement : bytedance-seed/seedream-5-0-flash, preparation,
+      1K 16:9, tentative 01, job 1daaa865-bffe-42e7-83a4-2eae3402ea71, lot
+      loc-001-reference-exploration, accord « Oui, lancer les deux » ; coût réel 0,018 USD.
+      Quatre crops locaux pixel-identiques, sans modèle ni resize ; boxes [l, t, r, b].
+    views:
+      - view: other
+        label: "Vue depuis l'entrée, sans TV — crop local"
+        asset_path: references/generated/loc_001/attempt-01-angles/crops/panel-top-left.png
+        sha256: 9ed8d79532a8f1fb248b69d6274fd99822d4f2047026949fd0b80e19f49a99be
+        box: [0, 0, 644, 353]
+      - view: other
+        label: "Vue large depuis l'entrée avec TV — la plus complète — crop local"
+        asset_path: references/generated/loc_001/attempt-01-angles/crops/panel-top-right.png
+        sha256: 3f20008515ce38fcb64ce5b687c4e4c02f1bf75e022b9d66f81e7627c4ecc486
+        box: [654, 0, 1280, 353]
+      - view: other
+        label: "Vue rapprochée canapé/table vers TV et fenêtre — crop local"
+        asset_path: references/generated/loc_001/attempt-01-angles/crops/panel-bottom-left.png
+        sha256: ea80a9ec1bafa43c2573fb0ed86af114ac1c3b9428f5ec1cdb249802b240161d
+        box: [0, 361, 644, 720]
+      - view: other
+        label: "Vue depuis l'entrée, porte au premier plan — crop local"
+        asset_path: references/generated/loc_001/attempt-01-angles/crops/panel-bottom-right.png
+        sha256: 453e7a6ad067cdd7fa73cf0146a4d4fcb340abe1b4844fc90eb2f44f4d079f49
+        box: [654, 361, 1280, 720]
+  - order: 10
+    entity_id: loc_001
+    entity_type: location
+    path: references/schematic/loc_001/floor-plan-schematic-v2.png
+    sha256: 0ea227eecd75686fd04d5a7adc064db012fc577f4890af55a258ee895ffba156
+    approved_at: '2026-10-06'
+    consent_verbatim: 'je valide généré image AI'
+    sheet_type: floor_plan
+    notes: >-
+      Session source ses_ef27d5cdcffefU62W3ufHMHm2L. Question exacte : « Tu vois autre
+      chose à corriger, ou on valide ce plan ? ». Plan schématique v2 dessiné localement
+      (PIL, draw_plan.py), sans modèle ni coût, à partir de la planche quatre angles
+      (ordre 9) et de la correction utilisateur « il manque un tableau regrade
+      panel-top-right.png » (deux tableaux ajoutés). Disposition approuvée ; échelle
+      approximative sans mesures ; mur côté caméra non défini. « généré image AI » est
+      une demande de rendu IA, pas un consentement chiffré. Vue top = même géométrie
+      sans texte, légende ni marqueur caméra, recadrée sur la pièce (draw_plan.py
+      --clean), dérivé local pour conditioning, pas une nouvelle approbation.
+    views:
+      - view: top
+        label: Plan sans texte pour conditioning — dérivé local du v2 approuvé
+        asset_path: references/schematic/loc_001/floor-plan-schematic-v2-clean.png
+        sha256: caf19cc6cc0cd2be30ad6d50b04ed79aac69aadafb9bb1deb7cd0f8a504ea9e3
+  - order: 11
+    entity_id: loc_001
+    entity_type: location
+    path: references/generated/loc_001/attempt-04-floor-plan/a14fa3fc_000.png
+    sha256: ae10311f849211a0e7f0bf8363081f1c70b81d519e862810b02718524632d71f
+    approved_at: '2026-10-06'
+    consent_verbatim: 'ok go'
+    sheet_type: floor_plan
+    notes: >-
+      Session source ses_ef27d5cdcffefU62W3ufHMHm2L. Question exacte : « Tu valides ce
+      plan ? Si oui, toutes les références sont complètes : l'homme, les deux chats et le
+      salon. On passe alors au scénario de la première scène : le retour du travail. ».
+      Rendu IA vue de dessus du plan schématique approuvé (ordre 10). Écarts signalés et
+      acceptés : parquet en chevrons (les autres références montrent des lames droites ;
+      pour les plans en perspective, suivre les lames droites des ordres 8/9), légère
+      perspective des murs, liseré vert sur le meuble TV. Provenance de cette entrée
+      uniquement : bytedance-seed/seedream-5-0-flash, preparation, 1K 1:1, tentative 04
+      de la série loc_001, job a14fa3fc-7906-452e-9ab5-5e965e46d1a1, accord « Oui, lancer
+      le rendu » ; coût réel 0,018 USD.
+    views:
+      - view: top
+        label: Plan vu de dessus illustré — image native approuvée, pas un crop
+        asset_path: references/generated/loc_001/attempt-04-floor-plan/a14fa3fc_000.png
+        sha256: ae10311f849211a0e7f0bf8363081f1c70b81d519e862810b02718524632d71f

@@ -1,0 +1,188 @@
+story_id: story_la_pomme
+# Titre de travail provisoire ; voir development.md pour le brief et les propositions.
+title: La Pomme
+genre: Drama
+subgenres: []
+format:
+  target_duration_seconds: 420
+logline: >-
+  En 2026, rentré du travail en costume et réfugié avec ses deux chats devant
+  un vieux film, un homme d'environ quarante ans voit ses humiliations envahir
+  son salon ; derrière leurs regards, une attente d'amour venue de l'enfance
+  se révèle, avant que le dernier écran ne devienne une pomme qu'il mange.
+premise: >-
+  Une nuit de 2026, char_001 revient du travail en costume, traverse l'entrée
+  intérieure vers son salon contemporain et s'assoit devant une fiction
+  originale évoquant les années 1990. Ses deux chats, char_002 et char_003,
+  et le salon intime, moderne mais vécu, offrent un refuge de douceur
+  mélancolique. La télévision et une petite lampe ambrée éclairent ce calme.
+  Le son du téléviseur s'éloigne sans mots intelligibles ; des reflets subtils
+  précèdent l'intrusion des six surfaces. Aucune narration, aucun dialogue
+  intelligible ni TTS. Trois taffes d'un joint ponctuent la traversée, sans être
+  présentées comme une cause médicale ni un remède : fragmentation en six
+  surfaces, extinction de toutes sauf l'enfance, puis matérialisation d'une
+  pomme. Le mouvement intime conduit char_001 de la honte sous le regard des
+  autres à la reconnaissance d'un enfant qui attendait de l'amour, et non
+  d'une preuve de sa valeur. Le salon reste l'ancrage réel ; les apparitions
+  ne deviennent ni un diagnostic ni la preuve que toutes ses difficultés
+  procèdent d'un seul souvenir.
+tone: >-
+  Introspectif, nocturne, vulnérable et légèrement surréaliste ; douceur
+  mélancolique du refuge, intrusion sensorielle puis dépouillement. L'enfance
+  est froide et banale, dans une lumière pâle sans nostalgie. Aucune ironie
+  envers l'enfant, morale finale ou euphorie de guérison ; sans paroles
+  intelligibles, le silence laisse la révélation ouverte.
+theme: >-
+  La recherche de succès et d'approbation peut recouvrir une vieille attente
+  d'amour conditionnel. Reconnaître cette blessure ne rend pas l'enfant
+  responsable du manque et ne règle pas instantanément la vie adulte.
+characters:
+  - char_001 # Homme ~40 ans, apparence adulte approuvée ; enfant = même identité passée.
+  - char_002 # Chat tigré gris-brun, apparence approuvée ; ancrage réel sans pouvoir symbolique.
+  - char_003 # Chat Persan crème, apparence approuvée ; jamais actif simultanément avec char_002.
+  - char_004 # Premier parent du souvenir ; visage hors champ, identité non précisée.
+  - char_005 # Second parent du souvenir ; présence hors champ, identité non précisée.
+locations:
+  - loc_001 # Salon de char_001 (réf. approuvée Unknown.png) ; ID créé sur accord utilisateur 2026-10-06.
+conflict: >-
+  char_001 veut obtenir un signe qu'il compte. Devant chacune des six surfaces,
+  il cherche encore à corriger sa conduite, être meilleur, retenir l'amour ou
+  mériter l'approbation des chefs. Mais les surfaces reconduisent toujours le
+  même verdict : insuffisant. Son conflit intérieur oppose cette tentative
+  épuisante de réussir l'examen des autres à la possibilité de regarder le
+  besoin d'amour sans juger celui qui l'a éprouvé. Il n'y a pas d'antagoniste
+  à vaincre ni de confrontation réparatrice avec les parents.
+stakes: >-
+  Dans cette nuit sans danger physique annoncé, l'enjeu est de pouvoir demeurer
+  avec soi sans transformer immédiatement sa solitude en accusation. À défaut,
+  char_001 retourne au cycle d'approbation impossible et d'effacement de ses
+  besoins ; s'il reconnaît l'attente ancienne, il peut interrompre ce procès
+  pour un instant. Ni son travail ni ses relations ne sont résolus à l'écran.
+acts:
+  - act_id: act_001
+    title: Se distraire, être regardé
+    beats:
+      - beat_id: beat_001
+        description: >-
+          Nuit de 2026. char_001 revient du travail par l'entrée intérieure
+          à gauche du même salon, sans extérieur ni visite du lieu de travail.
+          Costume anthracite, chemise gris clair à col ouvert sans cravate ;
+          visage anguleux avec cernes, cheveux bruns foncés courts désordonnés,
+          barbe courte. Il rejoint le canapé en L gris foncé et s'assoit.
+          Parquet, table basse en bois, bibliothèque, plantes et objets personnels
+          font un refuge intime moderne mais vécu ; fenêtre au fond sur la ville
+          nocturne, TV à droite face au canapé, petite lampe ambrée derrière
+          à gauche. La télévision diffuse une fiction originale évoquant les
+          années 1990. char_002, tigré gris-brun, et char_003, Persan crème,
+          restent au repos, sans positions permanentes imposées. Leur présence
+          rassure ; sous cette douceur mélancolique, la fatigue de char_001
+          laisse une solitude sensible. Ce retour appartient au beat existant,
+          dans les 420 secondes du film, pas à une séquence supplémentaire.
+      - beat_id: beat_002
+        description: >-
+          char_001 tente de suivre le film. Son son devient lointain, distordu,
+          sans paroles intelligibles ; dans la télévision et les reflets,
+          des fragments de dossier et son visage affleurent subtilement avant
+          tout déploiement d'écrans. Il change légèrement de position pour
+          retrouver le film, mais la sensation d'être observé persiste.
+          Une fumée douce traverse la lumière froide du téléviseur ; la petite
+          lampe ambrée fait déjà partie du refuge réel.
+      - beat_id: beat_003
+        description: >-
+          Première taffe, repère poétique. Au-delà de la télévision et de la
+          petite lampe ambrée déjà présentes, six surfaces mentales occupent
+          le salon autour de char_001. Aucune extinction de la lampe n'est
+          prescrite. Elles portent distinctement travail humiliant, regards,
+          amour, rejet, approbation des chefs et soi déformé. Elles ne montrent
+          pas six foules ni six nouveaux lieux à visiter : ses problèmes
+          semblent désormais le regarder dans la même pièce.
+  - act_id: act_002
+    title: Passer encore l'examen, retrouver l'attente
+    beats:
+      - beat_id: beat_004
+        description: >-
+          Dans la surface du travail, char_001 retrouve un dossier présenté
+          puis couvert de corrections ; son image assise à une table vide
+          s'y rétrécit. Dans celle de l'approbation des chefs, une marque de
+          validation paraît acquise avant d'être retirée. Les chefs restent
+          une autorité hors champ, sans nouvelle identité incarnée. char_001
+          redresse sa posture comme pour mieux se présenter à cet examen.
+      - beat_id: beat_005
+        description: >-
+          La surface des regards renvoie son visage sous une lumière de plus
+          en plus dure. Celle de l'amour réserve près de lui une place vide
+          vers laquelle son reflet tend une main ; celle du rejet ferme une
+          porte devant ce même reflet. char_001 passe d'une surface à l'autre,
+          espérant trouver un lieu où il serait attendu. La sixième surface
+          déforme son image quand il essaie de se rendre acceptable.
+      - beat_id: beat_006
+        description: >-
+          Les contenus diffèrent mais répètent la même attente d'un signe.
+          char_001 commence un geste pour remettre en ordre le dossier, puis
+          s'arrête : aucune correction ne suffit. Dans le salon réel, char_002
+          change simplement de position ; char_003 reste immobile. Ce mouvement
+          banal rompt brièvement le tribunal mental, sans sauver char_001 ni
+          faire disparaître la tension.
+      - beat_id: beat_007
+        description: >-
+          Deuxième taffe, nouveau repère formel. Le bruit baisse. Cinq surfaces
+          s'éteignent, sans victoire spectaculaire ; la dernière abandonne
+          l'image déformée et laisse voir char_001 enfant. Il ne trouve pas une
+          réussite cachée mais une attente plus ancienne. Le salon vert sombre
+          demeure perceptible autour d'une enfance froide et banale, dans une
+          pièce ordinaire à lumière pâle, sans chaleur nostalgique.
+      - beat_id: beat_008
+        description: >-
+          Souvenir proposé : char_001 enfant pose sur une table un dessin de
+          famille préparé avec soin et l'avance vers char_004, en espérant un
+          signe d'affection. Le visage de char_004 reste hors champ. Une main
+          indique un trait maladroit puis fait glisser une gomme vers l'enfant,
+          avant de retourner à ses papiers ; la qualité du dessin prend la
+          place de l'accueil. L'enfant tente de refaire ce trait, regarde vers
+          char_005 hors champ, qui poursuit une activité domestique sans se
+          tourner vers lui, puis reste avec son dessin corrigé et personne
+          qui le regarde. Aucune violence spectaculaire ; aucun dialogue
+          intelligible ni narration. Ce souvenir reste une proposition de
+          développement, non un événement approuvé par l'utilisateur : il
+          condense un sentiment d'amour soumis
+          à la condition de faire assez bien.
+  - act_id: act_003
+    title: Ne plus corriger l'enfant, prendre la pomme
+    beats:
+      - beat_id: beat_009
+        description: >-
+          Adulte, char_001 retrouve dans l'attente de l'enfant le geste qu'il
+          répétait devant les six surfaces. Il esquisse encore le mouvement de
+          corriger, puis laisse sa main retomber. Il regarde l'enfant, plutôt
+          que l'imperfection du dessin. Le basculement n'est pas une accusation
+          contre l'enfant ni un pardon imposé aux parents : ce besoin d'amour
+          avait le droit d'exister. L'émotion passe par l'immobilité et le
+          regard, sans phrase intelligible de compréhension ni narration.
+      - beat_id: beat_010
+        description: >-
+          Le dernier écran demeure seul. char_001 ne cherche plus à le remplir
+          d'une preuve de réussite. char_002 et char_003 restent des présences
+          ordinaires dans le salon, sans intervention. Le silence laisse une
+          place au manque ; rien n'annonce un avenir guéri, une réconciliation
+          ou une solution au travail.
+      - beat_id: beat_011
+        description: >-
+          Dernière taffe, troisième et dernier repère formel. Le dernier écran
+          devient une pomme réelle, à portée de char_001. Le passage conserve
+          une impossibilité discrète : aucun personnage, rituel ou explication
+          ne lui remet le fruit. La pomme est silencieuse, presque sacrée mais
+          non miraculeuse ; elle concentre désir, manque, origine, tentation,
+          connaissance et blessure sans en fixer une lecture unique.
+      - beat_id: beat_012
+        description: >-
+          char_001 prend la pomme et la porte à sa bouche. Il mord, commence à
+          la manger. Le geste accueille ce qu'il a vu plutôt qu'il ne détruit
+          sa blessure. Cut noir, sans épilogue, réplique morale ni image
+          supplémentaire. La morsure suffit à fermer le film, pas sa vie.
+ending: >-
+  Le dernier écran devient une pomme réelle. char_001 la prend et la mange ;
+  cut noir. Cette ingestion propose d'intégrer une vérité intime sans
+  culpabiliser l'enfant. Aucun retour au lendemain, aucun bilan de guérison,
+  aucun commentaire n'est ajouté. La pluralité symbolique de la pomme reste
+  ouverte et le lien entre les trois taffes et les transformations reste
+  poétique, non thérapeutique.

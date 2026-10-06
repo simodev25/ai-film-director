@@ -1,0 +1,41 @@
+# Planning draft — not approved, not spend consent.
+status: draft_planning_only_pending_priced_batch_consent
+prompt_id: ref_loc_001_floor_plan_01
+project_id: project_la_pomme
+entity_id: loc_001
+entity_type: location
+job_kind: reference_illustration
+sheet_type: floor_plan
+prompt: |-
+  Create ONE clean top-down orthographic FLOOR PLAN illustration, seen exactly from
+  directly above, of the small, intimate modern living room shown in the reference
+  image. Ceiling removed, no perspective, no people, no animals, no text, labels,
+  numbers, dimensions, compass or legend.
+
+  Layout to preserve from the reference: the open entrance door in the LEFT wall
+  (door swing visible), with a narrow console and coat hooks beside it; a dark grey
+  L-shaped sofa in the left-centre, its long side facing right toward the TV and its
+  short return extending toward the back wall; a knitted throw on the sofa; a
+  rectangular wooden coffee table in the centre in front of the sofa with a mug,
+  a small bowl, a remote and books; a dark patterned rectangular rug under the
+  table; a small amber table lamp on a side table behind the sofa at the left, with
+  a large potted plant beside it; a floor-to-ceiling window with curtains across
+  the BACK wall (top of the plan); on the RIGHT wall a low wooden TV cabinet with a
+  flat TV facing the sofa, and a tall bookshelf near the back-right corner; warm
+  wooden parquet floor. Compact room, uncluttered, plausible furniture scale.
+
+  Render the plan as a readable painted architectural illustration in the same
+  graphic language as the reference: fine visible contours, flat painted tones,
+  dark grey sofa, warm wood, dark rug, soft even neutral light so all furniture is
+  legible (no dramatic night shadows). Show the lamp position with a small warm glow
+  and the TV screen as a thin cool-green line. 16:9 frame with the room centred.
+reference_path_base: projects/la-pomme
+references:
+  - order: 1
+    entity_id: loc_001
+    entity_type: location
+    path: art-direction/Unknown.png
+    sha256: e7f162790e20fa4079a1f638eb6c87495834c5254869f0ef7f5df885d42c3d7f
+    role: location_layout_source_ignore_the_man
+notes:
+  - Off-screen geometry (exact wall lengths, door swing) is a plausible completion pending review.

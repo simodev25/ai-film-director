@@ -1,0 +1,85 @@
+{
+  "version": 1,
+  "batch": "cats-reference-exploration",
+  "project": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme",
+  "project_id": "project_la_pomme",
+  "tier": "preparation",
+  "scope": {
+    "scene_ids": [],
+    "entity_ids": [
+      "char_002",
+      "char_003",
+      "char_001"
+    ]
+  },
+  "scope_sha256": "dd031ec32d48d8fc13f8c6399f9d5744c9e38e1dd18388d81b132a4839671c3d",
+  "batch_file_sha256": "f94a4a90f6b8d02d03b041ee762c30bffb323fa4363cbd0c90fff10a0b293f96",
+  "prepared_at": "2026-10-05T22:08:39+00:00",
+  "generation_tested": false,
+  "jobs": [
+    {
+      "job_id": "char-002-turnaround",
+      "modality": "image",
+      "job_dir": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/workflows/cloud/preparation/batches/cats-reference-exploration/char-002-turnaround",
+      "attempt_number": 1,
+      "estimated_cost_usd": 0.018,
+      "uploads": [
+        {
+          "order": 1,
+          "role": "reference",
+          "entity_id": "char_002",
+          "asset_path": "references/source-crops/cats/char_002-source-conditioning.png",
+          "sha256": "5245c6f54dcd1bc237c2b1dbd00ef48e1a9adf014511ac1037915ef85a05f863",
+          "uploaded_path": "la_pomme_cats_refexplore_char_002_5245c6f54dcd1bc2.png",
+          "staged_file": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/workflows/cloud/preparation/batches/cats-reference-exploration/uploads/la_pomme_cats_refexplore_char_002_5245c6f54dcd1bc2.png"
+        },
+        {
+          "order": 2,
+          "role": "reference",
+          "entity_id": "char_001",
+          "asset_path": "art-direction/Homme fatigué dans un appartement nocturne.png",
+          "sha256": "7e85faaddab814f55012065755fc28d2651891567b642ad11053551d9aee1314",
+          "uploaded_path": "la_pomme_cats_refexplore_char_001_7e85faaddab814f5.png",
+          "staged_file": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/workflows/cloud/preparation/batches/cats-reference-exploration/uploads/la_pomme_cats_refexplore_char_001_7e85faaddab814f5.png"
+        }
+      ],
+      "plan_sha256": "f0da41b1c2f2e4f20a3cd139e8c27ea17d7a9b3622736dd013e4a5bde46e60e7",
+      "status": "prepared",
+      "prepared": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/workflows/cloud/preparation/batches/cats-reference-exploration/char-002-turnaround/prepared.api.json",
+      "prepared_file_sha256": "cb7eb359919d8ff8c274181efe202153c755549175f7f91a3e4c052702fa3ec0",
+      "workflow_sha256": "e6866139f344aafa6112cf87db8c08127646616247968919d4220abf0c0c8563"
+    },
+    {
+      "job_id": "char-003-turnaround",
+      "modality": "image",
+      "job_dir": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/workflows/cloud/preparation/batches/cats-reference-exploration/char-003-turnaround",
+      "attempt_number": 1,
+      "estimated_cost_usd": 0.018,
+      "uploads": [
+        {
+          "order": 1,
+          "role": "reference",
+          "entity_id": "char_003",
+          "asset_path": "references/source-crops/cats/char_003-source-crop.png",
+          "sha256": "9bf67e5fb35316a52929c3652f6f59c6e4abe33f02b5655425459617c79d2d54",
+          "uploaded_path": "la_pomme_cats_refexplore_char_003_9bf67e5fb35316a5.png",
+          "staged_file": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/workflows/cloud/preparation/batches/cats-reference-exploration/uploads/la_pomme_cats_refexplore_char_003_9bf67e5fb35316a5.png"
+        },
+        {
+          "order": 2,
+          "role": "reference",
+          "entity_id": "char_001",
+          "asset_path": "art-direction/Homme fatigué dans un appartement nocturne.png",
+          "sha256": "7e85faaddab814f55012065755fc28d2651891567b642ad11053551d9aee1314",
+          "uploaded_path": "la_pomme_cats_refexplore_char_001_7e85faaddab814f5.png",
+          "staged_file": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/workflows/cloud/preparation/batches/cats-reference-exploration/uploads/la_pomme_cats_refexplore_char_001_7e85faaddab814f5.png"
+        }
+      ],
+      "plan_sha256": "f5f9d0aa4d5b3d121a12eb0df7c6f14ae01f7b101f2b2bcc70cdf550da7334ff",
+      "status": "prepared",
+      "prepared": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/workflows/cloud/preparation/batches/cats-reference-exploration/char-003-turnaround/prepared.api.json",
+      "prepared_file_sha256": "015f8d36eaaf9cc5392936f6cafc95625268bef1d58a1828278aa06730a11339",
+      "workflow_sha256": "5438a7d3079ed9ea3d145b3a104f6ae0798f3f56115d6bdc40f69c0bd80d4221"
+    }
+  ]
+}

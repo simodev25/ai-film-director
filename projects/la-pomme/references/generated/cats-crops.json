@@ -1,0 +1,186 @@
+{
+ "char_002": [
+  {
+   "name": "front",
+   "box": [
+    0,
+    0,
+    400,
+    358
+   ],
+   "path": "references/generated/char_002/attempt-01/crops/front.png",
+   "size": [
+    400,
+    358
+   ],
+   "sha256": "4a8936a49cb416e822948a7003947e06d212e87a0f71f8d11b4c6321752a18d5"
+  },
+  {
+   "name": "left-three-quarter",
+   "box": [
+    400,
+    0,
+    808,
+    358
+   ],
+   "path": "references/generated/char_002/attempt-01/crops/left-three-quarter.png",
+   "size": [
+    408,
+    358
+   ],
+   "sha256": "6c248ab5c0d024dfb2250d13458084659aa5b29c3dcecf665da5b4c70ea5b4cf"
+  },
+  {
+   "name": "pseudo-profile",
+   "box": [
+    808,
+    0,
+    1280,
+    358
+   ],
+   "path": "references/generated/char_002/attempt-01/crops/pseudo-profile.png",
+   "size": [
+    472,
+    358
+   ],
+   "sha256": "d44d5dcb1d52dcd51a528778d91dc703837ba35751fb68f0895e38e6672447b1"
+  },
+  {
+   "name": "back",
+   "box": [
+    0,
+    358,
+    400,
+    720
+   ],
+   "path": "references/generated/char_002/attempt-01/crops/back.png",
+   "size": [
+    400,
+    362
+   ],
+   "sha256": "8c627f05685486444fd949405059cd1521cc28727eb45101d77f4fa63576d307"
+  },
+  {
+   "name": "sitting",
+   "box": [
+    400,
+    358,
+    808,
+    720
+   ],
+   "path": "references/generated/char_002/attempt-01/crops/sitting.png",
+   "size": [
+    408,
+    362
+   ],
+   "sha256": "1384e3c25188b23d9cf83f2d6a626a5896956e93c4893e190c8e6996c357c8dc"
+  },
+  {
+   "name": "lying",
+   "box": [
+    808,
+    358,
+    1280,
+    720
+   ],
+   "path": "references/generated/char_002/attempt-01/crops/lying.png",
+   "size": [
+    472,
+    362
+   ],
+   "sha256": "17d8830aa841d560c00da547142e6b3327515d97cce50491cc2868696f7a9a25"
+  }
+ ],
+ "char_003": [
+  {
+   "name": "front",
+   "box": [
+    0,
+    0,
+    424,
+    362
+   ],
+   "path": "references/generated/char_003/attempt-01/crops/front.png",
+   "size": [
+    424,
+    362
+   ],
+   "sha256": "149cd61614de70e23a6cf0f5bdd87062c0f288fc9b31dc7f793d27335b62b32a"
+  },
+  {
+   "name": "left-three-quarter",
+   "box": [
+    424,
+    0,
+    855,
+    362
+   ],
+   "path": "references/generated/char_003/attempt-01/crops/left-three-quarter.png",
+   "size": [
+    431,
+    362
+   ],
+   "sha256": "eeec7a34ffa9da696035b1d5323133a2d5d7a37f6cf16d62a86904af8067e602"
+  },
+  {
+   "name": "pseudo-profile",
+   "box": [
+    855,
+    0,
+    1280,
+    362
+   ],
+   "path": "references/generated/char_003/attempt-01/crops/pseudo-profile.png",
+   "size": [
+    425,
+    362
+   ],
+   "sha256": "3deeaad4e5cd6647303f2c8bec7c3eb61ad9b516fffd2abce39c1c205a91ef72"
+  },
+  {
+   "name": "back",
+   "box": [
+    0,
+    362,
+    406,
+    720
+   ],
+   "path": "references/generated/char_003/attempt-01/crops/back.png",
+   "size": [
+    406,
+    358
+   ],
+   "sha256": "2305efb6e1cae62aa42872bfa17c57ab429da9284d0e2f5d59a644faee2dfe77"
+  },
+  {
+   "name": "sitting",
+   "box": [
+    406,
+    362,
+    795,
+    720
+   ],
+   "path": "references/generated/char_003/attempt-01/crops/sitting.png",
+   "size": [
+    389,
+    358
+   ],
+   "sha256": "c9004b0ffeee2cb9af2af9386a98d43b171b3d1b9910766b0a39100f487a176e"
+  },
+  {
+   "name": "lying",
+   "box": [
+    795,
+    362,
+    1280,
+    720
+   ],
+   "path": "references/generated/char_003/attempt-01/crops/lying.png",
+   "size": [
+    485,
+    358
+   ],
+   "sha256": "b590ebf1c3fd94260de5b829dc8283094fc0ab74ea77085c7466d671fa3a5938"
+  }
+ ]
+}

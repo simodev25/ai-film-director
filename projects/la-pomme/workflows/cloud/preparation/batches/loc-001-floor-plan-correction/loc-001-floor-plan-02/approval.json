@@ -1,0 +1,53 @@
+{
+  "approved": true,
+  "scope": "paid_generation_job",
+  "approved_at": "2026-10-06",
+  "tier": "preparation",
+  "model": "bytedance-seed/seedream-5-0-flash",
+  "route": "/api/v1/images",
+  "project_id": "project_la_pomme",
+  "scope_sha256": "58c5826f9fdf287ed68412b722bf4879a41b2e1197ca1ad91c32bdef51129e90",
+  "job_kind": "reference_illustration",
+  "scene_id": null,
+  "shot_id": null,
+  "entity_id": "loc_001",
+  "segment_id": null,
+  "prompt_id": "ref_loc_001_floor_plan_02",
+  "parameters": {
+    "resolution": "1K",
+    "aspect_ratio": "16:9"
+  },
+  "ordered_references": [
+    {
+      "role": "reference",
+      "uploaded_path": "la_pomme_locplan_refexplore_loc_001_3f20008515ce38fc.png",
+      "entity_id": "loc_001",
+      "entity_type": "location",
+      "asset_path": "references/generated/loc_001/attempt-01-angles/crops/panel-top-right.png",
+      "sha256": "3f20008515ce38fcb64ce5b687c4e4c02f1bf75e022b9d66f81e7627c4ecc486"
+    },
+    {
+      "role": "reference",
+      "uploaded_path": "la_pomme_locplan_refexplore_loc_001_ea80a9ec1bafa43c.png",
+      "entity_id": "loc_001",
+      "entity_type": "location",
+      "asset_path": "references/generated/loc_001/attempt-01-angles/crops/panel-bottom-left.png",
+      "sha256": "ea80a9ec1bafa43c2573fb0ed86af114ac1c3b9428f5ec1cdb249802b240161d"
+    }
+  ],
+  "count": 1,
+  "attempt_number": 3,
+  "estimated_cost_usd": 0.018,
+  "ceiling_usd": 0.02,
+  "workflow_sha256": "5b26075a92864a87f38b5aa9ddcfdabcc35e66a4047146abe73fe147d2bed632",
+  "plan_sha256": "91b192990de8137ef4500ada6914484517b462021db3e399e4581b8a93279984",
+  "estimate_sha256": "48e8433f650308fd94518d6f561610db998e7ff95542f6c76d3865bd2abd37d2",
+  "decision_sha256": "4c9986d73a483940f63389035b27aeec3b633736dd1ae9f17000a1d97df235c2",
+  "consent_reference": "ses_ef27d5cdcffefU62W3ufHMHm2L ; 2026-10-06 ; question: « Autorises-tu l'import local des deux vues du salon puis, si le workflow est validé, ce nouveau plan vu de dessus : Seedream 5.0 Flash en Préparation, 1K 16:9, une seule tentative, coût estimé 0,018 $ et plafond 0,02 $, sans reprise automatique ? » ; réponse utilisateur verbatim « Oui, lancer le plan » ; batch loc-001-floor-plan-correction ; job loc-001-floor-plan-02 tentative 3 ; plan 91b192990de8",
+  "consent_user_verbatim": "Oui, lancer le plan",
+  "consent_question": "Autorises-tu l'import local des deux vues du salon puis, si le workflow est validé, ce nouveau plan vu de dessus : Seedream 5.0 Flash en Préparation, 1K 16:9, une seule tentative, coût estimé 0,018 $ et plafond 0,02 $, sans reprise automatique ?",
+  "consent_bundle_ceiling_usd": 0.02,
+  "reference_scope": "exploratory",
+  "canonical_stage_completion": false,
+  "target_evidence_sha256": "08be195235dcd6cc012d32495ee9982febb8846dded464882fcffa8e9f4cf6ca"
+}

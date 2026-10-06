@@ -1,0 +1,31 @@
+{
+  "checked_at": "2026-10-05",
+  "scope": "technical_scaffold_integrity_only_not_generation_test",
+  "session_id": "ses_ef27d5cdcffefU62W3ufHMHm2L",
+  "new_scaffold": "scaffold.api.json",
+  "exact_model": "bytedance-seed/seedream-5-0-flash",
+  "tier": "preparation",
+  "checks": {
+    "scaffold_pytest": {"command": "PYTHONPATH=src /usr/local/bin/python3 -m pytest tests/test_reference_exploration_scaffold.py -q", "passed": 3},
+    "registry_and_project_schema_valid": true,
+    "budget_estimate_and_decision_schema_valid": true,
+    "reviewed_estimate_sha256_matches_decision": true,
+    "approved_source_png_hashes_match_registry": true,
+    "single_output_draft_and_existing_reference_binding_checked": true,
+    "route_pricing_checked": {"evidence": "references/technical-pricing.json", "provider": "seed", "estimated_cost_usd": 0.018, "checked_at": "2026-10-05"},
+    "adaptation_and_regression_pytest": {"passed": 180, "skipped": 2},
+    "full_suite": {"passed": 259, "skipped": 24, "failed": 1, "failure": "Existing test_cloud_policy_documents asserts 16 skills, repository already has 18; unrelated to this adaptation."},
+    "batch_prepared": true,
+    "reference_staged_with_separate_permission": true,
+    "exact_prepared_graph_live_validation": {"valid": true, "errors": [], "evidence": "workflows/cloud/preparation/batches/char-001-reference-exploration/validation-results.json"},
+    "opening_liabilities_user_declaration": {"hold_usd": 0, "evidence": "budget/opening-balance-evidence.json", "ledger_initialized": false}
+  },
+  "remaining_checks": [
+    "Separate explicit paid-job consent before ledger reservation, claim or generation"
+  ],
+  "technical_authorization_verbatim": "go",
+  "technical_authorization_question": "Veux-tu que je fasse cette adaptation du projet ? Cet accord autoriserait uniquement les modifications techniques, pas les générations payantes.",
+  "paid_generation_authorized": false,
+  "generation_tested": false,
+  "actual_cost_usd": null
+}

@@ -1,0 +1,10 @@
+{
+  "jobs": [
+    {
+      "job_id": "char-001-profile-correction",
+      "prompt_id": "4a1494bf-f5ef-4e8c-80a6-3a635523ebfb",
+      "status": "completed",
+      "outputs": ["/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/references/generated/char_001/attempt-02-profile/4a1494bf_000.png"]
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+# Planning draft — AI render of the user-approved schematic plan. Not spend consent.
+status: draft_planning_only_pending_priced_batch_consent
+prompt_id: ref_loc_001_floor_plan_03
+project_id: project_la_pomme
+entity_id: loc_001
+entity_type: location
+job_kind: reference_illustration
+sheet_type: floor_plan
+prompt: |-
+  Turn REFERENCE IMAGE 1, a flat schematic floor plan, into ONE finished illustrated
+  top-down floor plan of the same living room. Keep EXACTLY the layout of image 1:
+  same room outline, same wall openings, same position, size, shape and orientation
+  of every piece of furniture. Do not move, rotate, resize, add or remove anything.
+  Camera strictly vertical above the room (orthographic, ceiling removed): no
+  perspective, no visible wall faces, walls shown as thick dark outlines from above.
+
+  What each shape in image 1 is: blue band in the top wall = large floor-to-ceiling
+  window with the two grey curtain bundles beside it; dark grey L-shape = dark grey
+  fabric L-shaped sofa with cushions, its long section parallel to the window and its
+  return along the left side; small brown square with yellow disc, top-left = side
+  table with a warm amber table lamp; green circle beside it = large potted plant;
+  dark rectangle = dark patterned rug; brown rectangle on the rug = rectangular wooden
+  coffee table with a dark mug, a small bowl, a remote and a few books; long brown
+  rectangle on the right wall = low wooden TV cabinet; thin black line with green edge
+  in front of it = flat TV facing the sofa; tall brown rectangle top-right = bookshelf
+  with books; green circle bottom-right = small potted plant; small black bars on the
+  left and right walls = two framed pictures hanging on the walls; opening with door
+  arc, bottom-left = entrance door opening inward; small dark square bottom-left =
+  coat hook with a dark coat; tan floor = warm wooden parquet. Dashed bottom edge =
+  plain wall. Add a knitted throw on the sofa's left section.
+
+  REFERENCE IMAGE 2 is the same room seen in perspective: use it ONLY for materials,
+  colours and graphic style (fine visible contours, painterly faceted shading, dark
+  olive night ambience, warm amber lamp glow, cool green TV glow), never for layout or
+  camera angle. Keep enough soft light for every object to stay readable.
+  No people, no animals, no text, labels, numbers, legend, arrows or watermark.
+reference_path_base: projects/la-pomme
+references:
+  - order: 1
+    entity_id: loc_001
+    entity_type: location
+    path: references/schematic/loc_001/floor-plan-schematic-v2-clean.png
+    sha256: caf19cc6cc0cd2be30ad6d50b04ed79aac69aadafb9bb1deb7cd0f8a504ea9e3
+    role: layout_source_user_approved_schematic
+  - order: 2
+    entity_id: loc_001
+    entity_type: location
+    path: references/generated/loc_001/attempt-01-angles/crops/panel-top-right.png
+    sha256: 3f20008515ce38fcb64ce5b687c4e4c02f1bf75e022b9d66f81e7627c4ecc486
+    role: materials_and_style_only

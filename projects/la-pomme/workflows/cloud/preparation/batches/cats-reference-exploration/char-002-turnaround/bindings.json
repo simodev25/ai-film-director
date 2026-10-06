@@ -1,0 +1,93 @@
+{
+  "version": 1,
+  "construction": "image template copied with unchanged topology and explicit existing reference slots",
+  "template": "workflows/cloud/preparation/reference-cats-two-inputs/scaffold.api.json",
+  "template_file_sha256": "df0cbfea086e097e4880631625f94639928bc0e43f5b43e7bc046b1475fc630e",
+  "binding": {
+    "node_id": "200",
+    "class_type": "OpenRouterStudioImage",
+    "input_map": {
+      "model": "model",
+      "prompt": "model.prompt",
+      "resolution": "model.resolution",
+      "aspect_ratio": "model.aspect_ratio"
+    },
+    "references": [
+      {
+        "node_id": "110",
+        "input_key": "image",
+        "target_input": "model.reference_images.reference_1",
+        "role": "reference"
+      },
+      {
+        "node_id": "120",
+        "input_key": "image",
+        "target_input": "model.reference_images.reference_2",
+        "role": "reference"
+      }
+    ]
+  },
+  "scope": {
+    "scene_ids": [],
+    "entity_ids": [
+      "char_002",
+      "char_003",
+      "char_001"
+    ]
+  },
+  "ordered_reference_assets": [
+    {
+      "order": 1,
+      "role": "reference",
+      "entity_id": "char_002",
+      "asset_path": "references/source-crops/cats/char_002-source-conditioning.png",
+      "sha256": "5245c6f54dcd1bc237c2b1dbd00ef48e1a9adf014511ac1037915ef85a05f863",
+      "uploaded_path": "la_pomme_cats_refexplore_char_002_5245c6f54dcd1bc2.png",
+      "staged_file": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/workflows/cloud/preparation/batches/cats-reference-exploration/uploads/la_pomme_cats_refexplore_char_002_5245c6f54dcd1bc2.png"
+    },
+    {
+      "order": 2,
+      "role": "reference",
+      "entity_id": "char_001",
+      "asset_path": "art-direction/Homme fatigué dans un appartement nocturne.png",
+      "sha256": "7e85faaddab814f55012065755fc28d2651891567b642ad11053551d9aee1314",
+      "uploaded_path": "la_pomme_cats_refexplore_char_001_7e85faaddab814f5.png",
+      "staged_file": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/workflows/cloud/preparation/batches/cats-reference-exploration/uploads/la_pomme_cats_refexplore_char_001_7e85faaddab814f5.png"
+    }
+  ],
+  "prompt_file": "references/drafts/char_002-turnaround.prompt.yaml",
+  "prompt_file_sha256": "7d1fae950145f01e0f9131d3796dc6dd8a41fb1cffc473731fd60ecf7d500b33",
+  "negative_prompt_input": null,
+  "parameter_mapping": {
+    "prompt": {
+      "input": "model.prompt",
+      "value_source": "plan"
+    },
+    "seed": "unmapped; scaffold literal model.seed=-1 left unchanged",
+    "width": "unmapped; no such input on this route",
+    "height": "unmapped; no such input on this route",
+    "frames": "unmapped; no such input on this route",
+    "fps": "unmapped; no such input on this route",
+    "image_input": [
+      {
+        "role": "reference",
+        "loader": "110",
+        "target": "model.reference_images.reference_1"
+      },
+      {
+        "role": "reference",
+        "loader": "120",
+        "target": "model.reference_images.reference_2"
+      }
+    ],
+    "audio_input": "none: route has no audio reference input"
+  },
+  "uploads_verified_in_live_choices": true,
+  "catalog": "workflows/cloud/preparation/reference-cats-two-inputs/node-catalog.selected.live.json",
+  "catalog_sha256": "5aaeaa7b83ac671e4f606b0679b5f877ca850ba14fd79f3e2a1e8694ab8f4256",
+  "live_overrides": [
+    "live-descriptors/LoadImage.json"
+  ],
+  "paid_approval": null,
+  "actual_cost_usd": null
+}

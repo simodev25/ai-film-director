@@ -1,0 +1,166 @@
+version: 1
+project_id: project_la_pomme
+generated_at: '2026-10-05T20:30:13.225887+00:00'
+story_sha256: bfd2b51651453fa33f5aeb586398ec002a33f19d009b535b843d8fe6a8f462d2
+project_sha256: e04780e792e0cdecffc3b5b6d3e9e2726806e271747035db15ce5e1e977be29a
+retrospective: false
+pricing_checked_at: '2026-10-05'
+pricing_status: current_snapshot
+pricing_config_sha256: db2160cb0ce76304f5d2deadcef4fe4d055ea9ead34618bc3165ee2b1defee04
+pricing_sources:
+- https://openrouter.ai/api/v1/models
+- https://openrouter.ai/api/v1/images/models
+- https://openrouter.ai/api/v1/videos/models
+- https://openrouter.ai/docs/guides/overview/multimodal/tts.md
+currency: USD
+scope: planning_only_not_spend_consent
+assumptions:
+  duration_seconds: 420
+  images: 82
+  references_per_image: 3
+  video_fraction: 1.0
+  audio_seconds: 60
+  text_input_tokens: 100000
+  text_output_tokens: 20000
+  attempts:
+    low: 1.0
+    mean: 1.25
+    high: 1.75
+  contingency_fraction: 0.1
+tiers:
+  preparation:
+    models:
+      text: openai/gpt-6-luna
+      image: bytedance-seed/seedream-5-0-flash
+      video: google/veo-3.1-lite
+      audio: bytedance-seed/seed-audio-1-0
+    settings:
+      image_resolution: 1K
+      video_resolution: 720p
+      native_video_audio: false
+    video_billable_seconds_per_pass: 420
+    video_clips_per_pass: 53
+    low:
+      attempts: 1.0
+      text_usd: 0.02
+      image_usd: 1.476
+      video_usd: 12.6
+      audio_usd: 0.15
+      subtotal_usd: 14.246
+      contingency_usd: 1.4246
+      total_usd: 15.6706
+    mean:
+      attempts: 1.25
+      text_usd: 0.025
+      image_usd: 1.845
+      video_usd: 15.75
+      audio_usd: 0.1875
+      subtotal_usd: 17.8075
+      contingency_usd: 1.78075
+      total_usd: 19.58825
+    high:
+      attempts: 1.75
+      text_usd: 0.035
+      image_usd: 2.583
+      video_usd: 22.05
+      audio_usd: 0.2625
+      subtotal_usd: 24.9305
+      contingency_usd: 2.49305
+      total_usd: 27.42355
+  tests:
+    models:
+      text: google/gemini-3.8-flash
+      image: google/gemini-3.1-flash-image
+      video: alibaba/wan-3.0
+      audio: bytedance-seed/seed-audio-1-0
+    settings:
+      image_resolution: 1K
+      video_resolution: 720p
+      native_video_audio: false
+    video_billable_seconds_per_pass: 420
+    video_clips_per_pass: 14
+    low:
+      attempts: 1.0
+      text_usd: 0.15
+      image_usd: 5.64816
+      video_usd: 42.0
+      audio_usd: 0.15
+      subtotal_usd: 47.94816
+      contingency_usd: 4.794816
+      total_usd: 52.742976
+    mean:
+      attempts: 1.25
+      text_usd: 0.1875
+      image_usd: 7.0602
+      video_usd: 52.5
+      audio_usd: 0.1875
+      subtotal_usd: 59.9352
+      contingency_usd: 5.99352
+      total_usd: 65.92872
+    high:
+      attempts: 1.75
+      text_usd: 0.2625
+      image_usd: 9.88428
+      video_usd: 73.5
+      audio_usd: 0.2625
+      subtotal_usd: 83.90928
+      contingency_usd: 8.390928
+      total_usd: 92.300208
+  production:
+    models:
+      text: openai/gpt-6.1-sol
+      image: google/gemini-3-pro-image
+      video: google/veo-3.1
+      audio: bytedance-seed/seed-audio-1-0
+    settings:
+      image_resolution: 2K
+      video_resolution: 1080p
+      native_video_audio: false
+    video_billable_seconds_per_pass: 420
+    video_clips_per_pass: 53
+    low:
+      attempts: 1.0
+      text_usd: 0.4
+      image_usd: 11.29632
+      video_usd: 84.0
+      audio_usd: 0.15
+      subtotal_usd: 95.84632
+      contingency_usd: 9.584632
+      total_usd: 105.430952
+    mean:
+      attempts: 1.25
+      text_usd: 0.5
+      image_usd: 14.1204
+      video_usd: 105.0
+      audio_usd: 0.1875
+      subtotal_usd: 119.8079
+      contingency_usd: 11.98079
+      total_usd: 131.78869
+    high:
+      attempts: 1.75
+      text_usd: 0.7
+      image_usd: 19.76856
+      video_usd: 147.0
+      audio_usd: 0.2625
+      subtotal_usd: 167.73106
+      contingency_usd: 16.773106
+      total_usd: 184.504166
+caveats:
+- Estimation préliminaire, pas un devis, une facture ni une autorisation de dépense.
+- Moyen = hypothèse de reprises choisie, pas une moyenne empirique ni une probabilité.
+- Dimensions et tarifs correspondent aux réglages indiqués ; aucun changement de résolution
+  automatique.
+- 'Images et références Google : conversions estimatives des tokens ; texte/raisonnement
+  image exclus.'
+- Budget texte limité aux tokens facturés spécifiés ; contexte GPT inférieur à 272000
+  tokens.
+- 'Vidéo : arrondi des durées d''appels, hors limites réelles des shots et marges
+  de raccord.'
+- 'Audio : secondes de sources générées, pas durée mixée ; sons réutilisables et silences
+  ne sont pas des appels.'
+- Hors taxes, frais de crédits, licences, musique facultative, prises Foley, travail
+  de montage/mixage.
+- Pas de qualité ni de continuité garantie. Recalculer après le découpage et avant
+  chaque lot payant.
+- 'Sans fichier d''hypothèses : images = plafond(durée/8) images de plans + 12 illustrations
+  de référence provisoires ; pas un découpage réel.'

@@ -1,0 +1,60 @@
+{
+  "job_id": "char-003-turnaround",
+  "plan_sha256": "f5f9d0aa4d5b3d121a12eb0df7c6f14ae01f7b101f2b2bcc70cdf550da7334ff",
+  "comfy_prompt_id": "58df90d9-a037-499d-935c-0c967a505e06",
+  "reported_status": "completed",
+  "studio_db": "/Users/mbensass/ComfyUI-Installs/simo/ComfyUI/user/__openrouter_studio/jobs.sqlite3",
+  "read_at": "2026-10-05T22:10:12+00:00",
+  "studio_match": {
+    "local_job_id": "dfc33b8e-235f-42e9-a3aa-8c1ef319598d",
+    "provider_job_id": null,
+    "media_type": "image",
+    "model_id": "bytedance-seed/seedream-5-0-flash",
+    "status": "completed",
+    "created_at": "2026-10-05T22:09:33.424166+00:00",
+    "output_path": "/Users/mbensass/ComfyUI-Shared/output/openrouter_studio/20261005T220949Z-bytedance-seed-seedream-5-0-flash-52e3ad4b-1.jpg",
+    "estimated_cost": null,
+    "actual_cost": 0.018,
+    "error": null
+  },
+  "studio_lookup": {
+    "prompt_sha256": "00236f63ee980e216b9ba262b6e33aee8a47919ce1057bef3933c957fd107bd7",
+    "candidates": [
+      {
+        "local_job_id": "dfc33b8e-235f-42e9-a3aa-8c1ef319598d",
+        "provider_job_id": null,
+        "media_type": "image",
+        "model_id": "bytedance-seed/seedream-5-0-flash",
+        "status": "completed",
+        "created_at": "2026-10-05T22:09:33.424166+00:00",
+        "output_path": "/Users/mbensass/ComfyUI-Shared/output/openrouter_studio/20261005T220949Z-bytedance-seed-seedream-5-0-flash-52e3ad4b-1.jpg",
+        "estimated_cost": null,
+        "actual_cost": 0.018,
+        "error": null
+      }
+    ]
+  },
+  "tier": "preparation",
+  "model": "bytedance-seed/seedream-5-0-flash",
+  "attempt_number": 1,
+  "ordered_references": [
+    {
+      "role": "reference",
+      "uploaded_path": "la_pomme_cats_refexplore_char_003_9bf67e5fb35316a5.png",
+      "entity_id": "char_003",
+      "entity_type": "character",
+      "asset_path": "references/source-crops/cats/char_003-source-crop.png",
+      "sha256": "9bf67e5fb35316a52929c3652f6f59c6e4abe33f02b5655425459617c79d2d54"
+    },
+    {
+      "role": "reference",
+      "uploaded_path": "la_pomme_cats_refexplore_char_001_7e85faaddab814f5.png",
+      "entity_id": "char_001",
+      "entity_type": "character",
+      "asset_path": "art-direction/Homme fatigué dans un appartement nocturne.png",
+      "sha256": "7e85faaddab814f55012065755fc28d2651891567b642ad11053551d9aee1314"
+    }
+  ],
+  "estimated_cost_usd": 0.018,
+  "actual_cost_usd": "0.018"
+}

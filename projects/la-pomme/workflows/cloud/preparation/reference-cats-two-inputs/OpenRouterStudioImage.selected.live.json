@@ -1,0 +1,314 @@
+{
+  "id": "OpenRouterStudioImage",
+  "name": "OpenRouterStudioImage",
+  "display_name": "OpenRouter Studio · Image",
+  "description": "Generate or edit images through OpenRouter using your own key. Model-specific controls come from the live catalogue; vector SVG results are preserved and previewed.",
+  "category": "OpenRouter Studio/Image",
+  "output_types": [
+    "IMAGE",
+    "MASK",
+    "STRING",
+    "FLOAT"
+  ],
+  "output_node": false,
+  "is_api_node": false,
+  "deprecated": false,
+  "pack": "openrouter-studio",
+  "labels": [],
+  "cloud_disabled": false,
+  "inputs": [
+    {
+      "name": "model",
+      "type": "COMFY_DYNAMICCOMBO_V3",
+      "required": true,
+      "is_link": false,
+      "section": "required",
+      "choices": [],
+      "options": {
+        "min": null,
+        "max": null,
+        "step": null,
+        "default": null
+      },
+      "selection_keys": [
+        "bytedance-seed/seedream-5-0-flash"
+      ],
+      "dynamic_options": [
+        {
+          "key": "bytedance-seed/seedream-5-0-flash",
+          "inputs": [
+            {
+              "name": "model.prompt",
+              "type": "STRING",
+              "required": true,
+              "is_link": false,
+              "section": "required",
+              "choices": [],
+              "options": {
+                "min": null,
+                "max": null,
+                "step": null,
+                "default": ""
+              }
+            },
+            {
+              "name": "model.size",
+              "type": "STRING",
+              "required": true,
+              "is_link": false,
+              "section": "required",
+              "choices": [],
+              "options": {
+                "min": null,
+                "max": null,
+                "step": null,
+                "default": ""
+              }
+            },
+            {
+              "name": "model.resolution",
+              "type": "COMBO",
+              "required": true,
+              "is_link": false,
+              "section": "required",
+              "choices": [
+                "provider default",
+                "1K",
+                "2K"
+              ],
+              "options": {
+                "min": null,
+                "max": null,
+                "step": null,
+                "default": "provider default"
+              }
+            },
+            {
+              "name": "model.aspect_ratio",
+              "type": "COMBO",
+              "required": true,
+              "is_link": false,
+              "section": "required",
+              "choices": [
+                "provider default",
+                "1:1",
+                "1:2",
+                "2:1",
+                "2:3",
+                "3:2",
+                "3:4",
+                "4:3",
+                "4:5",
+                "5:4",
+                "9:16",
+                "16:9",
+                "9:19.5",
+                "19.5:9",
+                "9:20",
+                "20:9",
+                "9:21",
+                "21:9",
+                "auto"
+              ],
+              "options": {
+                "min": null,
+                "max": null,
+                "step": null,
+                "default": "provider default"
+              }
+            },
+            {
+              "name": "model.n",
+              "type": "INT",
+              "required": true,
+              "is_link": false,
+              "section": "required",
+              "choices": [],
+              "options": {
+                "min": 1,
+                "max": 1,
+                "step": 1,
+                "default": 1
+              }
+            },
+            {
+              "name": "model.seed",
+              "type": "INT",
+              "required": true,
+              "is_link": false,
+              "section": "required",
+              "choices": [],
+              "options": {
+                "min": -1,
+                "max": 2147483647,
+                "step": 1,
+                "default": -1
+              }
+            },
+            {
+              "name": "model.reference_images",
+              "type": "COMFY_AUTOGROW_V3",
+              "required": true,
+              "is_link": true,
+              "section": "required",
+              "choices": [],
+              "options": {
+                "min": null,
+                "max": null,
+                "step": null,
+                "default": null
+              },
+              "autogrow": true,
+              "element_type": "IMAGE",
+              "slots": {
+                "names": [
+                  "reference_1",
+                  "reference_2",
+                  "reference_3",
+                  "reference_4",
+                  "reference_5",
+                  "reference_6",
+                  "reference_7",
+                  "reference_8",
+                  "reference_9",
+                  "reference_10",
+                  "reference_11",
+                  "reference_12",
+                  "reference_13",
+                  "reference_14"
+                ],
+                "min": 0,
+                "max": 14
+              },
+              "wire_as": "model.reference_images.reference_1, model.reference_images.reference_2, …"
+            },
+            {
+              "name": "model.provider_options_json",
+              "type": "STRING",
+              "required": true,
+              "is_link": false,
+              "section": "required",
+              "choices": [],
+              "options": {
+                "min": null,
+                "max": null,
+                "step": null,
+                "default": ""
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "strict_validation",
+      "type": "BOOLEAN",
+      "required": true,
+      "is_link": false,
+      "section": "required",
+      "choices": [],
+      "options": {
+        "min": null,
+        "max": null,
+        "step": null,
+        "default": true
+      }
+    },
+    {
+      "name": "save_raw_artifacts",
+      "type": "BOOLEAN",
+      "required": true,
+      "is_link": false,
+      "section": "required",
+      "choices": [],
+      "options": {
+        "min": null,
+        "max": null,
+        "step": null,
+        "default": true
+      }
+    },
+    {
+      "name": "reference_max_megapixels",
+      "type": "FLOAT",
+      "required": true,
+      "is_link": false,
+      "section": "required",
+      "choices": [],
+      "options": {
+        "min": 1.0,
+        "max": 80.0,
+        "step": 1.0,
+        "default": 16.0
+      }
+    },
+    {
+      "name": "request_timeout_seconds",
+      "type": "INT",
+      "required": true,
+      "is_link": false,
+      "section": "required",
+      "choices": [],
+      "options": {
+        "min": 30,
+        "max": 3600,
+        "step": 30,
+        "default": 600
+      }
+    },
+    {
+      "name": "studio_reference_manifest",
+      "type": "STRING",
+      "required": true,
+      "is_link": false,
+      "section": "required",
+      "choices": [],
+      "options": {
+        "min": null,
+        "max": null,
+        "step": null,
+        "default": ""
+      }
+    },
+    {
+      "name": "rerun_nonce",
+      "type": "INT",
+      "required": true,
+      "is_link": false,
+      "section": "required",
+      "choices": [],
+      "options": {
+        "min": 0,
+        "max": 2147483647,
+        "step": 1,
+        "default": 0
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "name": "images",
+      "type": "IMAGE"
+    },
+    {
+      "name": "masks",
+      "type": "MASK"
+    },
+    {
+      "name": "local job id",
+      "type": "STRING"
+    },
+    {
+      "name": "metadata JSON",
+      "type": "STRING"
+    },
+    {
+      "name": "artifact paths JSON",
+      "type": "STRING"
+    },
+    {
+      "name": "actual cost USD",
+      "type": "FLOAT"
+    }
+  ]
+}

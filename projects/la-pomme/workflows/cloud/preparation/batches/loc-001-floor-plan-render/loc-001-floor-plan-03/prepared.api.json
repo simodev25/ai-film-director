@@ -1,0 +1,63 @@
+{
+  "110": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "la_pomme_locplan3_refexplore_loc_001_caf19cc6cc0cd2be.png"
+    },
+    "_meta": {
+      "title": "Reference 1 — own cat identity, approved source derivative"
+    }
+  },
+  "120": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "la_pomme_locplan3_refexplore_loc_001_3f20008515ce38fc.png"
+    },
+    "_meta": {
+      "title": "Reference 2 — approved adult portrait, graphic style only"
+    }
+  },
+  "200": {
+    "class_type": "OpenRouterStudioImage",
+    "inputs": {
+      "model": "bytedance-seed/seedream-5-0-flash",
+      "model.prompt": "Turn REFERENCE IMAGE 1, a flat schematic floor plan, into ONE finished illustrated\ntop-down floor plan of the same living room. Keep EXACTLY the layout of image 1:\nsame room outline, same wall openings, same position, size, shape and orientation\nof every piece of furniture. Do not move, rotate, resize, add or remove anything.\nCamera strictly vertical above the room (orthographic, ceiling removed): no\nperspective, no visible wall faces, walls shown as thick dark outlines from above.\n\nWhat each shape in image 1 is: blue band in the top wall = large floor-to-ceiling\nwindow with the two grey curtain bundles beside it; dark grey L-shape = dark grey\nfabric L-shaped sofa with cushions, its long section parallel to the window and its\nreturn along the left side; small brown square with yellow disc, top-left = side\ntable with a warm amber table lamp; green circle beside it = large potted plant;\ndark rectangle = dark patterned rug; brown rectangle on the rug = rectangular wooden\ncoffee table with a dark mug, a small bowl, a remote and a few books; long brown\nrectangle on the right wall = low wooden TV cabinet; thin black line with green edge\nin front of it = flat TV facing the sofa; tall brown rectangle top-right = bookshelf\nwith books; green circle bottom-right = small potted plant; small black bars on the\nleft and right walls = two framed pictures hanging on the walls; opening with door\narc, bottom-left = entrance door opening inward; small dark square bottom-left =\ncoat hook with a dark coat; tan floor = warm wooden parquet. Dashed bottom edge =\nplain wall. Add a knitted throw on the sofa's left section.\n\nREFERENCE IMAGE 2 is the same room seen in perspective: use it ONLY for materials,\ncolours and graphic style (fine visible contours, painterly faceted shading, dark\nolive night ambience, warm amber lamp glow, cool green TV glow), never for layout or\ncamera angle. Keep enough soft light for every object to stay readable.\nNo people, no animals, no text, labels, numbers, legend, arrows or watermark.",
+      "model.size": "",
+      "model.resolution": "1K",
+      "model.aspect_ratio": "1:1",
+      "model.n": 1,
+      "model.seed": -1,
+      "model.reference_images.reference_1": [
+        "110",
+        0
+      ],
+      "model.reference_images.reference_2": [
+        "120",
+        0
+      ],
+      "model.provider_options_json": "{\"only\":[\"seed\"],\"allow_fallbacks\":false,\"options\":{\"seed\":{}}}",
+      "strict_validation": true,
+      "save_raw_artifacts": true,
+      "reference_max_megapixels": 16.0,
+      "request_timeout_seconds": 600,
+      "studio_reference_manifest": "",
+      "rerun_nonce": 0
+    },
+    "_meta": {
+      "title": "PAID Seedream — two-reference project scaffold, no paid consent"
+    }
+  },
+  "300": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "200",
+        0
+      ],
+      "filename_prefix": "la-pomme/cloud/preparation/batches/loc-001-floor-plan-render/loc-001-floor-plan-03/attempt_04"
+    },
+    "_meta": {
+      "title": "One PNG sheet per job — exploratory illustration, not a shot"
+    }
+  }
+}

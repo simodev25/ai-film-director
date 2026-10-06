@@ -1,0 +1,53 @@
+{
+  "approved": true,
+  "scope": "paid_generation_job",
+  "approved_at": "2026-10-06",
+  "tier": "preparation",
+  "model": "bytedance-seed/seedream-5-0-flash",
+  "route": "/api/v1/images",
+  "project_id": "project_la_pomme",
+  "scope_sha256": "dd031ec32d48d8fc13f8c6399f9d5744c9e38e1dd18388d81b132a4839671c3d",
+  "job_kind": "reference_illustration",
+  "scene_id": null,
+  "shot_id": null,
+  "entity_id": "char_003",
+  "segment_id": null,
+  "prompt_id": "ref_char_003_turnaround_01",
+  "parameters": {
+    "resolution": "1K",
+    "aspect_ratio": "16:9"
+  },
+  "ordered_references": [
+    {
+      "role": "reference",
+      "uploaded_path": "la_pomme_cats_refexplore_char_003_9bf67e5fb35316a5.png",
+      "entity_id": "char_003",
+      "entity_type": "character",
+      "asset_path": "references/source-crops/cats/char_003-source-crop.png",
+      "sha256": "9bf67e5fb35316a52929c3652f6f59c6e4abe33f02b5655425459617c79d2d54"
+    },
+    {
+      "role": "reference",
+      "uploaded_path": "la_pomme_cats_refexplore_char_001_7e85faaddab814f5.png",
+      "entity_id": "char_001",
+      "entity_type": "character",
+      "asset_path": "art-direction/Homme fatigué dans un appartement nocturne.png",
+      "sha256": "7e85faaddab814f55012065755fc28d2651891567b642ad11053551d9aee1314"
+    }
+  ],
+  "count": 1,
+  "attempt_number": 1,
+  "estimated_cost_usd": 0.018,
+  "ceiling_usd": 0.02,
+  "workflow_sha256": "5438a7d3079ed9ea3d145b3a104f6ae0798f3f56115d6bdc40f69c0bd80d4221",
+  "plan_sha256": "f5f9d0aa4d5b3d121a12eb0df7c6f14ae01f7b101f2b2bcc70cdf550da7334ff",
+  "estimate_sha256": "4a49770e662e28f4117c739201b67cec34d0b4a3a4873c8859699b24cedde770",
+  "decision_sha256": "85cfb88b9d12223e02d86ac53571c37144a4158087d64a06ba53b94858d62b88",
+  "consent_reference": "ses_ef27d5cdcffefU62W3ufHMHm2L ; 2026-10-06 ; question: « Autorises-tu l’import local des références puis, si les deux workflows sont validés, ce lot de deux planches : tigré gris-brun et Persan crème, six vues par planche, Seedream 5.0 Flash en Préparation, 1K 16:9, une tentative par chat, coût total estimé 0,036 $ et plafond total 0,04 $ (0,02 $ par chat), sans reprise automatique ? » ; réponse utilisateur verbatim « Oui, lancer les deux » ; batch cats-reference-exploration ; job char-003-turnaround tentative 1 ; plan f5f9d0aa4d5b",
+  "consent_user_verbatim": "Oui, lancer les deux",
+  "consent_question": "Autorises-tu l’import local des références puis, si les deux workflows sont validés, ce lot de deux planches : tigré gris-brun et Persan crème, six vues par planche, Seedream 5.0 Flash en Préparation, 1K 16:9, une tentative par chat, coût total estimé 0,036 $ et plafond total 0,04 $ (0,02 $ par chat), sans reprise automatique ?",
+  "consent_bundle_ceiling_usd": 0.04,
+  "reference_scope": "exploratory",
+  "canonical_stage_completion": false,
+  "target_evidence_sha256": "d300ba7beac26ca6a07f47c5df4164e4327fb2433d2fbd7781a2e4a3763881a1"
+}

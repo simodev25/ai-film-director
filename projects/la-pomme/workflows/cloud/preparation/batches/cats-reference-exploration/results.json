@@ -1,0 +1,16 @@
+{
+  "jobs": [
+    {
+      "job_id": "char-002-turnaround",
+      "prompt_id": "aeb23bf4-e9c2-4c7b-b0dd-813cab974e2d",
+      "status": "completed",
+      "outputs": ["/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/references/generated/char_002/attempt-01/aeb23bf4_000.png"]
+    },
+    {
+      "job_id": "char-003-turnaround",
+      "prompt_id": "58df90d9-a037-499d-935c-0c967a505e06",
+      "status": "completed",
+      "outputs": ["/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/references/generated/char_003/attempt-01/58df90d9_000.png"]
+    }
+  ]
+}

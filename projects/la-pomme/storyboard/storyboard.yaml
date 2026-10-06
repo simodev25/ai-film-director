@@ -1,0 +1,298 @@
+# **APPROUVÉ** 2026-10-06 (« ok go »), ajustements plans 08/10 intégrés.
+# Storyboard — La Pomme.
+# Scène traitée : scene_001 uniquement (screenplay v2 approuvé : « oui c'est bon on passe au
+# storyboard de cette scène »). Planning seulement : aucune génération, aucun prompt de modèle,
+# aucun média, aucune dépense. Les shot_id/panel_id sont créés par cette étape (stables).
+# Art direction : art-direction/scene_001.md ; lecture humaine : storyboard/scene_001.md.
+# Le schéma n'a pas de champ durée : la durée prévue est écrite dans `camera` (grille 4/6/8 s).
+# Axe 180° : ligne porte d'entrée (bas gauche du plan) → TV (mur droit). Caméra toujours du
+# côté de la baie vitrée (haut du plan) : porte et Marc à droite du cadre, TV à gauche ;
+# vert TV depuis la gauche du cadre, ambre de la lampe depuis la droite/arrière-droite.
+# Chemins de référence relatifs à projects/la-pomme, tous présents dans
+# references/approved-references.yaml (ordre indiqué).
+storyboard_id: storyboard_la_pomme
+panels:
+  - panel_id: panel_001_01
+    scene_id: scene_001
+    shot_id: shot_001_01
+    composition: >-
+      Plan large extérieur, nuit, pluie. La grande baie vitrée du salon au centre du cadre
+      dans une façade sombre (façade non définie par les références : proposition minimale).
+      Pluie qui ruisselle sur la vitre, reflets de la ville sur le verre. À travers la vitre,
+      flou : dossier du canapé gris foncé au premier plan intérieur, lueur ambrée à droite
+      (lampe du coin arrière gauche du plan, juste au bord de l'ouverture), rideaux de chaque
+      côté. Pièce encore sombre, TV éteinte au mur gauche du cadre.
+    camera: >-
+      Durée 6 s. Avancée lente et régulière vers la vitre (un seul mouvement), caméra
+      extérieure en hauteur face à la baie, regard vers l'intérieur et vers l'entrée au fond.
+      Le plan s'arrête quand la baie occupe environ la moitié du cadre. Coupe franche.
+    characters: []
+    location_id: loc_001
+    action: >-
+      Aucune action humaine : la pluie tombe, la caméra s'approche. Les chats ne sont pas
+      lisibles à cette distance.
+    lighting: >-
+      Nuit vert-noir/olive. Reflets froids de la ville et de la pluie sur le verre ; îlot
+      ambré de la lampe à droite dans l'ouverture. TV éteinte. Aucun vert TV.
+    continuity: >-
+      Axe : caméra côté baie, regard vers l'entrée (porte au fond à droite du cadre, mur TV à
+      gauche). Plan au sol : references/schematic/loc_001/floor-plan-schematic-v2-clean.png
+      (ordre 10, vue top) et references/generated/loc_001/attempt-04-floor-plan/a14fa3fc_000.png
+      (ordre 11). Mobilier/lumière : art-direction/Unknown.png (ordre 8) et
+      references/generated/loc_001/attempt-01-angles/crops/panel-top-right.png (ordre 9),
+      vues prises du côté opposé (entrée) : apparence seulement, pas l'angle. Façade
+      extérieure : aucune référence approuvée. Son : pluie proche sur la vitre, ville lointaine.
+      Art direction : désirer le refuge chaud derrière la vitre froide.
+
+  - panel_id: panel_001_02
+    scene_id: scene_001
+    shot_id: shot_001_02
+    composition: >-
+      Nouveau cadrage, plus serré sur le même axe (raccord dans l'axe, pas une image chaînée) :
+      départ tout près de la vitre mouillée, gouttes nettes au premier plan. La caméra passe la
+      vitre et révèle le salon depuis le haut du plan : dossier du canapé en L en bas du cadre,
+      table basse en bois sur le tapis sombre au centre, retour du canapé à droite, meuble TV et
+      TV éteinte sur le mur gauche du cadre, bibliothèque proche à gauche. Au fond à droite, la
+      porte d'entrée s'ouvre vers l'intérieur (battant qui pivote vers nous, charnière côté
+      baie selon le plan) ; silhouette de Marc derrière le battant. Le tigré couché sur le
+      tapis, le Persan couché sur la section longue du canapé (côté gauche du cadre), immobiles.
+    camera: >-
+      Durée 6 s. Avancée lente continue qui traverse la vitre (un seul mouvement), finit juste
+      à l'intérieur au-dessus du dossier du canapé, regard vers l'entrée. Coupe franche.
+      RISQUE TECHNIQUE : traversée de vitre en vidéo (voir storyboard/scene_001.md).
+    characters:
+      - char_001
+      - char_002
+      - char_003
+    location_id: loc_001
+    action: >-
+      Une seule action à l'image : la porte d'entrée s'ouvre au fond à droite et la lumière du
+      couloir glisse sur le parquet. Marc n'est qu'une silhouette. Les chats ne bougent pas.
+    lighting: >-
+      Passage froid → chaud : gouttes éclairées par la ville, puis ambre de la lampe dans la
+      pièce. Rai de lumière faible et neutre du couloir au fond à droite (choix utilisateur : faible et neutre ; lumière
+      d'entrée non définie). TV éteinte.
+    continuity: >-
+      Même axe que panel_001_01 : porte à droite au fond, TV à gauche. Ouverture de porte vers
+      l'intérieur et porte-manteau dans le coin bas gauche du plan (ordre 10 :
+      references/schematic/loc_001/floor-plan-schematic-v2-clean.png). Pas de vue approuvée
+      depuis la baie : le mur de l'entrée n'est défini que par le plan au sol. Chats en
+      position de départ (tigré sur le tapis, Persan sur la section longue) ; identité :
+      references/generated/char_002/attempt-01/crops/lying.png (ordre 6) et
+      references/generated/char_003/attempt-01/crops/lying.png (ordre 7). Marc : silhouette,
+      references/generated/char_001/attempt-01/crops/front.png (ordre 4). Son : la pluie
+      s'étouffe au passage de la vitre ; serrure et porte au loin.
+
+  - panel_id: panel_001_03
+    scene_id: scene_001
+    shot_id: shot_001_03
+    composition: >-
+      Plan moyen large intérieur, depuis le côté baie vers l'entrée. Porte et porte-manteau à
+      droite du cadre, extrémité du retour du canapé en amorce à droite au premier plan, bord du
+      tapis à gauche. Marc en pied, costume anthracite, chemise gris clair col ouvert sans
+      cravate, chaussures noires, épaules basses.
+    camera: >-
+      Durée 4 s. Caméra fixe à hauteur d'épaule. On ne le suit pas : il entre dans le cadre.
+      Coupe franche.
+    characters:
+      - char_001
+    location_id: loc_001
+    action: >-
+      Marc sort de derrière le battant et repousse la porte derrière lui ; elle se ferme. Une
+      seule action : entrer en refermant. Il garde sa veste.
+    lighting: >-
+      Le rai du couloir se referme avec la porte ; reste l'ambre de la lampe (droite/arrière
+      droite) et la lueur froide de la ville. Visage à demi dans l'ombre.
+    continuity: >-
+      Marc entre en regardant vers la gauche du cadre (vers la pièce) : on voit son côté
+      gauche. Vue : references/generated/char_001/attempt-01/crops/left-three-quarter.png
+      (ordre 4), visage/tenue : art-direction/Homme fatigué dans un appartement nocturne.png
+      (ordre 1). Lieu : plan au sol ordre 10 (porte, porte-manteau). Chats hors champ, immobiles.
+      Son : porte qui se ferme (J-cut depuis le plan précédent), premiers pas sur le parquet.
+
+  - panel_id: panel_001_04
+    scene_id: scene_001
+    shot_id: shot_001_04
+    composition: >-
+      Plan bas, à hauteur de chat, sur le parquet près de l'entrée. Les jambes de Marc
+      (pantalon anthracite, chaussures noires) à droite du cadre, sans visage. Le tigré
+      gris-brun entre par la gauche du cadre depuis le tapis et se frotte contre ses tibias,
+      queue levée. Lames droites du parquet.
+    camera: >-
+      Durée 6 s. Caméra fixe au ras du sol. Coupe franche.
+    characters:
+      - char_001
+      - char_002
+    location_id: loc_001
+    action: >-
+      Le tigré (char_002), seul animal actif, quitte le tapis et vient se frotter contre les
+      jambes de Marc pour réclamer des caresses. Marc reste debout, immobile. Chat naturel.
+    lighting: >-
+      Ambre doux au sol depuis la droite/arrière, reflets froids de la pluie sur le parquet.
+    continuity: >-
+      Le chat va de gauche à droite (vers Marc) : il regarde vers la droite alors que les vues
+      approuvées regardent vers la gauche — s'en servir pour l'identité (rayures, couleur),
+      pas pour la pose ; ne pas miroiter (motif de pelage non symétrique). Vues :
+      references/generated/char_002/attempt-01/crops/pseudo-profile.png et
+      references/generated/char_002/attempt-01/crops/left-three-quarter.png (ordre 6). Marc :
+      chaussures/pantalon de references/generated/char_001/attempt-02-profile/4a1494bf_000.png
+      (ordre 5). Persan hors champ, immobile sur le canapé. Son : petit miaulement,
+      ronronnement, frottement du tissu.
+
+  - panel_id: panel_001_05
+    scene_id: scene_001
+    shot_id: shot_001_05
+    composition: >-
+      Plan bas, depuis le tapis côté mur TV, regard vers l'entrée. Extrémité de la section
+      longue du canapé à droite au premier plan, le Persan crème qui en descend. Au fond au
+      centre-droite, Marc debout (de dos à mi-corps ou jambes), le tigré assis immobile à ses pieds.
+    camera: >-
+      Durée 4 s. Caméra fixe, basse. Coupe franche.
+    characters:
+      - char_001
+      - char_002
+      - char_003
+    location_id: loc_001
+    action: >-
+      Le Persan (char_003), seul animal actif, descend du canapé sur le tapis et s'approche de
+      Marc en s'éloignant de la caméra ; il s'arrête à un mètre et s'assoit. Le tigré reste
+      assis, Marc ne bouge pas.
+    lighting: >-
+      Ambre de la lampe et lueur de la ville sur la fourrure crème ; fond dans la pénombre.
+    continuity: >-
+      Le Persan part couché sur la section longue (comme panel_001_02) et finit assis vers
+      Marc. Vues : references/generated/char_003/attempt-01/crops/back.png et
+      references/generated/char_003/attempt-01/crops/lying.png (ordre 7) ; tigré :
+      references/generated/char_002/attempt-01/crops/sitting.png (ordre 6). Un seul chat actif.
+      Lieu : plan au sol ordre 10. Son : atterrissage feutré des pattes, ronronnement lointain.
+
+  - panel_id: panel_001_06
+    scene_id: scene_001
+    shot_id: shot_001_06
+    composition: >-
+      Plan moyen (genoux-tête) depuis le côté baie. Marc avance vers la caméra, de la droite
+      vers le centre-gauche, regard droit devant, entre le retour du canapé et la table basse.
+      Les deux chats assis en bas du cadre, tête levée vers lui.
+    camera: >-
+      Durée 4 s. Caméra fixe à hauteur de taille ; il grandit dans le cadre. Coupe franche.
+    characters:
+      - char_001
+      - char_002
+      - char_003
+    location_id: loc_001
+    action: >-
+      Marc passe à côté des chats sans se pencher ni les regarder. Il est le seul sujet actif ;
+      les chats restent assis (au plus une tête qui le suit).
+    lighting: >-
+      Ambre de côté (droite du cadre), visage à moitié dans l'ombre ; TV encore éteinte.
+    continuity: >-
+      Marc regarde vers la gauche/la caméra : côté gauche visible. Vues :
+      references/generated/char_001/attempt-01/crops/front.png et
+      references/generated/char_001/attempt-01/crops/left-three-quarter.png (ordre 4). Chats :
+      references/generated/char_002/attempt-01/crops/sitting.png (ordre 6),
+      references/generated/char_003/attempt-01/crops/sitting.png (ordre 7). Positions issues de
+      panel_001_04/05. Son : pas sur le parquet ; un miaulement sans réponse prolongé (L-cut).
+
+  - panel_id: panel_001_07
+    scene_id: scene_001
+    shot_id: shot_001_07
+    composition: >-
+      Plan moyen depuis le côté baie, vers le mur gauche du plan. Le retour du canapé gris foncé
+      (assise tournée vers la TV, donc vers la gauche du cadre), plaid, lampe ambrée et plante
+      dans le coin à droite à l'arrière, tableau au mur. Marc se laisse tomber assis.
+    camera: >-
+      Durée 4 s. Caméra fixe. Coupe franche.
+    characters:
+      - char_001
+    location_id: loc_001
+    action: >-
+      Marc se laisse tomber lourdement sur le retour du canapé, face à la TV, et garde sa veste.
+    lighting: >-
+      Ambre de la lampe derrière lui (droite du cadre), ville froide en appoint ; TV éteinte.
+    continuity: >-
+      Assise du retour orientée vers la TV (gauche du cadre). Vue Marc :
+      references/generated/char_001/attempt-01/crops/left-three-quarter.png (ordre 4). Lieu :
+      references/generated/loc_001/attempt-01-angles/crops/panel-top-left.png (ordre 9) pour
+      canapé, lampe, plante et tableau (vu de l'autre côté : apparence seulement) et plan au sol
+      ordre 10. Chats hors champ, au sol, à distance. Son : chute sur les coussins, expiration.
+
+  - panel_id: panel_001_08
+    scene_id: scene_001
+    shot_id: shot_001_08
+    composition: >-
+      Choix utilisateur 2026-10-06 : « c'est luit qui va alumer la la TV ». Plan moyen large,
+      caméra en hauteur derrière la partie longue du canapé, côté baie : Marc assis sur le
+      retour à droite du cadre, la table basse au centre, la TV éteinte sur son meuble à gauche
+      du cadre. On voit clairement que c'est lui qui allume.
+    camera: >-
+      Durée 4 s. Caméra fixe, légère plongée, focale assez large pour tenir Marc et la TV.
+      Coupe franche.
+    characters:
+      - char_001
+    location_id: loc_001
+    action: >-
+      Marc se penche, prend la télécommande sur la table, la pointe vers la TV et appuie :
+      l'écran s'allume. Un seul geste continu.
+    lighting: >-
+      Avant : ambre doux de la lampe, TV noire. Au clic : la lumière verte froide de l'écran
+      part de la gauche du cadre et vient sur Marc et la table ; l'ambre reste à droite.
+    continuity: >-
+      Marc trois-quarts gauche : references/generated/char_001/attempt-01/crops/left-three-quarter.png
+      (ordre 4). Salon : references/generated/loc_001/attempt-01-angles/crops/panel-bottom-left.png
+      (ordre 9) ; positions selon les plans ordres 10 et 11. Objets de la table : mug, bol,
+      livres, télécommande ; aucun nouvel objet. Son : clic, grésillement, TV qui démarre.
+
+  - panel_id: panel_001_09
+    scene_id: scene_001
+    shot_id: shot_001_09
+    composition: >-
+      Plan rapproché poitrine de Marc assis, visage de trois-quarts tourné vers la gauche du
+      cadre (vers la TV hors champ). Dossier gris foncé derrière lui, lueur ambrée floue à droite.
+    camera: >-
+      Durée 4 s. Caméra fixe. Coupe franche.
+    characters:
+      - char_001
+    location_id: loc_001
+    action: >-
+      Marc regarde l'écran, immobile ; seul le reflet de l'image TV bouge sur son visage.
+    lighting: >-
+      Visage partagé : vert froid côté gauche du cadre (TV), ambre en arrière-droite (lampe).
+      Peau légèrement chaude, pas entièrement verte.
+    continuity: >-
+      Vues : references/generated/char_001/attempt-01/crops/left-three-quarter.png (ordre 4) et
+      art-direction/Homme fatigué dans un appartement nocturne.png (ordre 1) pour le visage,
+      cernes, barbe, cheveux. Contenu TV non visible (seulement sa lumière). Son : fiction TV
+      étouffée façon années 90, voix sans mots compréhensibles, pluie douce.
+
+  - panel_id: panel_001_10
+    scene_id: scene_001
+    shot_id: shot_001_10
+    composition: >-
+      Choix utilisateur 2026-10-06 : « la caemra derire luit ver la tv » et « les chats sont
+      actoté ». Plan de dos, caméra derrière Marc au-dessus du dossier du retour du canapé,
+      regard vers la TV du mur droit. Premier plan : arrière de sa tête et ses épaules en
+      costume, découpés par l'écran. Les chats sont à côté de lui : le tigré couché en boule
+      sur l'assise à sa droite, contre lui ; le Persan couché sur le tapis à ses pieds. Fond :
+      TV allumée sur le long meuble bas, fiction originale années 90 floue ; tableau au-dessus
+      du meuble, bibliothèque en bord de cadre.
+    camera: >-
+      Durée 6 s. Caméra fixe, légèrement au-dessus de l'épaule, derrière le canapé. Fin de scène.
+      Changement d'axe assumé : caméra sur la ligne Marc–TV, derrière lui.
+    characters:
+      - char_001
+      - char_002
+      - char_003
+    location_id: loc_001
+    action: >-
+      Calme. Marc reste immobile face à la TV, sans regarder les chats ; malgré son
+      indifférence, ils sont venus se poser contre lui. Seule l'image de la TV bouge.
+    lighting: >-
+      Contre-jour vert froid de l'écran qui découpe Marc et les chats ; ambre de la lampe sur
+      le côté gauche du cadre ; reflets de pluie faibles venant de la baie.
+    continuity: >-
+      Dos de Marc : references/generated/char_001/attempt-01/crops/back.png (ordre 4).
+      Chats : references/generated/char_002/attempt-01/crops/lying.png (ordre 6),
+      references/generated/char_003/attempt-01/crops/lying.png (ordre 7). Lieu : aucun angle
+      approuvé depuis derrière le canapé — positions d'après les plans ordres 10 et 11.
+      Ellipse : entre les plans 06 et 10, les chats l'ont rejoint hors champ. TV : fiction
+      originale. Son : TV étouffée, pluie douce, ronronnement léger.

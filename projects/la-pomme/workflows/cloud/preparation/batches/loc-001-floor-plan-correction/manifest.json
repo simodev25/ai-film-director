@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "batch": "loc-001-floor-plan-correction",
+  "project": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme",
+  "project_id": "project_la_pomme",
+  "tier": "preparation",
+  "scope": {
+    "scene_ids": [],
+    "entity_ids": [
+      "loc_001"
+    ]
+  },
+  "scope_sha256": "58c5826f9fdf287ed68412b722bf4879a41b2e1197ca1ad91c32bdef51129e90",
+  "batch_file_sha256": "03f278c36b314060da63328db339094332c51cedd7f45693cdc2b43755086b8a",
+  "prepared_at": "2026-10-06T07:48:28+00:00",
+  "generation_tested": false,
+  "jobs": [
+    {
+      "job_id": "loc-001-floor-plan-02",
+      "modality": "image",
+      "job_dir": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/workflows/cloud/preparation/batches/loc-001-floor-plan-correction/loc-001-floor-plan-02",
+      "attempt_number": 3,
+      "estimated_cost_usd": 0.018,
+      "uploads": [
+        {
+          "order": 1,
+          "role": "reference",
+          "entity_id": "loc_001",
+          "asset_path": "references/generated/loc_001/attempt-01-angles/crops/panel-top-right.png",
+          "sha256": "3f20008515ce38fcb64ce5b687c4e4c02f1bf75e022b9d66f81e7627c4ecc486",
+          "uploaded_path": "la_pomme_locplan_refexplore_loc_001_3f20008515ce38fc.png",
+          "staged_file": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/workflows/cloud/preparation/batches/loc-001-floor-plan-correction/uploads/la_pomme_locplan_refexplore_loc_001_3f20008515ce38fc.png"
+        },
+        {
+          "order": 2,
+          "role": "reference",
+          "entity_id": "loc_001",
+          "asset_path": "references/generated/loc_001/attempt-01-angles/crops/panel-bottom-left.png",
+          "sha256": "ea80a9ec1bafa43c2573fb0ed86af114ac1c3b9428f5ec1cdb249802b240161d",
+          "uploaded_path": "la_pomme_locplan_refexplore_loc_001_ea80a9ec1bafa43c.png",
+          "staged_file": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/workflows/cloud/preparation/batches/loc-001-floor-plan-correction/uploads/la_pomme_locplan_refexplore_loc_001_ea80a9ec1bafa43c.png"
+        }
+      ],
+      "plan_sha256": "91b192990de8137ef4500ada6914484517b462021db3e399e4581b8a93279984",
+      "status": "prepared",
+      "prepared": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/workflows/cloud/preparation/batches/loc-001-floor-plan-correction/loc-001-floor-plan-02/prepared.api.json",
+      "prepared_file_sha256": "ed2af0a83d2791de4406203eda90f07888301636da80ebb4fbe74465e202731f",
+      "workflow_sha256": "5b26075a92864a87f38b5aa9ddcfdabcc35e66a4047146abe73fe147d2bed632"
+    }
+  ]
+}

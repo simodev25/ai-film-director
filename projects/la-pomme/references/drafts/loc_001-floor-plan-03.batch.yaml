@@ -1,0 +1,37 @@
+version: 1
+name: loc-001-floor-plan-render
+tier: preparation
+pricing_checked_at: '2026-10-05'
+upload_prefix: la_pomme_locplan3_refexplore
+scope:
+  scene_ids: []
+  entity_ids: [loc_001]
+templates:
+  image:
+    graph: workflows/cloud/preparation/reference-cats-two-inputs/scaffold.api.json
+    bindings: workflows/cloud/preparation/reference-cats-two-inputs/bindings.json
+node_catalogs:
+  image: workflows/cloud/preparation/reference-cats-two-inputs/node-catalog.selected.live.json
+jobs:
+  - job_id: loc-001-floor-plan-03
+    modality: image
+    model: bytedance-seed/seedream-5-0-flash
+    job_kind: reference_illustration
+    reference_scope: exploratory
+    entity_type: location
+    entity_id: loc_001
+    prompt_file: references/drafts/loc_001-floor-plan-03.prompt.yaml
+    prompt_key: prompt
+    prompt_id: ref_loc_001_floor_plan_03
+    parameters: {resolution: 1K, aspect_ratio: '1:1'}
+    references:
+      - asset: references/schematic/loc_001/floor-plan-schematic-v2-clean.png
+        sha256: caf19cc6cc0cd2be30ad6d50b04ed79aac69aadafb9bb1deb7cd0f8a504ea9e3
+        role: reference
+        entity_id: loc_001
+        entity_type: location
+      - asset: references/generated/loc_001/attempt-01-angles/crops/panel-top-right.png
+        sha256: 3f20008515ce38fcb64ce5b687c4e4c02f1bf75e022b9d66f81e7627c4ecc486
+        role: reference
+        entity_id: loc_001
+        entity_type: location

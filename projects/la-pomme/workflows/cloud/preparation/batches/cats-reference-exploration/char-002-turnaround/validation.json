@@ -1,0 +1,15 @@
+{
+  "workflow": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/workflows/cloud/preparation/batches/cats-reference-exploration/char-002-turnaround/prepared.api.json",
+  "valid": true,
+  "error_count": 0,
+  "warning_count": 0,
+  "errors": [],
+  "warnings": [],
+  "partner_nodes": [],
+  "spends_credits": false,
+  "object_info_source": {
+    "mode": "local",
+    "host": "127.0.0.1",
+    "port": 8188
+  }
+}

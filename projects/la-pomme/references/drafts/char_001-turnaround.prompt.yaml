@@ -1,0 +1,95 @@
+# Exploratory reference prompt, not a canonical character sheet or shot prompt.
+# The future project adapter consumes the top-level dotted key: prompt.
+status: draft_planning_only
+prompt_id: ref_char_001_turnaround_exploration_01
+project_id: project_la_pomme
+entity_id: char_001
+entity_type: character
+variant: adult
+job_kind: reference_illustration
+sheet_type: exploratory_turnaround
+prompt: |-
+  Create ONE landscape character turnaround image of the exact same adult man
+  shown in the supplied reference portrait, repeated in exactly FOUR full-body
+  views arranged in a single horizontal row. From LEFT TO RIGHT, the views are:
+  FRONT facing the viewer; LEFT THREE-QUARTER with his anatomical left side
+  visible and his nose pointing toward image-left; LEFT PROFILE showing his
+  anatomical left side, nose pointing toward image-left; BACK facing away.
+  These view names are instructions only: do not print any words in the image.
+
+  All four figures must be the SAME individual, not variations or different men.
+  Match the portrait's angular adult face, jaw and nose structure, tired eyes and
+  under-eye shadows, dark-brown short tousled hair with irregular locks, and
+  short beard/stubble. Preserve the apparent adult age and natural proportions
+  of the reference without assigning an exact age, ethnicity, numerical height,
+  or new exact iris colour. Keep fatigue visible without caricature. Do not
+  beautify, rejuvenate, smooth away the under-eye shadows, groom the hair into a
+  different hairstyle, add muscular bulk, or turn him into a fashion model.
+
+  In every view retain the same anthracite suit jacket and matching trousers,
+  light-grey shirt with open collar, no tie, and the visible waist/belt treatment
+  of the portrait. Preserve the visible jacket cut, shirt opening, restrained
+  fabric folds and clothing colours; do not replace the shirt with ivory or
+  white, or turn the suit green. For the unseen lower legs and feet, use a
+  restrained exploratory completion: trousers continuing the same anthracite
+  fabric and simple matte-black dress shoes, identical in all four views, with
+  no conspicuous branding or decorative additions. The shoes and unseen
+  tailoring are NEW visual proposals, not details established by the portrait.
+
+  Neutral standing comparison pose in each view: feet comfortably planted,
+  arms relaxed beside the body with hands visible and empty, shoulders relaxed,
+  head aligned with the view, subdued neutral expression. Do not copy the
+  leaning doorway pose, pocketed hand, or downward head tilt from the portrait.
+  Keep all four figures at the same drawn scale with head tops and soles aligned,
+  equal spacing, clear separation, and enough margin above the hair and below
+  both shoes. Show complete bodies from hair to soles without cropping or
+  overlap. Use a consistent eye-level, low-distortion comparison presentation.
+
+  Match the reference's realistic-proportion semi-anime drawn rendering: fine
+  visible dark contours, restrained painterly cel facets and natural anatomical
+  volumes, not a photograph, plastic 3D render or chibi. Retain the muted
+  Matrix-influenced olive/charcoal graphic sensibility subtly in the painted
+  shadow treatment, without recolouring the clothing or washing the skin green.
+  Place the figures on a uniform plain NEUTRAL GREY background with soft,
+  diffuse, even illumination identical across all four views. Make the face,
+  beard, jacket, shirt, hands and trousers clearly readable for comparison,
+  including dark fabric detail. Do not copy the portrait's dramatic nocturnal
+  lighting, amber rim light, deep black shadows, doorway, apartment, furniture,
+  windows or city background. No scene, narrative action, cats, extra people,
+  props, new accessories, text, labels, borders, panel dividers or watermark.
+references:
+  - order: 1
+    entity_id: char_001
+    entity_type: character
+    path: 'art-direction/Homme fatigué dans un appartement nocturne.png'
+    sha256: 7e85faaddab814f55012065755fc28d2651891567b642ad11053551d9aee1314
+    role: approved_adult_identity_and_graphic_style_source_only
+reference_path_base: projects/la-pomme
+future_generation:
+  tier: preparation
+  image_model: bytedance-seed/seedream-5-0-flash
+  route: comfyui_project_adapter_via_comfy_mcp
+  resolution: 1K
+  aspect_ratio: '16:9'
+  output_image_count: 1
+  planned_attempt_count: 1
+  views_in_single_output: [front, left_three_quarter, left_profile, back]
+  configured_estimate_usd: 0.018
+  configured_reference_estimate_usd: 0.0
+  pricing_source: config/cloud-tiers.yaml
+  pricing_checked_at: '2026-10-05'
+  actual_cost_usd: null
+  execution_readiness: not_established_by_this_draft
+visual_proposals_not_approved:
+  - Simple matte-black dress shoes; feet are outside the source portrait.
+  - Unseen lower-trouser cut and rear garment construction consistent with the visible suit.
+  - Unseen back/head anatomy and complete-body proportions inferred only for this exploratory image.
+  - Neutral standing pose, visible empty hands and diffuse comparison lighting.
+scope_limits:
+  - No image generated, submitted or generation-tested; no automatic retry.
+  - No seed is explicitly set; no 2K upgrade, model substitution or legacy dialect.
+  - No shot or scene linkage; one entity-linked reference illustration, not four calls or shot renders.
+  - No canonical character-stage advance, child design, expression sheet or additional outfit image.
+  - No approval, registry, story, project or budget modification.
+  - Future paid execution requires technical adaptation, budget review and explicit job/batch consent.
+  - Draft YAML is not claimed valid against the shot image-prompt schema; adapted cloud-job schema is the future execution authority.

@@ -1,0 +1,93 @@
+{
+  "id": "LoadImage",
+  "name": "LoadImage",
+  "display_name": "Load Image",
+  "description": "",
+  "category": "image",
+  "output_types": [
+    "IMAGE",
+    "MASK"
+  ],
+  "output_node": false,
+  "is_api_node": false,
+  "deprecated": false,
+  "pack": "core",
+  "labels": [],
+  "cloud_disabled": false,
+  "inputs": [
+    {
+      "name": "image",
+      "type": "COMBO",
+      "required": true,
+      "is_link": false,
+      "section": "required",
+      "choices": [
+        "clipspace-mask-1791129234566.png",
+        "clipspace-paint-1791129234566.png",
+        "clipspace-painted-1791129234566.png",
+        "clipspace-painted-masked-1791129234566.png",
+        "la_pomme_cats_refexplore_char_001_7e85faaddab814f5.png",
+        "la_pomme_cats_refexplore_char_002_5245c6f54dcd1bc2.png",
+        "la_pomme_cats_refexplore_char_003_9bf67e5fb35316a5.png",
+        "la_pomme_char_marc_043f7f34972d0acc.png",
+        "la_pomme_char_marc_4a4cb168bcb14178.png",
+        "la_pomme_char_marc_db47e8b9ec3f20e7.png",
+        "la_pomme_char_miette_845e13abb7cdea45.png",
+        "la_pomme_char_nox_1cce96df6a9d26cc.png",
+        "la_pomme_clip_la_pomme_01_01_a_last_60eb1e5d71611893.png",
+        "la_pomme_clip_la_pomme_01_03_a_last_ebadeceb7cce13e5.png",
+        "la_pomme_clip_la_pomme_01_04_a_last_04cbcdfbc52189e8.png",
+        "la_pomme_kf_01_05_d9b2a026638159ea.png",
+        "la_pomme_kf_01_06_9415ef5135e36b7a.png",
+        "la_pomme_kf_01_07_9561aa970236bcbf.png",
+        "la_pomme_kf_01_08_d2d7cc6859c78f6b.png",
+        "la_pomme_kf_01_09_285fcfb9d063aa8d.png",
+        "la_pomme_kf_01_10_4b2d364c546698b2.png",
+        "la_pomme_kf_01_11_fbe7e3667cefa604.png",
+        "la_pomme_kf_01_12_e693629498d6d77b.png",
+        "la_pomme_kf_01_13_012e8faa77ac6ac5.png",
+        "la_pomme_loc_gare_film_1994_e693629498d6d77b.png",
+        "la_pomme_loc_refexplore_loc_001_e7f162790e20fa40.png",
+        "la_pomme_loc_salon_2026_5b25afa70f230557.png",
+        "la_pomme_marc_hairstyle_ref_e9125225_36955debe1c56fbb_ses_ef7185bc.png",
+        "la_pomme_nb2kf_05_e39e757b6cc0b12d.png",
+        "la_pomme_nb2kf_06_27fccb0bc2f979d5.png",
+        "la_pomme_nb2kf_07_8cd4033580b8f85e.png",
+        "la_pomme_nb2kf_08_bbabfed47009348d.png",
+        "la_pomme_nb2kf_09_f9e8427df1c4aa24.png",
+        "la_pomme_nb2kf_10_925f211a6e408b3d.png",
+        "la_pomme_nb2kf_11_45713899157fedaf.png",
+        "la_pomme_nb2kf_12_833e4f14c3ffec63.png",
+        "la_pomme_nb2kf_13_b730c29cbf3169ef.png",
+        "la_pomme_reference_83507e5b6a4bf40e.png",
+        "la_pomme_refexplore_char_001_7e85faaddab814f5.png",
+        "la_pomme_scene01_char_marc_db47e8b9ec3f20e7_20261005T122621Z.png",
+        "la_pomme_scene01_char_miette_845e13abb7cdea45_20261005T122621Z.png",
+        "la_pomme_scene01_char_nox_1cce96df6a9d26cc_20261005T122621Z.png",
+        "la_pomme_scene01_loc_salon_2026_5b25afa70f230557_20261005T122621Z.png",
+        "la_pomme_video_K1_8671a54422a7714f_ef7185bc.png",
+        "la_pomme_video_K2_a08a72012e42541e_ef7185bc.png",
+        "la_pomme_video_K3_fa4222d537cdb558_ef7185bc.png",
+        "la_pomme_video_K4_5a7b0529f8c29c49_ef7185bc.png",
+        "painter-694-1791126090946.png",
+        "teslfsklg_Detailed_and_realistic_portrait_of_ichigo_kurosaki_ba_b284c36c-16e8-44d6-bdc6-1cc6b463db62.png"
+      ],
+      "options": {
+        "min": null,
+        "max": null,
+        "step": null,
+        "default": null
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "name": "IMAGE",
+      "type": "IMAGE"
+    },
+    {
+      "name": "MASK",
+      "type": "MASK"
+    }
+  ]
+}

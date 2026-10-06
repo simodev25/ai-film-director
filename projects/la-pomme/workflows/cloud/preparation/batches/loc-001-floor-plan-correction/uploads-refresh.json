@@ -1,0 +1,18 @@
+{
+  "refreshed_at": "2026-10-06T07:48:28+00:00",
+  "descriptor_source": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/workflows/cloud/preparation/batches/loc-001-floor-plan-correction/live-descriptors/LoadImage.json",
+  "descriptor_source_sha256": "bb88d4043fa1b6e8d9e86536f81475488c14470890fe5827302fb85e00d37213",
+  "choices_from": null,
+  "batch_uploads": [
+    "la_pomme_locplan_refexplore_loc_001_3f20008515ce38fc.png",
+    "la_pomme_locplan_refexplore_loc_001_ea80a9ec1bafa43c.png"
+  ],
+  "already_in_live_choices": [
+    "la_pomme_locplan_refexplore_loc_001_3f20008515ce38fc.png",
+    "la_pomme_locplan_refexplore_loc_001_ea80a9ec1bafa43c.png"
+  ],
+  "added_from_upload_evidence": [],
+  "ignored_non_batch_names": [],
+  "still_missing": [],
+  "note": "Live validate_workflow on each prepared graph remains the authority."
+}

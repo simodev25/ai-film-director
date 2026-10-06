@@ -1,0 +1,45 @@
+{
+  "approved": true,
+  "scope": "paid_generation_job",
+  "approved_at": "2026-10-06",
+  "tier": "preparation",
+  "model": "bytedance-seed/seedream-5-0-flash",
+  "route": "/api/v1/images",
+  "project_id": "project_la_pomme",
+  "scope_sha256": "58c5826f9fdf287ed68412b722bf4879a41b2e1197ca1ad91c32bdef51129e90",
+  "job_kind": "reference_illustration",
+  "scene_id": null,
+  "shot_id": null,
+  "entity_id": "loc_001",
+  "segment_id": null,
+  "prompt_id": "ref_loc_001_angles_01",
+  "parameters": {
+    "resolution": "1K",
+    "aspect_ratio": "16:9"
+  },
+  "ordered_references": [
+    {
+      "role": "reference",
+      "uploaded_path": "la_pomme_loc_refexplore_loc_001_e7f162790e20fa40.png",
+      "entity_id": "loc_001",
+      "entity_type": "location",
+      "asset_path": "art-direction/Unknown.png",
+      "sha256": "e7f162790e20fa4079a1f638eb6c87495834c5254869f0ef7f5df885d42c3d7f"
+    }
+  ],
+  "count": 1,
+  "attempt_number": 1,
+  "estimated_cost_usd": 0.018,
+  "ceiling_usd": 0.02,
+  "workflow_sha256": "ca553b35b7818c929d0910dd2d9d393ec7adc0f6a8f873cc9b4f32df124b0093",
+  "plan_sha256": "b282f3dd5d9a4792eb4b0e50b9f5246cb7b8adb3d03da855a7e576f54cb7b241",
+  "estimate_sha256": "48e8433f650308fd94518d6f561610db998e7ff95542f6c76d3865bd2abd37d2",
+  "decision_sha256": "4c9986d73a483940f63389035b27aeec3b633736dd1ae9f17000a1d97df235c2",
+  "consent_reference": "ses_ef27d5cdcffefU62W3ufHMHm2L ; 2026-10-06 ; question: « Autorises-tu l'import local de l'image du salon puis, si les deux workflows sont validés, ce lot de deux images du salon (loc_001) : planche quatre angles et plan vu de dessus, Seedream 5.0 Flash en Préparation, 1K 16:9, une tentative chacune, coût total estimé 0,036 $ et plafond total 0,04 $ (0,02 $ par image), sans reprise automatique ? » ; réponse utilisateur verbatim « Oui, lancer les deux » ; batch loc-001-reference-exploration ; job loc-001-angles tentative 1 ; plan b282f3dd5d9a",
+  "consent_user_verbatim": "Oui, lancer les deux",
+  "consent_question": "Autorises-tu l'import local de l'image du salon puis, si les deux workflows sont validés, ce lot de deux images du salon (loc_001) : planche quatre angles et plan vu de dessus, Seedream 5.0 Flash en Préparation, 1K 16:9, une tentative chacune, coût total estimé 0,036 $ et plafond total 0,04 $ (0,02 $ par image), sans reprise automatique ?",
+  "consent_bundle_ceiling_usd": 0.04,
+  "reference_scope": "exploratory",
+  "canonical_stage_completion": false,
+  "target_evidence_sha256": "af3937fcfac028e8fd649de6a69537105e493f0dd739658e6ce250f6f41d632d"
+}

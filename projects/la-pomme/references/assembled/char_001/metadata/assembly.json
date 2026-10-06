@@ -1,0 +1,130 @@
+{
+  "metadata_kind": "local_derived_reference_assembly_not_generation_manifest",
+  "project_id": "project_la_pomme",
+  "entity_id": "char_001",
+  "variant": "adult",
+  "assembled_at": "2026-10-05",
+  "path_base": "projects/la-pomme",
+  "local_assembly_authorization": {
+    "consent_verbatim": "oui",
+    "question_verbatim": "Tu valides ce profil pour compléter les références de l’homme ? Après ton accord, je pourrai réunir les quatre vues localement, sans nouvelle génération payante.",
+    "session_id": "ses_ef27d5cdcffefU62W3ufHMHm2L",
+    "scope": "approved_native_profile_and_local_assembly_only_not_spend_consent"
+  },
+  "composite_direct_user_approval": {
+    "status": "not_yet_presented_no_direct_approval_claimed",
+    "registered_as_approved_reference": false
+  },
+  "output": {
+    "path": "references/assembled/char_001/adult-turnaround.png",
+    "sha256": "9719f94ac50ca74b202341f29d1e098f1c9f1561150c0209975a678d395b1801",
+    "dimensions": [1280, 720],
+    "mode": "RGB",
+    "layout_left_to_right": ["front", "left_three_quarter", "left_profile", "back"],
+    "panel_dimensions": [320, 720],
+    "tool": "existing_Pillow_local_only",
+    "new_model_generation": false,
+    "stretch": false,
+    "recolor": false,
+    "relight": false
+  },
+  "panels": [
+    {
+      "view": "front",
+      "destination_box": [0, 0, 320, 720],
+      "source": {
+        "path": "references/generated/char_001/attempt-01/crops/front.png",
+        "sha256": "b476d09210ae02681be1fa35eb67de44350ff031697e2cf4fe5cf3549435c4a2",
+        "dimensions": [320, 720],
+        "approved_parent_registry_order": 4,
+        "parent_path": "references/generated/char_001/attempt-01/fbe7c67f_000.png",
+        "parent_sha256": "06d3c347e907508d69885257b08d222c465525bdacea7a993052077a3d6ea4dd",
+        "box_in_parent": [0, 0, 320, 720]
+      },
+      "transform": {"operation": "paste_existing_crop", "pixel_identical": true}
+    },
+    {
+      "view": "left_three_quarter",
+      "destination_box": [320, 0, 640, 720],
+      "source": {
+        "path": "references/generated/char_001/attempt-01/crops/left-three-quarter.png",
+        "sha256": "9269ab7400fb3d073bfdaf3ade5be30b92efeb25279fd1fa709f70cd3d51e0ba",
+        "dimensions": [320, 720],
+        "approved_parent_registry_order": 4,
+        "parent_path": "references/generated/char_001/attempt-01/fbe7c67f_000.png",
+        "parent_sha256": "06d3c347e907508d69885257b08d222c465525bdacea7a993052077a3d6ea4dd",
+        "box_in_parent": [320, 0, 640, 720]
+      },
+      "transform": {"operation": "paste_existing_crop", "pixel_identical": true}
+    },
+    {
+      "view": "left_profile",
+      "destination_box": [640, 0, 960, 720],
+      "source": {
+        "path": "references/generated/char_001/attempt-02-profile/4a1494bf_000.png",
+        "sha256": "4e5ccd3a03574eeec15c93f9d4841f599a1c239b7f33d74dac1346a1252150ac",
+        "dimensions": [720, 1280],
+        "approved_registry_order": 5,
+        "source_box": [0, 0, 720, 1280]
+      },
+      "transform": {
+        "operation": "proportional_resize_then_horizontal_center_crop_then_paste",
+        "scale_x": 0.5625,
+        "scale_y": 0.5625,
+        "resized_dimensions": [405, 720],
+        "resampling": "LANCZOS",
+        "box_in_resized_image": [42, 0, 362, 720],
+        "removed_left_background_columns": 42,
+        "removed_right_background_columns": 43,
+        "body_hair_feet_not_cut": "visually_checked_after_assembly",
+        "stretch": false
+      },
+      "derived_panel": {
+        "path": "references/assembled/char_001/profile-panel.png",
+        "sha256": "f958bf1a91f8c4c3586c7d5555d15da60ce2b7179998a815c6246868febfd208",
+        "dimensions": [320, 720],
+        "independent_user_approval_claimed": false
+      },
+      "preferred_isolated_conditioning_asset": "references/generated/char_001/attempt-02-profile/4a1494bf_000.png"
+    },
+    {
+      "view": "back",
+      "destination_box": [960, 0, 1280, 720],
+      "source": {
+        "path": "references/generated/char_001/attempt-01/crops/back.png",
+        "sha256": "0d63ae9fdc4080e2f9efa9cff1394fd2495b7b227b7c4031da515c85a2b65e4e",
+        "dimensions": [320, 720],
+        "approved_parent_registry_order": 4,
+        "parent_path": "references/generated/char_001/attempt-01/fbe7c67f_000.png",
+        "parent_sha256": "06d3c347e907508d69885257b08d222c465525bdacea7a993052077a3d6ea4dd",
+        "box_in_parent": [960, 0, 1280, 720]
+      },
+      "transform": {"operation": "paste_existing_crop", "pixel_identical": true}
+    }
+  ],
+  "box_convention": "[left, top, right, bottom], right and bottom exclusive",
+  "cost_scope": {
+    "new_generation_job_count": 0,
+    "new_generation_charge": "none_no_model_or_media_API_called",
+    "historical_project_generation_actual_usd_reported": 0.036,
+    "historical_native_profile_actual_usd_reported": 0.018,
+    "historical_cost_evidence": "main_session_helper_record_transmission_no_ledger_mutation_here",
+    "external_GPT_source_actual_cost_usd": null,
+    "external_GPT_source_included_in_project_generation_total": false,
+    "local_compute_cost": "not_priced_or_accounted_in_project_generation_ledger"
+  },
+  "verification": {
+    "three_original_panels_match_source_pixels": true,
+    "all_preexisting_source_image_bytes_unchanged": true,
+    "source_and_output_hashes_verified": true,
+    "profile_and_composite_read_visually": true,
+    "composite_schema_validation_claimed": false
+  },
+  "scope_limits": [
+    "No new prompt, model job, batch, spend, reservation, installation or ledger modification.",
+    "Original failed third panel history and original approvals remain intact.",
+    "Use approved isolated views for conditioning, not this display grid.",
+    "Four adult views available does not complete canonical character production: child, expressions and other outfits/eras remain outside scope.",
+    "No cat creative planning or story/project/budget change."
+  ]
+}

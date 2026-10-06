@@ -1,0 +1,10 @@
+{
+  "job_id": "loc-001-angles",
+  "plan_sha256": "b282f3dd5d9a4792eb4b0e50b9f5246cb7b8adb3d03da855a7e576f54cb7b241",
+  "attempt_number": 1,
+  "reserved_usd": "0.02",
+  "estimated_cost_usd": 0.018,
+  "workflow_path": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/workflows/cloud/preparation/batches/loc-001-reference-exploration/loc-001-angles/prepared.api.json",
+  "claimed_at": "2026-10-06T07:42:19+00:00",
+  "status": "claimed_before_transport"
+}

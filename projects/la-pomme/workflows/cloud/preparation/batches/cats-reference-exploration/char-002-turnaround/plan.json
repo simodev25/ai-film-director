@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "tier": "preparation",
+  "modality": "image",
+  "model": "bytedance-seed/seedream-5-0-flash",
+  "route": "/api/v1/images",
+  "project_id": "project_la_pomme",
+  "prompt": "Create ONE landscape animal reference sheet showing the SAME individual\ngrey-brown tabby cat in exactly SIX full-body views, arranged as THREE COLUMNS\nand TWO ROWS with clear whitespace and no printed labels or divider lines.\nRead the layout left to right:\nTOP ROW: standing FRONT; standing LEFT THREE-QUARTER; standing TRUE LEFT PROFILE.\nBOTTOM ROW: standing BACK; SITTING LEFT THREE-QUARTER; LYING LEFT THREE-QUARTER.\nOne cat repeated six times as reference views, not six different individuals.\nDo not add any other animal, human, accessory or inset.\n\nREFERENCE IMAGE 1 is the cat identity source. Preserve this cat's natural adult\nproportions, grey-brown short fur with its visible dark tabby stripes, forehead\nand cheek markings, pointed ears, whiskers, lighter muzzle/chin area, striped\nlegs and ringed tail with the darker tip as seen. Tabby is a coat pattern, not\na newly assigned breed. Keep the eyes' appearance consistent with the source\nwithout introducing a newly specified precise colour. Do not invent a name,\nsex, exact measurements, new patches, collar or jewellery. Ignore all furniture,\nrug, room lighting and the grey rectangle in that crop: the rectangle is only\nnon-target background cleanup, not part of the cat or its graphic design.\n\nREFERENCE IMAGE 2 is a GRAPHIC STYLE reference ONLY, the approved illustrated\nadult portrait. Borrow its fine visible dark contours, painterly cel shadow\nfacets, restrained surface detail and realistic-proportion semi-anime language.\nDO NOT depict the man, his face, hair, body, suit or room, and do not make the\ncat human-faced or anthropomorphic. Harmonize the cat gently toward this drawn\nstyle: simplify individual fur strokes and group shadows while retaining the\ndistinctive stripes, silhouette and natural feline anatomy from image 1.\nNot a photograph, plastic 3D render, chibi, oversized-eyed mascot or fantasy cat.\n\nIn the standing front view face the viewer on four naturally placed paws.\nIn the left three-quarter views show the anatomical left side and turn the nose\ntoward image-left. The TRUE LEFT PROFILE must show the ENTIRE body side-on:\nhead, shoulders, ribcage, pelvis, legs and paws all lateral, nose toward image-left;\nnot just a sideways head on a three-quarter chest. In BACK face away naturally.\nSITTING is an ordinary resting seated cat with natural hindquarters and front\npaws; LYING is a relaxed cat resting on its underside with the paws placed\nnaturally. Four anatomically correct legs/paws per cat, allowing normal far-limb\nocclusion, no extra or fused limbs, and no standing on human-like hind legs.\n\nKeep the SAME body scale and proportions across all six views: seated and\nlying poses naturally have different extents, do not enlarge them to fill\ntheir cells. Include the complete visible head, ears, whiskers, paws and tail\nwithin each cell with comfortable margins. No cut-off tails, overlapping views,\ndistorted body length or duplicated paws. Maintain the same markings where\ncomparable; unseen-side markings are restrained plausible completions, not\npermission to change this individual's coat or add an extravagant new pattern.\n\nPlain neutral-grey comparison background, soft diffuse even illumination\nconsistent across the sheet, restrained small grounding shadows and readable\nfur colours and markings. Keep a subtle muted olive/charcoal painted-shadow\nsensibility without tinting the entire cat green. No amber nocturnal rim light,\ndramatic black shadows, living-room scene, furniture, props, floor plan, text,\nnames, labels, panel borders, layout lines or watermark.",
+  "pricing_checked_at": "2026-10-05",
+  "job_kind": "reference_illustration",
+  "entity_type": "character",
+  "entity_id": "char_002",
+  "reference_scope": "exploratory",
+  "prompt_id": "ref_char_002_turnaround_01",
+  "attempt_number": 1,
+  "estimated_cost_usd": 0.018,
+  "parameters": {
+    "resolution": "1K",
+    "aspect_ratio": "16:9"
+  },
+  "references": [
+    {
+      "role": "reference",
+      "uploaded_path": "la_pomme_cats_refexplore_char_002_5245c6f54dcd1bc2.png",
+      "entity_id": "char_002",
+      "entity_type": "character",
+      "asset_path": "references/source-crops/cats/char_002-source-conditioning.png",
+      "sha256": "5245c6f54dcd1bc237c2b1dbd00ef48e1a9adf014511ac1037915ef85a05f863"
+    },
+    {
+      "role": "reference",
+      "uploaded_path": "la_pomme_cats_refexplore_char_001_7e85faaddab814f5.png",
+      "entity_id": "char_001",
+      "entity_type": "character",
+      "asset_path": "art-direction/Homme fatigué dans un appartement nocturne.png",
+      "sha256": "7e85faaddab814f55012065755fc28d2651891567b642ad11053551d9aee1314"
+    }
+  ],
+  "target_evidence_sha256": "ad5bf6b67ef61b6b819a30acc484e102c2b1042a796bac5f639178b55c9c222a"
+}

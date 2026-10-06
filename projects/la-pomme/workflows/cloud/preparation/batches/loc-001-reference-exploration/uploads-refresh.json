@@ -1,0 +1,16 @@
+{
+  "refreshed_at": "2026-10-06T07:42:07+00:00",
+  "descriptor_source": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/workflows/cloud/preparation/batches/loc-001-reference-exploration/live-descriptors/LoadImage.json",
+  "descriptor_source_sha256": "877797c822b41d902157f9b1fc67dc9df68e68084b561ee279191648341a1ecf",
+  "choices_from": null,
+  "batch_uploads": [
+    "la_pomme_loc_refexplore_loc_001_e7f162790e20fa40.png"
+  ],
+  "already_in_live_choices": [
+    "la_pomme_loc_refexplore_loc_001_e7f162790e20fa40.png"
+  ],
+  "added_from_upload_evidence": [],
+  "ignored_non_batch_names": [],
+  "still_missing": [],
+  "note": "Live validate_workflow on each prepared graph remains the authority."
+}

@@ -1,0 +1,60 @@
+{
+  "job_id": "loc-001-floor-plan-03",
+  "plan_sha256": "368e22e100964ced3d6893425ca8f77eb18cf714fbba8ee3feb86f8d2c9c3dc0",
+  "comfy_prompt_id": "a14fa3fc-7906-452e-9ab5-5e965e46d1a1",
+  "reported_status": "completed",
+  "studio_db": "/Users/mbensass/ComfyUI-Installs/simo/ComfyUI/user/__openrouter_studio/jobs.sqlite3",
+  "read_at": "2026-10-06T07:58:28+00:00",
+  "studio_match": {
+    "local_job_id": "f28b4b96-9686-487d-a744-fb3b3303dae8",
+    "provider_job_id": null,
+    "media_type": "image",
+    "model_id": "bytedance-seed/seedream-5-0-flash",
+    "status": "completed",
+    "created_at": "2026-10-06T07:57:56.240963+00:00",
+    "output_path": "/Users/mbensass/ComfyUI-Shared/output/openrouter_studio/20261006T075810Z-bytedance-seed-seedream-5-0-flash-920360ce-1.jpg",
+    "estimated_cost": null,
+    "actual_cost": 0.018,
+    "error": null
+  },
+  "studio_lookup": {
+    "prompt_sha256": "1fda6744f9b4c5e257b156b78f028cf5a3a9a5e2fac5a556a9caed474abf541b",
+    "candidates": [
+      {
+        "local_job_id": "f28b4b96-9686-487d-a744-fb3b3303dae8",
+        "provider_job_id": null,
+        "media_type": "image",
+        "model_id": "bytedance-seed/seedream-5-0-flash",
+        "status": "completed",
+        "created_at": "2026-10-06T07:57:56.240963+00:00",
+        "output_path": "/Users/mbensass/ComfyUI-Shared/output/openrouter_studio/20261006T075810Z-bytedance-seed-seedream-5-0-flash-920360ce-1.jpg",
+        "estimated_cost": null,
+        "actual_cost": 0.018,
+        "error": null
+      }
+    ]
+  },
+  "tier": "preparation",
+  "model": "bytedance-seed/seedream-5-0-flash",
+  "attempt_number": 4,
+  "ordered_references": [
+    {
+      "role": "reference",
+      "uploaded_path": "la_pomme_locplan3_refexplore_loc_001_caf19cc6cc0cd2be.png",
+      "entity_id": "loc_001",
+      "entity_type": "location",
+      "asset_path": "references/schematic/loc_001/floor-plan-schematic-v2-clean.png",
+      "sha256": "caf19cc6cc0cd2be30ad6d50b04ed79aac69aadafb9bb1deb7cd0f8a504ea9e3"
+    },
+    {
+      "role": "reference",
+      "uploaded_path": "la_pomme_locplan3_refexplore_loc_001_3f20008515ce38fc.png",
+      "entity_id": "loc_001",
+      "entity_type": "location",
+      "asset_path": "references/generated/loc_001/attempt-01-angles/crops/panel-top-right.png",
+      "sha256": "3f20008515ce38fcb64ce5b687c4e4c02f1bf75e022b9d66f81e7627c4ecc486"
+    }
+  ],
+  "estimated_cost_usd": 0.018,
+  "actual_cost_usd": "0.018"
+}

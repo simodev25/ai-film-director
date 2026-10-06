@@ -1,0 +1,81 @@
+{
+  "metadata_kind": "local_source_crop_derivation_not_generation_or_new_approval",
+  "project_id": "project_la_pomme",
+  "created_at": "2026-10-05",
+  "path_base": "projects/la-pomme",
+  "tool": "existing_Pillow_local_only",
+  "parent": {
+    "path": "art-direction/Salon chaleureux, chats sous les lumières nocturnes.png",
+    "sha256": "89015ce187d726d5560edc92d4f8f20d4f08d1406117ad2e8963a5199254b5a8",
+    "dimensions": [1672, 941],
+    "mode": "RGB",
+    "registry_orders": [2, 3],
+    "source_model": null,
+    "source_version": null,
+    "source_actual_cost_usd": null,
+    "provenance": "user_external_GPT_trial_exact_model_version_cost_unknown",
+    "bytes_unchanged": true
+  },
+  "box_convention": "[left, top, right, bottom], right/bottom exclusive",
+  "derivatives": [
+    {
+      "entity_id": "char_002",
+      "registry_order": 2,
+      "path": "references/source-crops/cats/char_002-source-raw.png",
+      "sha256": "b60bd334c871bb383c7c183c57cf591c1be7632e4cb39ee85a24bc5dd144c67b",
+      "dimensions": [600, 495],
+      "observed_pose": "sitting",
+      "transform": {"operation": "pure_crop", "source_box": [470, 390, 1070, 885], "resize": false},
+      "identity_pixels_unchanged": true,
+      "incidental_other_cat_fragment": "char_003 cream fur/paw in upper left",
+      "planned_as_model_reference": false,
+      "independent_user_approval_claimed": false
+    },
+    {
+      "entity_id": "char_002",
+      "registry_order": 2,
+      "path": "references/source-crops/cats/char_002-source-conditioning.png",
+      "sha256": "5245c6f54dcd1bc237c2b1dbd00ef48e1a9adf014511ac1037915ef85a05f863",
+      "dimensions": [600, 495],
+      "observed_pose": "sitting",
+      "transform": {
+        "operation": "crop_then_flat_non_target_background_mask",
+        "source_box": [470, 390, 1070, 885],
+        "raw_crop_path": "references/source-crops/cats/char_002-source-raw.png",
+        "raw_crop_sha256": "b60bd334c871bb383c7c183c57cf591c1be7632e4cb39ee85a24bc5dd144c67b",
+        "mask_box_in_crop": [0, 0, 240, 55],
+        "mask_box_in_parent": [470, 390, 710, 445],
+        "fill_rgb": [128, 128, 128],
+        "mask_target": "incidental_char_003_fur_paw_and_non_target_background_only",
+        "char_002_not_in_mask": "verified_visually_on_raw_and_conditioning_images",
+        "outside_mask_pixel_identical_to_raw": true,
+        "pure_crop": false,
+        "complete_background_removal": false,
+        "resize": false,
+        "identity_retouch": false,
+        "style_harmonization": false
+      },
+      "planned_as_model_reference": true,
+      "independent_user_approval_claimed": false
+    },
+    {
+      "entity_id": "char_003",
+      "registry_order": 3,
+      "path": "references/source-crops/cats/char_003-source-crop.png",
+      "sha256": "9bf67e5fb35316a52929c3652f6f59c6e4abe33f02b5655425459617c79d2d54",
+      "dimensions": [450, 217],
+      "observed_pose": "lying",
+      "transform": {"operation": "pure_crop", "source_box": [275, 235, 725, 452], "resize": false, "mask": false},
+      "identity_pixels_unchanged": true,
+      "other_cat_visible": false,
+      "planned_as_model_reference": true,
+      "independent_user_approval_claimed": false
+    }
+  ],
+  "appearance_approval_basis": "existing_registry_orders_2_and_3_original_consent_unchanged_not_new_sheet_approval",
+  "new_generation_job_count": 0,
+  "new_generation_charge": "none_no_model_call",
+  "local_compute_cost": "not_priced_in_generation_ledger",
+  "paid_generation_consent_created": false,
+  "future_hidden_angles_and_fur_pattern_completion": "proposals_pending_user_review_not_source_facts"
+}

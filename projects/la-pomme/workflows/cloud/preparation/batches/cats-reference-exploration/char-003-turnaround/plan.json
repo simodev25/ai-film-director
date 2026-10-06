@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "tier": "preparation",
+  "modality": "image",
+  "model": "bytedance-seed/seedream-5-0-flash",
+  "route": "/api/v1/images",
+  "project_id": "project_la_pomme",
+  "prompt": "Create ONE landscape animal reference sheet showing the SAME individual\ncream Persian cat in exactly SIX full-body views, arranged as THREE COLUMNS\nand TWO ROWS with clear whitespace and no printed labels or divider lines.\nRead the layout left to right:\nTOP ROW: standing FRONT; standing LEFT THREE-QUARTER; standing TRUE LEFT PROFILE.\nBOTTOM ROW: standing BACK; SITTING LEFT THREE-QUARTER; LYING LEFT THREE-QUARTER.\nOne cat repeated six times as reference views, not six different individuals.\nDo not add any other animal, human, accessory or inset.\n\nREFERENCE IMAGE 1 is the cat identity source. Preserve this cream Persian's\nnatural adult proportions and distinctive rounded, full silhouette beneath\nthe long thick fur, abundant neck/chest ruff, round face with the short/flat\nmuzzle as it actually appears, visible ears, whiskers and fluffy tail/body\nfur. Keep the creamy coat without adding tabby stripes, new patches or bright\nwhite recolouring. Retain the source face rather than exaggerating a new\nextremely flattened nose or breed hypertype. Keep the eyes' appearance\nconsistent with the source without a newly specified precise colour. Do not\ninvent a name, sex, exact measurements, collar or jewellery. Ignore the sofa,\nblanket, room and warm lighting of image 1; they are not parts of the animal.\n\nREFERENCE IMAGE 2 is a GRAPHIC STYLE reference ONLY, the approved illustrated\nadult portrait. Borrow its fine visible dark contours, painterly cel shadow\nfacets, restrained surface detail and realistic-proportion semi-anime language.\nDO NOT depict the man, his face, hair, body, suit or room, and do not make the\ncat human-faced or anthropomorphic. Harmonize gently toward this drawn style:\nsimplify individual fur strokes into readable locks and group shadows while\npreserving the Persian's full neck ruff, thick long coat, silhouette, face and\nnatural feline anatomy from image 1. Not a photograph, plastic 3D render,\nchibi, oversized-eyed mascot or fantasy cat. Do not replace this Persian with\na short-haired cat or change it into the tabby.\n\nIn the standing front view face the viewer on four naturally placed paws.\nIn the left three-quarter views show the anatomical left side and turn the nose\ntoward image-left. The TRUE LEFT PROFILE must show the ENTIRE body side-on:\nhead, shoulders, ribcage, pelvis, legs and paws all lateral, nose toward image-left;\nnot just a sideways head on a three-quarter chest. In BACK face away naturally.\nSITTING is an ordinary resting seated cat with natural hindquarters and front\npaws; LYING is a relaxed cat resting on its underside with the paws placed\nnaturally, consistent with the source's ordinary resting presence. Four correct\nlegs/paws per cat, allowing natural far-limb/fur occlusion, not extra or fused\nlimbs, and never standing on human-like hind legs. Keep the paws readable\nwhere naturally visible without removing the approved full coat volume.\n\nKeep the SAME body scale and proportions across all six views: seated and\nlying poses naturally have different extents, do not enlarge them to fill\ntheir cells. Include complete ears, whiskers, full fur silhouette, visible paws\nand fluffy tail within each cell with comfortable margins. No clipped fur,\ncut-off tails, overlapping views, distorted body length or duplicated paws.\nNew hidden anatomy and fur on unseen sides should be restrained plausible\ncompletions of this same cat, not changes to its identity or coat.\n\nPlain neutral-grey comparison background, soft diffuse even illumination\nconsistent across the sheet, restrained small grounding shadows and readable\ncream fur volumes. Keep a subtle muted olive/charcoal painted-shadow sensibility\nwithout staining the coat green or yellow. No amber nocturnal rim light,\ndramatic black shadows, living-room scene, furniture, props, floor plan, text,\nnames, labels, panel borders, layout lines or watermark.",
+  "pricing_checked_at": "2026-10-05",
+  "job_kind": "reference_illustration",
+  "entity_type": "character",
+  "entity_id": "char_003",
+  "reference_scope": "exploratory",
+  "prompt_id": "ref_char_003_turnaround_01",
+  "attempt_number": 1,
+  "estimated_cost_usd": 0.018,
+  "parameters": {
+    "resolution": "1K",
+    "aspect_ratio": "16:9"
+  },
+  "references": [
+    {
+      "role": "reference",
+      "uploaded_path": "la_pomme_cats_refexplore_char_003_9bf67e5fb35316a5.png",
+      "entity_id": "char_003",
+      "entity_type": "character",
+      "asset_path": "references/source-crops/cats/char_003-source-crop.png",
+      "sha256": "9bf67e5fb35316a52929c3652f6f59c6e4abe33f02b5655425459617c79d2d54"
+    },
+    {
+      "role": "reference",
+      "uploaded_path": "la_pomme_cats_refexplore_char_001_7e85faaddab814f5.png",
+      "entity_id": "char_001",
+      "entity_type": "character",
+      "asset_path": "art-direction/Homme fatigué dans un appartement nocturne.png",
+      "sha256": "7e85faaddab814f55012065755fc28d2651891567b642ad11053551d9aee1314"
+    }
+  ],
+  "target_evidence_sha256": "d300ba7beac26ca6a07f47c5df4164e4327fb2433d2fbd7781a2e4a3763881a1"
+}

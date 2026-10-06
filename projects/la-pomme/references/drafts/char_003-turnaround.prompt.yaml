@@ -1,0 +1,109 @@
+# Planning draft, not a cloud-job, shot prompt, approval or executable workflow.
+status: draft_planning_only_pending_priced_batch_consent
+prompt_id: ref_char_003_turnaround_01
+project_id: project_la_pomme
+entity_id: char_003
+entity_type: character
+job_kind: reference_illustration
+sheet_type: animal_turnaround_with_sitting_and_lying
+prompt: |-
+  Create ONE landscape animal reference sheet showing the SAME individual
+  cream Persian cat in exactly SIX full-body views, arranged as THREE COLUMNS
+  and TWO ROWS with clear whitespace and no printed labels or divider lines.
+  Read the layout left to right:
+  TOP ROW: standing FRONT; standing LEFT THREE-QUARTER; standing TRUE LEFT PROFILE.
+  BOTTOM ROW: standing BACK; SITTING LEFT THREE-QUARTER; LYING LEFT THREE-QUARTER.
+  One cat repeated six times as reference views, not six different individuals.
+  Do not add any other animal, human, accessory or inset.
+
+  REFERENCE IMAGE 1 is the cat identity source. Preserve this cream Persian's
+  natural adult proportions and distinctive rounded, full silhouette beneath
+  the long thick fur, abundant neck/chest ruff, round face with the short/flat
+  muzzle as it actually appears, visible ears, whiskers and fluffy tail/body
+  fur. Keep the creamy coat without adding tabby stripes, new patches or bright
+  white recolouring. Retain the source face rather than exaggerating a new
+  extremely flattened nose or breed hypertype. Keep the eyes' appearance
+  consistent with the source without a newly specified precise colour. Do not
+  invent a name, sex, exact measurements, collar or jewellery. Ignore the sofa,
+  blanket, room and warm lighting of image 1; they are not parts of the animal.
+
+  REFERENCE IMAGE 2 is a GRAPHIC STYLE reference ONLY, the approved illustrated
+  adult portrait. Borrow its fine visible dark contours, painterly cel shadow
+  facets, restrained surface detail and realistic-proportion semi-anime language.
+  DO NOT depict the man, his face, hair, body, suit or room, and do not make the
+  cat human-faced or anthropomorphic. Harmonize gently toward this drawn style:
+  simplify individual fur strokes into readable locks and group shadows while
+  preserving the Persian's full neck ruff, thick long coat, silhouette, face and
+  natural feline anatomy from image 1. Not a photograph, plastic 3D render,
+  chibi, oversized-eyed mascot or fantasy cat. Do not replace this Persian with
+  a short-haired cat or change it into the tabby.
+
+  In the standing front view face the viewer on four naturally placed paws.
+  In the left three-quarter views show the anatomical left side and turn the nose
+  toward image-left. The TRUE LEFT PROFILE must show the ENTIRE body side-on:
+  head, shoulders, ribcage, pelvis, legs and paws all lateral, nose toward image-left;
+  not just a sideways head on a three-quarter chest. In BACK face away naturally.
+  SITTING is an ordinary resting seated cat with natural hindquarters and front
+  paws; LYING is a relaxed cat resting on its underside with the paws placed
+  naturally, consistent with the source's ordinary resting presence. Four correct
+  legs/paws per cat, allowing natural far-limb/fur occlusion, not extra or fused
+  limbs, and never standing on human-like hind legs. Keep the paws readable
+  where naturally visible without removing the approved full coat volume.
+
+  Keep the SAME body scale and proportions across all six views: seated and
+  lying poses naturally have different extents, do not enlarge them to fill
+  their cells. Include complete ears, whiskers, full fur silhouette, visible paws
+  and fluffy tail within each cell with comfortable margins. No clipped fur,
+  cut-off tails, overlapping views, distorted body length or duplicated paws.
+  New hidden anatomy and fur on unseen sides should be restrained plausible
+  completions of this same cat, not changes to its identity or coat.
+
+  Plain neutral-grey comparison background, soft diffuse even illumination
+  consistent across the sheet, restrained small grounding shadows and readable
+  cream fur volumes. Keep a subtle muted olive/charcoal painted-shadow sensibility
+  without staining the coat green or yellow. No amber nocturnal rim light,
+  dramatic black shadows, living-room scene, furniture, props, floor plan, text,
+  names, labels, panel borders, layout lines or watermark.
+reference_path_base: projects/la-pomme
+references:
+  - order: 1
+    entity_id: char_003
+    entity_type: character
+    path: references/source-crops/cats/char_003-source-crop.png
+    sha256: 9bf67e5fb35316a52929c3652f6f59c6e4abe33f02b5655425459617c79d2d54
+    role: own_cat_identity_source_derived_from_approved_registry_order_3
+  - order: 2
+    entity_id: char_001
+    entity_type: character
+    path: 'art-direction/Homme fatigué dans un appartement nocturne.png'
+    sha256: 7e85faaddab814f55012065755fc28d2651891567b642ad11053551d9aee1314
+    role: graphic_style_only_do_not_depict_human_or_copy_background_lighting
+future_generation:
+  tier: preparation
+  image_model: bytedance-seed/seedream-5-0-flash
+  route: comfyui_project_adapter_via_comfy_mcp
+  resolution: 1K
+  aspect_ratio: '16:9'
+  output_image_count: 1
+  planned_attempt_count: 1
+  layout_columns: 3
+  layout_rows: 2
+  layout_top_row: [standing_front, standing_left_three_quarter, standing_left_profile]
+  layout_bottom_row: [standing_back, sitting_left_three_quarter, lying_left_three_quarter]
+  configured_estimate_usd: 0.018
+  configured_reference_estimate_usd: 0.0
+  proposed_job_ceiling_usd_not_approved: 0.02
+  pricing_source: config/cloud-tiers.yaml
+  pricing_checked_at: '2026-10-05'
+  actual_cost_usd: null
+  execution_readiness: pending_main_session_two_reference_adapter_and_live_validation
+proposals_pending_output_review:
+  - Hidden anatomy and unseen-side fur for new angles are proposals, not approved source facts.
+  - New standing/back/sitting views and gentle graphical harmonization are not generated or approved yet.
+scope_limits:
+  - Exactly two ordered conditioning images; own cat identity first, human graphic style second.
+  - One image for this cat, six views within it, not six calls or shot renders.
+  - No seed explicitly set; no silent 2K upgrade, fallback or legacy dialect.
+  - No upload, new batch, paid consent, reserve, claim, workflow validation or generation by this draft.
+  - User request for both cats in one batch is preparation scope, not priced paid-job consent.
+  - Prompt draft is not falsely validated as a shot prompt; adapted cloud-job schema governs later.

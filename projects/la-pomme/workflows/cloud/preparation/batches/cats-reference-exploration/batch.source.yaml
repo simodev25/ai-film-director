@@ -1,0 +1,60 @@
+# Preparation only. The quoted user request is NOT paid-generation consent.
+version: 1
+name: cats-reference-exploration
+tier: preparation
+pricing_checked_at: '2026-10-05'
+scope:
+  scene_ids: []
+  entity_ids: [char_002, char_003, char_001]
+templates:
+  image:
+    graph: workflows/cloud/preparation/reference-cats-two-inputs/scaffold.api.json
+    bindings: workflows/cloud/preparation/reference-cats-two-inputs/bindings.json
+node_catalogs:
+  image: workflows/cloud/preparation/reference-cats-two-inputs/node-catalog.selected.live.json
+upload_prefix: la_pomme_cats_refexplore
+jobs:
+  - job_id: char-002-turnaround
+    modality: image
+    model: bytedance-seed/seedream-5-0-flash
+    job_kind: reference_illustration
+    reference_scope: exploratory
+    entity_type: character
+    entity_id: char_002
+    prompt_file: references/drafts/char_002-turnaround.prompt.yaml
+    prompt_key: prompt
+    prompt_id: ref_char_002_turnaround_01
+    parameters: {resolution: 1K, aspect_ratio: '16:9'}
+    references:
+      - asset: references/source-crops/cats/char_002-source-conditioning.png
+        sha256: 5245c6f54dcd1bc237c2b1dbd00ef48e1a9adf014511ac1037915ef85a05f863
+        role: reference
+        entity_id: char_002
+        entity_type: character
+      - asset: 'art-direction/Homme fatigué dans un appartement nocturne.png'
+        sha256: 7e85faaddab814f55012065755fc28d2651891567b642ad11053551d9aee1314
+        role: reference
+        entity_id: char_001
+        entity_type: character
+  - job_id: char-003-turnaround
+    modality: image
+    model: bytedance-seed/seedream-5-0-flash
+    job_kind: reference_illustration
+    reference_scope: exploratory
+    entity_type: character
+    entity_id: char_003
+    prompt_file: references/drafts/char_003-turnaround.prompt.yaml
+    prompt_key: prompt
+    prompt_id: ref_char_003_turnaround_01
+    parameters: {resolution: 1K, aspect_ratio: '16:9'}
+    references:
+      - asset: references/source-crops/cats/char_003-source-crop.png
+        sha256: 9bf67e5fb35316a52929c3652f6f59c6e4abe33f02b5655425459617c79d2d54
+        role: reference
+        entity_id: char_003
+        entity_type: character
+      - asset: 'art-direction/Homme fatigué dans un appartement nocturne.png'
+        sha256: 7e85faaddab814f55012065755fc28d2651891567b642ad11053551d9aee1314
+        role: reference
+        entity_id: char_001
+        entity_type: character

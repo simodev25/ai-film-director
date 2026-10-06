@@ -1,0 +1,13 @@
+{
+  "char-001-profile-correction": {
+    "workflow": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/workflows/cloud/preparation/batches/char-001-profile-correction/char-001-profile-correction/prepared.api.json",
+    "valid": true,
+    "error_count": 0,
+    "warning_count": 0,
+    "errors": [],
+    "warnings": [],
+    "partner_nodes": [],
+    "spends_credits": false,
+    "object_info_source": {"mode": "local", "host": "127.0.0.1", "port": 8188}
+  }
+}

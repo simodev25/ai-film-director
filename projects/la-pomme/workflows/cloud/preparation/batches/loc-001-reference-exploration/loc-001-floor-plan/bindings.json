@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "construction": "image template copied with unchanged topology and explicit existing reference slots",
+  "template": "workflows/cloud/preparation/reference-exploration/scaffold.api.json",
+  "template_file_sha256": "af274c52b12843f2b9ee8588a9d3e750f8830dc69128c7569445defe58a32642",
+  "binding": {
+    "node_id": "20",
+    "class_type": "OpenRouterStudioImage",
+    "input_map": {
+      "model": "model",
+      "prompt": "model.prompt",
+      "resolution": "model.resolution",
+      "aspect_ratio": "model.aspect_ratio"
+    },
+    "references": [
+      {
+        "node_id": "10",
+        "input_key": "image",
+        "target_input": "model.reference_images.reference_1",
+        "role": "reference"
+      }
+    ]
+  },
+  "scope": {
+    "scene_ids": [],
+    "entity_ids": [
+      "loc_001"
+    ]
+  },
+  "ordered_reference_assets": [
+    {
+      "order": 1,
+      "role": "reference",
+      "entity_id": "loc_001",
+      "asset_path": "art-direction/Unknown.png",
+      "sha256": "e7f162790e20fa4079a1f638eb6c87495834c5254869f0ef7f5df885d42c3d7f",
+      "uploaded_path": "la_pomme_loc_refexplore_loc_001_e7f162790e20fa40.png",
+      "staged_file": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/workflows/cloud/preparation/batches/loc-001-reference-exploration/uploads/la_pomme_loc_refexplore_loc_001_e7f162790e20fa40.png"
+    }
+  ],
+  "prompt_file": "references/drafts/loc_001-floor-plan.prompt.yaml",
+  "prompt_file_sha256": "de921cdeff276140711c5a0d33c449e1280b53a1bc1a9f3f91546f0b1de314e1",
+  "negative_prompt_input": null,
+  "parameter_mapping": {
+    "prompt": {
+      "input": "model.prompt",
+      "value_source": "plan"
+    },
+    "seed": "unmapped; scaffold literal model.seed=-1 left unchanged",
+    "width": "unmapped; no such input on this route",
+    "height": "unmapped; no such input on this route",
+    "frames": "unmapped; no such input on this route",
+    "fps": "unmapped; no such input on this route",
+    "image_input": [
+      {
+        "role": "reference",
+        "loader": "10",
+        "target": "model.reference_images.reference_1"
+      }
+    ],
+    "audio_input": "none: route has no audio reference input"
+  },
+  "uploads_verified_in_live_choices": true,
+  "catalog": "workflows/cloud/preparation/reference-exploration/node-catalog.selected.live.json",
+  "catalog_sha256": "017e4c86d2af3ec1bf97bd40c7247a889d1397adbe24ca580be1e6508f059e2b",
+  "live_overrides": [
+    "live-descriptors/LoadImage.json"
+  ],
+  "paid_approval": null,
+  "actual_cost_usd": null
+}

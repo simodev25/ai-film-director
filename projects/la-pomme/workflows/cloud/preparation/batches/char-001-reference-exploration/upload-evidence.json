@@ -1,0 +1,15 @@
+{
+  "authorization": {
+    "session_id": "ses_ef27d5cdcffefU62W3ufHMHm2L",
+    "question": "Puis-je copier le portrait approuvé dans le ComfyUI local et vérifier le workflow ? Cette étape ne génère aucune image et ne déclenche aucun appel payant.",
+    "answer": "Oui, copier et valider",
+    "scope": "local_reference_staging_and_validation_only_not_spend_consent"
+  },
+  "target": "http://127.0.0.1:8188",
+  "uploads": [
+    {"local_path": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/workflows/cloud/preparation/batches/char-001-reference-exploration/uploads/la_pomme_refexplore_char_001_7e85faaddab814f5.png", "cloud_name": "la_pomme_refexplore_char_001_7e85faaddab814f5.png", "subfolder": "", "type": "input"}
+  ],
+  "source_sha256": "7e85faaddab814f55012065755fc28d2651891567b642ad11053551d9aee1314",
+  "fresh_LoadImage_choices_confirmed": true,
+  "paid_generation_authorized": false
+}

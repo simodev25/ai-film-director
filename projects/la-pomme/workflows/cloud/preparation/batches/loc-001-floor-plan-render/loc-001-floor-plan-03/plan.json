@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "tier": "preparation",
+  "modality": "image",
+  "model": "bytedance-seed/seedream-5-0-flash",
+  "route": "/api/v1/images",
+  "project_id": "project_la_pomme",
+  "prompt": "Turn REFERENCE IMAGE 1, a flat schematic floor plan, into ONE finished illustrated\ntop-down floor plan of the same living room. Keep EXACTLY the layout of image 1:\nsame room outline, same wall openings, same position, size, shape and orientation\nof every piece of furniture. Do not move, rotate, resize, add or remove anything.\nCamera strictly vertical above the room (orthographic, ceiling removed): no\nperspective, no visible wall faces, walls shown as thick dark outlines from above.\n\nWhat each shape in image 1 is: blue band in the top wall = large floor-to-ceiling\nwindow with the two grey curtain bundles beside it; dark grey L-shape = dark grey\nfabric L-shaped sofa with cushions, its long section parallel to the window and its\nreturn along the left side; small brown square with yellow disc, top-left = side\ntable with a warm amber table lamp; green circle beside it = large potted plant;\ndark rectangle = dark patterned rug; brown rectangle on the rug = rectangular wooden\ncoffee table with a dark mug, a small bowl, a remote and a few books; long brown\nrectangle on the right wall = low wooden TV cabinet; thin black line with green edge\nin front of it = flat TV facing the sofa; tall brown rectangle top-right = bookshelf\nwith books; green circle bottom-right = small potted plant; small black bars on the\nleft and right walls = two framed pictures hanging on the walls; opening with door\narc, bottom-left = entrance door opening inward; small dark square bottom-left =\ncoat hook with a dark coat; tan floor = warm wooden parquet. Dashed bottom edge =\nplain wall. Add a knitted throw on the sofa's left section.\n\nREFERENCE IMAGE 2 is the same room seen in perspective: use it ONLY for materials,\ncolours and graphic style (fine visible contours, painterly faceted shading, dark\nolive night ambience, warm amber lamp glow, cool green TV glow), never for layout or\ncamera angle. Keep enough soft light for every object to stay readable.\nNo people, no animals, no text, labels, numbers, legend, arrows or watermark.",
+  "pricing_checked_at": "2026-10-05",
+  "job_kind": "reference_illustration",
+  "entity_type": "location",
+  "entity_id": "loc_001",
+  "reference_scope": "exploratory",
+  "prompt_id": "ref_loc_001_floor_plan_03",
+  "attempt_number": 4,
+  "estimated_cost_usd": 0.018,
+  "parameters": {
+    "resolution": "1K",
+    "aspect_ratio": "1:1"
+  },
+  "references": [
+    {
+      "role": "reference",
+      "uploaded_path": "la_pomme_locplan3_refexplore_loc_001_caf19cc6cc0cd2be.png",
+      "entity_id": "loc_001",
+      "entity_type": "location",
+      "asset_path": "references/schematic/loc_001/floor-plan-schematic-v2-clean.png",
+      "sha256": "caf19cc6cc0cd2be30ad6d50b04ed79aac69aadafb9bb1deb7cd0f8a504ea9e3"
+    },
+    {
+      "role": "reference",
+      "uploaded_path": "la_pomme_locplan3_refexplore_loc_001_3f20008515ce38fc.png",
+      "entity_id": "loc_001",
+      "entity_type": "location",
+      "asset_path": "references/generated/loc_001/attempt-01-angles/crops/panel-top-right.png",
+      "sha256": "3f20008515ce38fcb64ce5b687c4e4c02f1bf75e022b9d66f81e7627c4ecc486"
+    }
+  ],
+  "target_evidence_sha256": "a6143b707401045bd6f283711c6a1ed4204a8c871a79660b4fe668c419351081"
+}

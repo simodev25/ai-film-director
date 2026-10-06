@@ -1,0 +1,6 @@
+approved: true
+scope: planning_only_not_spend_consent
+estimate_sha256: 48e8433f650308fd94518d6f561610db998e7ff95542f6c76d3865bd2abd37d2
+selected_tier: preparation
+max_spend_usd: 30
+consent_reference: 'projects/la-pomme/budget/review-consent-03.md — session ses_ef27d5cdcffefU62W3ufHMHm2L'

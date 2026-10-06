@@ -1,0 +1,50 @@
+{
+  "10": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "la_pomme_refexplore_char_001_7e85faaddab814f5.png"
+    },
+    "_meta": {
+      "title": "Approved adult portrait - existing source only"
+    }
+  },
+  "20": {
+    "class_type": "OpenRouterStudioImage",
+    "inputs": {
+      "model": "bytedance-seed/seedream-5-0-flash",
+      "model.prompt": "__TECHNICAL_SCAFFOLD_ONLY_DO_NOT_GENERATE__",
+      "model.size": "",
+      "model.resolution": "1K",
+      "model.aspect_ratio": "16:9",
+      "model.n": 1,
+      "model.seed": -1,
+      "model.reference_images.reference_1": [
+        "10",
+        0
+      ],
+      "model.provider_options_json": "{\"only\":[\"seed\"],\"allow_fallbacks\":false,\"options\":{\"seed\":{}}}",
+      "strict_validation": true,
+      "save_raw_artifacts": true,
+      "reference_max_megapixels": 16.0,
+      "request_timeout_seconds": 600,
+      "studio_reference_manifest": "",
+      "rerun_nonce": 0
+    },
+    "_meta": {
+      "title": "PAID Seedream - technical scaffold, no spend consent"
+    }
+  },
+  "30": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "20",
+        0
+      ],
+      "filename_prefix": "la-pomme/cloud/preparation/batches/char-001-profile-correction/char-001-profile-correction/attempt_02"
+    },
+    "_meta": {
+      "title": "Separate exploratory reference output - not a shot"
+    }
+  }
+}

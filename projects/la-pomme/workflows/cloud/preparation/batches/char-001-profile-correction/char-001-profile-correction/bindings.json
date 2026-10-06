@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "construction": "image template copied with unchanged topology and explicit existing reference slots",
+  "template": "workflows/cloud/preparation/reference-exploration/scaffold.api.json",
+  "template_file_sha256": "af274c52b12843f2b9ee8588a9d3e750f8830dc69128c7569445defe58a32642",
+  "binding": {
+    "node_id": "20",
+    "class_type": "OpenRouterStudioImage",
+    "input_map": {
+      "model": "model",
+      "prompt": "model.prompt",
+      "resolution": "model.resolution",
+      "aspect_ratio": "model.aspect_ratio"
+    },
+    "references": [
+      {
+        "node_id": "10",
+        "input_key": "image",
+        "target_input": "model.reference_images.reference_1",
+        "role": "reference"
+      }
+    ]
+  },
+  "scope": {
+    "scene_ids": [],
+    "entity_ids": [
+      "char_001"
+    ]
+  },
+  "ordered_reference_assets": [
+    {
+      "order": 1,
+      "role": "reference",
+      "entity_id": "char_001",
+      "asset_path": "art-direction/Homme fatigué dans un appartement nocturne.png",
+      "sha256": "7e85faaddab814f55012065755fc28d2651891567b642ad11053551d9aee1314",
+      "uploaded_path": "la_pomme_refexplore_char_001_7e85faaddab814f5.png",
+      "staged_file": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/workflows/cloud/preparation/batches/char-001-profile-correction/uploads/la_pomme_refexplore_char_001_7e85faaddab814f5.png"
+    }
+  ],
+  "prompt_file": "references/drafts/char_001-profile-correction.prompt.yaml",
+  "prompt_file_sha256": "b40d75a99fe8f0169cbc971f0141481b424f3642476be5847f88cbcac3b34220",
+  "negative_prompt_input": null,
+  "parameter_mapping": {
+    "prompt": {
+      "input": "model.prompt",
+      "value_source": "plan"
+    },
+    "seed": "unmapped; scaffold literal model.seed=-1 left unchanged",
+    "width": "unmapped; no such input on this route",
+    "height": "unmapped; no such input on this route",
+    "frames": "unmapped; no such input on this route",
+    "fps": "unmapped; no such input on this route",
+    "image_input": [
+      {
+        "role": "reference",
+        "loader": "10",
+        "target": "model.reference_images.reference_1"
+      }
+    ],
+    "audio_input": "none: route has no audio reference input"
+  },
+  "uploads_verified_in_live_choices": true,
+  "catalog": "workflows/cloud/preparation/reference-exploration/node-catalog.selected.live.json",
+  "catalog_sha256": "017e4c86d2af3ec1bf97bd40c7247a889d1397adbe24ca580be1e6508f059e2b",
+  "live_overrides": [
+    "live-descriptors/LoadImage.json"
+  ],
+  "paid_approval": null,
+  "actual_cost_usd": null
+}

@@ -1,0 +1,50 @@
+{
+  "10": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "la_pomme_loc_refexplore_loc_001_e7f162790e20fa40.png"
+    },
+    "_meta": {
+      "title": "Approved adult portrait - existing source only"
+    }
+  },
+  "20": {
+    "class_type": "OpenRouterStudioImage",
+    "inputs": {
+      "model": "bytedance-seed/seedream-5-0-flash",
+      "model.prompt": "Create ONE clean top-down orthographic FLOOR PLAN illustration, seen exactly from\ndirectly above, of the small, intimate modern living room shown in the reference\nimage. Ceiling removed, no perspective, no people, no animals, no text, labels,\nnumbers, dimensions, compass or legend.\n\nLayout to preserve from the reference: the open entrance door in the LEFT wall\n(door swing visible), with a narrow console and coat hooks beside it; a dark grey\nL-shaped sofa in the left-centre, its long side facing right toward the TV and its\nshort return extending toward the back wall; a knitted throw on the sofa; a\nrectangular wooden coffee table in the centre in front of the sofa with a mug,\na small bowl, a remote and books; a dark patterned rectangular rug under the\ntable; a small amber table lamp on a side table behind the sofa at the left, with\na large potted plant beside it; a floor-to-ceiling window with curtains across\nthe BACK wall (top of the plan); on the RIGHT wall a low wooden TV cabinet with a\nflat TV facing the sofa, and a tall bookshelf near the back-right corner; warm\nwooden parquet floor. Compact room, uncluttered, plausible furniture scale.\n\nRender the plan as a readable painted architectural illustration in the same\ngraphic language as the reference: fine visible contours, flat painted tones,\ndark grey sofa, warm wood, dark rug, soft even neutral light so all furniture is\nlegible (no dramatic night shadows). Show the lamp position with a small warm glow\nand the TV screen as a thin cool-green line. 16:9 frame with the room centred.",
+      "model.size": "",
+      "model.resolution": "1K",
+      "model.aspect_ratio": "16:9",
+      "model.n": 1,
+      "model.seed": -1,
+      "model.reference_images.reference_1": [
+        "10",
+        0
+      ],
+      "model.provider_options_json": "{\"only\":[\"seed\"],\"allow_fallbacks\":false,\"options\":{\"seed\":{}}}",
+      "strict_validation": true,
+      "save_raw_artifacts": true,
+      "reference_max_megapixels": 16.0,
+      "request_timeout_seconds": 600,
+      "studio_reference_manifest": "",
+      "rerun_nonce": 0
+    },
+    "_meta": {
+      "title": "PAID Seedream - technical scaffold, no spend consent"
+    }
+  },
+  "30": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "20",
+        0
+      ],
+      "filename_prefix": "la-pomme/cloud/preparation/batches/loc-001-reference-exploration/loc-001-floor-plan/attempt_02"
+    },
+    "_meta": {
+      "title": "Separate exploratory reference output - not a shot"
+    }
+  }
+}

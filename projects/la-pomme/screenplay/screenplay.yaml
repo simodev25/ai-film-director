@@ -1,0 +1,70 @@
+# Screenplay — La Pomme. Travail scène par scène, à la demande de l'utilisateur.
+# Statut : scène 1 APPROUVÉE (v2) le 2026-10-06 — « oui c'est bon on passe au storyboard de cette scène »
+# en réponse aux points d'interprétation (caresses, « la nuit » sans livre, prénom Marc).
+# Ajustement utilisateur 2026-10-06 au storyboard : « les chats sont actoté » (fin : chats à côté de lui). Version lisible : screenplay/scene_001.md.
+# Source : story/story.yaml beat_001 uniquement (rien de beat_002).
+# Gate budget vérifié : budget_state = reviewed_planning_only, gamme preparation,
+# plafond 30 USD, budget/review-consent-03.md. Accord de planning, pas de
+# consentement de dépense ; aucune génération ni aucun job.
+# Aucun nouvel ID : objets décrits en prose seulement, pas d'ID de prop/shot.
+screenplay_id: screenplay_la_pomme
+scenes:
+  - scene_id: scene_001
+    scene_number: 1
+    heading: EXT./INT. IMMEUBLE — BAIE VITRÉE / SALON (loc_001) — NUIT, PLUIE
+    location_id: loc_001
+    time: Nuit, 2026, pluie
+    characters:
+      - char_001
+      - char_002
+      - char_003
+    action: >-
+      Version utilisateur du 2026-10-06. Nuit, il pleut. Dehors, la caméra
+      flotte devant la façade de l'immeuble ; la pluie ruisselle sur la grande
+      baie vitrée du salon, derrière laquelle brillent la petite lampe ambrée
+      et la ville. La caméra avance lentement et traverse la vitre mouillée.
+
+      Au même moment, au fond de la pièce, en bas à gauche, la porte d'entrée
+      s'ouvre : char_001 rentre du travail, costume anthracite, chemise gris
+      clair à col ouvert sans cravate, chaussures noires, visage anguleux et
+      cernes, cheveux bruns foncés courts en désordre, barbe courte. Il
+      referme la porte.
+
+      Les chats viennent à lui. char_002, le tigré gris-brun, quitte le tapis
+      le premier et vient se frotter contre ses jambes en quête de caresses ;
+      puis char_003, le Persan crème, descend du canapé et s'approche à son
+      tour. char_001 les ignore : il ne se penche pas, ne les regarde pas, et
+      passe à côté d'eux.
+
+      Il se laisse tomber sur le canapé en L gris foncé, sur le retour tourné
+      vers la télévision, et garde son costume. Il prend la télécommande sur la
+      table basse et allume la télévision du mur droit : une fiction originale
+      qui évoque les années 1990, au grain vidéo, sans titre ni œuvre réelle.
+
+      La lumière froide et verdâtre de l'écran rejoint l'ambre de la lampe.
+      Calme. La pluie sur la vitre, la nuit dehors. Il reste là, immobile, sans
+      les regarder ; les chats, pourtant ignorés, sont venus se poser à côté de
+      lui : le tigré contre lui sur le canapé, le Persan à ses pieds.
+    dialogue: []
+    visual_intent: >-
+      Ouverture : plan extérieur de nuit sous la pluie, mouvement continu de la
+      caméra qui traverse la baie vitrée mouillée et entre dans le salon, pendant
+      que la porte d'entrée s'ouvre à l'opposé (bas gauche du plan approuvé).
+      Douceur mélancolique : refuge rassurant, mais l'affection offerte par les
+      chats est ignorée — il ne la voit pas. Semi-anime à dominante réaliste,
+      contours fins, ombres peintes ; influence Matrix limitée à la lumière
+      (vert-noir, olive). Sources : lampe ambrée coin arrière gauche, lueur de la
+      ville et reflets de pluie par la baie, puis écran TV froid verdâtre du mur
+      droit. Positions constantes selon le plan approuvé. Chats ordinaires,
+      jamais anthropomorphes ; le tigré bouge le premier, puis le Persan, pour
+      garder un seul animal clairement actif à la fois. Tenue approuvée conservée.
+      Fin sur une image calme et tenue.
+    audio_intent: >-
+      Aucune parole intelligible, aucun TTS. Pluie sur la vitre (enregistrement
+      local réutilisable si disponible), ville lointaine ; à l'entrée de la
+      caméra, la pluie s'étouffe et laisse place au ton feutré de la pièce.
+      Porte, pas sur le parquet, petits miaulements et ronronnement contre ses
+      jambes, ignorés ; chute lourde sur le canapé, expiration. Clic de la
+      télécommande, grésillement de l'écran, fiction TV étouffée (voix sans mots
+      compréhensibles, synthé façon années 1990, originale), son net sans
+      distorsion. Fin sur la pluie douce et la TV.

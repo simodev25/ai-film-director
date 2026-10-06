@@ -1,0 +1,45 @@
+{
+  "approved": true,
+  "scope": "paid_generation_job",
+  "approved_at": "2026-10-05",
+  "tier": "preparation",
+  "model": "bytedance-seed/seedream-5-0-flash",
+  "route": "/api/v1/images",
+  "project_id": "project_la_pomme",
+  "scope_sha256": "7f842ea276265e05d255b83970ee42a65a02397621f82bbccbb2c2b8a22146b8",
+  "job_kind": "reference_illustration",
+  "scene_id": null,
+  "shot_id": null,
+  "entity_id": "char_001",
+  "segment_id": null,
+  "prompt_id": "ref_char_001_profile_correction_01",
+  "parameters": {
+    "resolution": "1K",
+    "aspect_ratio": "9:16"
+  },
+  "ordered_references": [
+    {
+      "role": "reference",
+      "uploaded_path": "la_pomme_refexplore_char_001_7e85faaddab814f5.png",
+      "entity_id": "char_001",
+      "entity_type": "character",
+      "asset_path": "art-direction/Homme fatigué dans un appartement nocturne.png",
+      "sha256": "7e85faaddab814f55012065755fc28d2651891567b642ad11053551d9aee1314"
+    }
+  ],
+  "count": 1,
+  "attempt_number": 2,
+  "estimated_cost_usd": 0.018,
+  "ceiling_usd": 0.02,
+  "workflow_sha256": "0e3904ee3e0db28448d2c76328710fbcb90a2695a89d5903c2188fb9aec63057",
+  "plan_sha256": "6dc58858a069d4c780f3725a4e5c76e5b4ea9768784b600609053dd87450886e",
+  "estimate_sha256": "4a49770e662e28f4117c739201b67cec34d0b4a3a4873c8859699b24cedde770",
+  "decision_sha256": "85cfb88b9d12223e02d86ac53571c37144a4158087d64a06ba53b94858d62b88",
+  "consent_reference": "ses_ef27d5cdcffefU62W3ufHMHm2L ; 2026-10-05 ; question: « Autorises-tu ce lot unique de correction du profil de l’homme : Seedream 5.0 Flash en Préparation, une image 1K 9:16 à partir du portrait approuvé, une seule tentative, coût estimé 0,018 $ et plafond 0,02 $, sans reprise automatique ? » ; réponse utilisateur verbatim « Oui, lancer la correction » ; batch char-001-profile-correction ; job char-001-profile-correction tentative 2 ; plan 6dc58858a069",
+  "consent_user_verbatim": "Oui, lancer la correction",
+  "consent_question": "Autorises-tu ce lot unique de correction du profil de l’homme : Seedream 5.0 Flash en Préparation, une image 1K 9:16 à partir du portrait approuvé, une seule tentative, coût estimé 0,018 $ et plafond 0,02 $, sans reprise automatique ?",
+  "consent_bundle_ceiling_usd": 0.02,
+  "reference_scope": "exploratory",
+  "canonical_stage_completion": false,
+  "target_evidence_sha256": "6c01af1979cc7bf7cbf1b4db8893f70b0f6c58bd5e9f2a9101ae70f326b3a71b"
+}

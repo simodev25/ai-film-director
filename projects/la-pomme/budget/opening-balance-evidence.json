@@ -1,0 +1,15 @@
+{
+  "project_id": "project_la_pomme",
+  "recorded_at": "2026-10-05",
+  "session_id": "ses_ef27d5cdcffefU62W3ufHMHm2L",
+  "scope": "accounting_evidence_only_not_paid_generation_consent",
+  "currency": "USD",
+  "opening_hold_usd": 0,
+  "question_verbatim": "As-tu déjà payé des générations ComfyUI/OpenRouter pour ce projet La Pomme ? Les essais GPT Image restent séparés de ce suivi, avec leur coût inconnu. Cette réponse sert uniquement à la comptabilité, pas à autoriser un rendu.",
+  "answer_verbatim": "Aucune génération ComfyUI/OpenRouter",
+  "selected_option_description": "Je confirme qu’aucune dépense de génération ComfyUI/OpenRouter n’a déjà été engagée pour ce projet.",
+  "basis": "Affirmative user accounting declaration, not an inference from absent invoices or an absent ledger.",
+  "external_gpt_trials": {"tracked_separately": true, "exact_model": null, "actual_cost_usd": null, "note": "Unknown cost, not free; excluded from this ComfyUI/OpenRouter opening scope as stated in the question."},
+  "ledger_initialized": false,
+  "paid_generation_authorized": false
+}

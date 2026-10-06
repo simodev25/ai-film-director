@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "tier": "preparation",
+  "modality": "image",
+  "model": "bytedance-seed/seedream-5-0-flash",
+  "route": "/api/v1/images",
+  "project_id": "project_la_pomme",
+  "prompt": "Create ONE portrait-format reference illustration containing exactly ONE\nfull-body adult man in a strict LEFT SIDE PROFILE. The supplied reference\nportrait is the identity and graphic-style source for this same adult man.\nShow his anatomical left side with his nose pointing toward image-left.\nThe entire body must be viewed SIDE-ON at 90 degrees to the frontal view:\nhead, shoulders, ribcage, torso, pelvis, knees and both feet all share the\nsame lateral orientation. This is NOT a three-quarter body with only its\nhead turned sideways. Use an eye-level orthographic-like, low-distortion\nside presentation, camera perpendicular to the body's left side.\n\nThe near and far shoulders should align in side projection; the torso and\njacket read as a narrow lateral silhouette, not a broad frontal chest.\nDo not display the two front lapels and broad shirt opening as if facing\nthe viewer. Keep natural anatomy: the far arm and leg may be substantially\noccluded by the near ones in a genuine side view, not removed or amputated.\nBoth shoes point toward image-left, not outward in a front-view stance.\nNeutral standing comparison pose, arms relaxed beside the body, empty hands,\nfeet comfortably grounded, shoulders relaxed, subdued tired expression.\nFull body visible from hair tips to shoe soles, with clear margin above and\nbelow; no cropping, extra figure, inset, grid or turnaround row.\n\nPreserve the reference man's angular adult face, jaw and nose structure,\ntired eyes and under-eye shadows, dark-brown short tousled hair with irregular\nlocks, and short beard/stubble. Keep his apparent adult age and natural\nproportions without exact age, numerical height, ethnicity or a newly\nspecified iris colour. No beautification, rejuvenation, smooth fashion-model\nface, newly groomed hairstyle or extra muscular bulk.\n\nPreserve the approved complete-body clothing look described here: anthracite\nsuit jacket and matching trousers, light-grey shirt with open collar and no\ntie, restrained dark belt at the waist, simple matte-black dress shoes.\nMaintain a natural, unexaggerated adult silhouette, ordinary fabric folds\nand the same restrained suit cut. Keep the jacket on and open as in the\nportrait, while showing it from its true side. Do not substitute an ivory\nshirt, green suit, sneakers, boots, trench coat or decorative accessories.\n\nUse the reference's realistic-proportion semi-anime drawn language: fine\nvisible dark contours, restrained painterly cel facets and natural volumes,\nnot a photograph, chibi or plastic 3D render. Keep a subtle muted olive/\ncharcoal, Matrix-influenced sensibility in the painted shadows without\nrecolouring the anthracite suit or washing skin uniformly green. Plain\nneutral-grey, lightly textured comparison background, soft diffuse even\nillumination, readable face, beard, jacket and trousers, restrained small\ngrounding shadow. Do not copy the portrait's dramatic nocturnal background,\namber rim light, doorway pose or deep black shadows. No scene, apartment,\ncats, props, narrative action, labels, text, border or watermark.",
+  "pricing_checked_at": "2026-10-05",
+  "job_kind": "reference_illustration",
+  "entity_type": "character",
+  "entity_id": "char_001",
+  "reference_scope": "exploratory",
+  "prompt_id": "ref_char_001_profile_correction_01",
+  "attempt_number": 2,
+  "estimated_cost_usd": 0.018,
+  "parameters": {
+    "resolution": "1K",
+    "aspect_ratio": "9:16"
+  },
+  "references": [
+    {
+      "role": "reference",
+      "uploaded_path": "la_pomme_refexplore_char_001_7e85faaddab814f5.png",
+      "entity_id": "char_001",
+      "entity_type": "character",
+      "asset_path": "art-direction/Homme fatigué dans un appartement nocturne.png",
+      "sha256": "7e85faaddab814f55012065755fc28d2651891567b642ad11053551d9aee1314"
+    }
+  ],
+  "target_evidence_sha256": "6c01af1979cc7bf7cbf1b4db8893f70b0f6c58bd5e9f2a9101ae70f326b3a71b"
+}

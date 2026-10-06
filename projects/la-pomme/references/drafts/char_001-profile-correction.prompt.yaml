@@ -1,0 +1,95 @@
+# Draft reference correction, not a validated cloud-job or shot prompt.
+status: draft_planning_only_pending_new_paid_consent
+prompt_id: ref_char_001_profile_correction_01
+project_id: project_la_pomme
+entity_id: char_001
+entity_type: character
+variant: adult
+job_kind: reference_illustration
+sheet_type: isolated_profile_correction
+prompt: |-
+  Create ONE portrait-format reference illustration containing exactly ONE
+  full-body adult man in a strict LEFT SIDE PROFILE. The supplied reference
+  portrait is the identity and graphic-style source for this same adult man.
+  Show his anatomical left side with his nose pointing toward image-left.
+  The entire body must be viewed SIDE-ON at 90 degrees to the frontal view:
+  head, shoulders, ribcage, torso, pelvis, knees and both feet all share the
+  same lateral orientation. This is NOT a three-quarter body with only its
+  head turned sideways. Use an eye-level orthographic-like, low-distortion
+  side presentation, camera perpendicular to the body's left side.
+
+  The near and far shoulders should align in side projection; the torso and
+  jacket read as a narrow lateral silhouette, not a broad frontal chest.
+  Do not display the two front lapels and broad shirt opening as if facing
+  the viewer. Keep natural anatomy: the far arm and leg may be substantially
+  occluded by the near ones in a genuine side view, not removed or amputated.
+  Both shoes point toward image-left, not outward in a front-view stance.
+  Neutral standing comparison pose, arms relaxed beside the body, empty hands,
+  feet comfortably grounded, shoulders relaxed, subdued tired expression.
+  Full body visible from hair tips to shoe soles, with clear margin above and
+  below; no cropping, extra figure, inset, grid or turnaround row.
+
+  Preserve the reference man's angular adult face, jaw and nose structure,
+  tired eyes and under-eye shadows, dark-brown short tousled hair with irregular
+  locks, and short beard/stubble. Keep his apparent adult age and natural
+  proportions without exact age, numerical height, ethnicity or a newly
+  specified iris colour. No beautification, rejuvenation, smooth fashion-model
+  face, newly groomed hairstyle or extra muscular bulk.
+
+  Preserve the approved complete-body clothing look described here: anthracite
+  suit jacket and matching trousers, light-grey shirt with open collar and no
+  tie, restrained dark belt at the waist, simple matte-black dress shoes.
+  Maintain a natural, unexaggerated adult silhouette, ordinary fabric folds
+  and the same restrained suit cut. Keep the jacket on and open as in the
+  portrait, while showing it from its true side. Do not substitute an ivory
+  shirt, green suit, sneakers, boots, trench coat or decorative accessories.
+
+  Use the reference's realistic-proportion semi-anime drawn language: fine
+  visible dark contours, restrained painterly cel facets and natural volumes,
+  not a photograph, chibi or plastic 3D render. Keep a subtle muted olive/
+  charcoal, Matrix-influenced sensibility in the painted shadows without
+  recolouring the anthracite suit or washing skin uniformly green. Plain
+  neutral-grey, lightly textured comparison background, soft diffuse even
+  illumination, readable face, beard, jacket and trousers, restrained small
+  grounding shadow. Do not copy the portrait's dramatic nocturnal background,
+  amber rim light, doorway pose or deep black shadows. No scene, apartment,
+  cats, props, narrative action, labels, text, border or watermark.
+references:
+  - order: 1
+    entity_id: char_001
+    entity_type: character
+    path: 'art-direction/Homme fatigué dans un appartement nocturne.png'
+    sha256: 7e85faaddab814f55012065755fc28d2651891567b642ad11053551d9aee1314
+    role: sole_conditioning_asset_approved_adult_identity_and_graphic_style
+reference_path_base: projects/la-pomme
+continuity_text_source:
+  path: references/generated/char_001/attempt-01/fbe7c67f_000.png
+  sha256: 06d3c347e907508d69885257b08d222c465525bdacea7a993052077a3d6ea4dd
+  role: approved_body_wardrobe_and_shoes_described_in_prompt_not_fed_as_image
+  approval_scope: appearance_only_not_strict_four_view_geometry_or_spend_consent
+future_generation:
+  tier: preparation
+  image_model: bytedance-seed/seedream-5-0-flash
+  route: comfyui_project_adapter_via_comfy_mcp
+  resolution: 1K
+  aspect_ratio: '9:16'
+  output_image_count: 1
+  planned_attempt_count: 1
+  target_view: left_profile_full_body
+  configured_estimate_usd: 0.018
+  configured_reference_estimate_usd: 0.0
+  proposed_job_ceiling_usd_not_approved: 0.02
+  pricing_source: config/cloud-tiers.yaml
+  pricing_checked_at: '2026-10-05'
+  actual_cost_usd: null
+  execution_readiness: pending_main_session_adaptation_and_validation
+scope_limits:
+  - No seed explicitly set; use the existing route default without override.
+  - No new upload planned; original portrait is already staged in the project scaffold per main-session transmission.
+  - No whole-grid conditioning image or crop supplied to the model in this draft.
+  - Preserve original front, three-quarter and back files untouched; do not regenerate the grid.
+  - One isolated profile correction only, not a new entity or shot render.
+  - User appearance approval allows preparation only; new priced paid-job consent is still required.
+  - No new workflow, cloud-job validation, generation approval, ledger reservation or submission here.
+  - Any later local assembly follows profile output review and does not overwrite attempt-01.
+  - No 2K upgrade, model substitution, legacy dialect, automatic retry or canonical-stage completion.

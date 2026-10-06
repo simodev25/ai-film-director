@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "batch": "char-001-reference-exploration",
+  "project": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme",
+  "project_id": "project_la_pomme",
+  "tier": "preparation",
+  "scope": {
+    "scene_ids": [],
+    "entity_ids": [
+      "char_001"
+    ]
+  },
+  "scope_sha256": "7f842ea276265e05d255b83970ee42a65a02397621f82bbccbb2c2b8a22146b8",
+  "batch_file_sha256": "b04555f4c5f561cf8daea9706fcefab450bbb74555dd32d3e672028cae7b9d9b",
+  "prepared_at": "2026-10-05T21:23:58+00:00",
+  "generation_tested": false,
+  "jobs": [
+    {
+      "job_id": "char-001-turnaround-exploration",
+      "modality": "image",
+      "job_dir": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/workflows/cloud/preparation/batches/char-001-reference-exploration/char-001-turnaround-exploration",
+      "attempt_number": 1,
+      "estimated_cost_usd": 0.018,
+      "uploads": [
+        {
+          "order": 1,
+          "role": "reference",
+          "entity_id": "char_001",
+          "asset_path": "art-direction/Homme fatigué dans un appartement nocturne.png",
+          "sha256": "7e85faaddab814f55012065755fc28d2651891567b642ad11053551d9aee1314",
+          "uploaded_path": "la_pomme_refexplore_char_001_7e85faaddab814f5.png",
+          "staged_file": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/workflows/cloud/preparation/batches/char-001-reference-exploration/uploads/la_pomme_refexplore_char_001_7e85faaddab814f5.png"
+        }
+      ],
+      "plan_sha256": "f5afe56d37b4522e63fb1df5d3ad3e50f22742eacdde95a7efed789f4afe04c8",
+      "status": "prepared",
+      "prepared": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/workflows/cloud/preparation/batches/char-001-reference-exploration/char-001-turnaround-exploration/prepared.api.json",
+      "prepared_file_sha256": "87cb9e0b11d4e933fc8ffdcbdb094172bfa4a47dbbffba481387d7016fb7ba16",
+      "workflow_sha256": "5f555f93e100809ab872ee588cc1146376f8468b91108e3ed42aa88ee7e27f6b"
+    }
+  ]
+}

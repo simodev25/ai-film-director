@@ -1,0 +1,16 @@
+{
+  "declared_node_ids": {"image": "20", "output": "30", "loaders": ["10"]},
+  "binding": {
+    "node_id": "20",
+    "class_type": "OpenRouterStudioImage",
+    "input_map": {"model": "model", "prompt": "model.prompt", "resolution": "model.resolution", "aspect_ratio": "model.aspect_ratio"},
+    "references": [{"node_id": "10", "input_key": "image", "target_input": "model.reference_images.reference_1", "role": "reference"}]
+  },
+  "exact_model": "bytedance-seed/seedream-5-0-flash",
+  "route": "/api/v1/images",
+  "topology_policy": "preserve_existing_nodes_and_links",
+  "provenance": "New project-owned scaffold explicitly authorized by user go for technical adaptation; not a modified user workflow.",
+  "technical_authorization_session": "ses_ef27d5cdcffefU62W3ufHMHm2L",
+  "paid_job_approval": null,
+  "generation_tested": false
+}

@@ -1,0 +1,20 @@
+{
+  "refreshed_at": "2026-10-05T22:08:39+00:00",
+  "descriptor_source": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/workflows/cloud/preparation/batches/cats-reference-exploration/live-descriptors/LoadImage.json",
+  "descriptor_source_sha256": "1c2656630698a65022eb73a382d28ce92f833a669dc72f4e2df523fbe317d701",
+  "choices_from": null,
+  "batch_uploads": [
+    "la_pomme_cats_refexplore_char_001_7e85faaddab814f5.png",
+    "la_pomme_cats_refexplore_char_002_5245c6f54dcd1bc2.png",
+    "la_pomme_cats_refexplore_char_003_9bf67e5fb35316a5.png"
+  ],
+  "already_in_live_choices": [
+    "la_pomme_cats_refexplore_char_001_7e85faaddab814f5.png",
+    "la_pomme_cats_refexplore_char_002_5245c6f54dcd1bc2.png",
+    "la_pomme_cats_refexplore_char_003_9bf67e5fb35316a5.png"
+  ],
+  "added_from_upload_evidence": [],
+  "ignored_non_batch_names": [],
+  "still_missing": [],
+  "note": "Live validate_workflow on each prepared graph remains the authority."
+}

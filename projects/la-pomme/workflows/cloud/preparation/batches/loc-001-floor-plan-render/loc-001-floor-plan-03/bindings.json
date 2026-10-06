@@ -1,0 +1,91 @@
+{
+  "version": 1,
+  "construction": "image template copied with unchanged topology and explicit existing reference slots",
+  "template": "workflows/cloud/preparation/reference-cats-two-inputs/scaffold.api.json",
+  "template_file_sha256": "df0cbfea086e097e4880631625f94639928bc0e43f5b43e7bc046b1475fc630e",
+  "binding": {
+    "node_id": "200",
+    "class_type": "OpenRouterStudioImage",
+    "input_map": {
+      "model": "model",
+      "prompt": "model.prompt",
+      "resolution": "model.resolution",
+      "aspect_ratio": "model.aspect_ratio"
+    },
+    "references": [
+      {
+        "node_id": "110",
+        "input_key": "image",
+        "target_input": "model.reference_images.reference_1",
+        "role": "reference"
+      },
+      {
+        "node_id": "120",
+        "input_key": "image",
+        "target_input": "model.reference_images.reference_2",
+        "role": "reference"
+      }
+    ]
+  },
+  "scope": {
+    "scene_ids": [],
+    "entity_ids": [
+      "loc_001"
+    ]
+  },
+  "ordered_reference_assets": [
+    {
+      "order": 1,
+      "role": "reference",
+      "entity_id": "loc_001",
+      "asset_path": "references/schematic/loc_001/floor-plan-schematic-v2-clean.png",
+      "sha256": "caf19cc6cc0cd2be30ad6d50b04ed79aac69aadafb9bb1deb7cd0f8a504ea9e3",
+      "uploaded_path": "la_pomme_locplan3_refexplore_loc_001_caf19cc6cc0cd2be.png",
+      "staged_file": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/workflows/cloud/preparation/batches/loc-001-floor-plan-render/uploads/la_pomme_locplan3_refexplore_loc_001_caf19cc6cc0cd2be.png"
+    },
+    {
+      "order": 2,
+      "role": "reference",
+      "entity_id": "loc_001",
+      "asset_path": "references/generated/loc_001/attempt-01-angles/crops/panel-top-right.png",
+      "sha256": "3f20008515ce38fcb64ce5b687c4e4c02f1bf75e022b9d66f81e7627c4ecc486",
+      "uploaded_path": "la_pomme_locplan3_refexplore_loc_001_3f20008515ce38fc.png",
+      "staged_file": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/workflows/cloud/preparation/batches/loc-001-floor-plan-render/uploads/la_pomme_locplan3_refexplore_loc_001_3f20008515ce38fc.png"
+    }
+  ],
+  "prompt_file": "references/drafts/loc_001-floor-plan-03.prompt.yaml",
+  "prompt_file_sha256": "22e5157d83452e9025c0b42cf8962983ae6dfe9b93da4a85402dea43630c1dbd",
+  "negative_prompt_input": null,
+  "parameter_mapping": {
+    "prompt": {
+      "input": "model.prompt",
+      "value_source": "plan"
+    },
+    "seed": "unmapped; scaffold literal model.seed=-1 left unchanged",
+    "width": "unmapped; no such input on this route",
+    "height": "unmapped; no such input on this route",
+    "frames": "unmapped; no such input on this route",
+    "fps": "unmapped; no such input on this route",
+    "image_input": [
+      {
+        "role": "reference",
+        "loader": "110",
+        "target": "model.reference_images.reference_1"
+      },
+      {
+        "role": "reference",
+        "loader": "120",
+        "target": "model.reference_images.reference_2"
+      }
+    ],
+    "audio_input": "none: route has no audio reference input"
+  },
+  "uploads_verified_in_live_choices": true,
+  "catalog": "workflows/cloud/preparation/reference-cats-two-inputs/node-catalog.selected.live.json",
+  "catalog_sha256": "5aaeaa7b83ac671e4f606b0679b5f877ca850ba14fd79f3e2a1e8694ab8f4256",
+  "live_overrides": [
+    "live-descriptors/LoadImage.json"
+  ],
+  "paid_approval": null,
+  "actual_cost_usd": null
+}

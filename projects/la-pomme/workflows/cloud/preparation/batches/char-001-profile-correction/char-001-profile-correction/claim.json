@@ -1,0 +1,10 @@
+{
+  "job_id": "char-001-profile-correction",
+  "plan_sha256": "6dc58858a069d4c780f3725a4e5c76e5b4ea9768784b600609053dd87450886e",
+  "attempt_number": 2,
+  "reserved_usd": "0.02",
+  "estimated_cost_usd": 0.018,
+  "workflow_path": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/workflows/cloud/preparation/batches/char-001-profile-correction/char-001-profile-correction/prepared.api.json",
+  "claimed_at": "2026-10-05T21:43:24+00:00",
+  "status": "claimed_before_transport"
+}

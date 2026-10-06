@@ -1,0 +1,10 @@
+project_id: project_la_pomme
+# Titre de travail proposé, pas un titre choisi explicitement par l'utilisateur.
+title: La Pomme
+genre: Drama
+subgenres: []
+# Format technique provisoire ; ne constitue pas une décision utilisateur.
+aspect_ratio: '16:9'
+fps: 24
+# Proposition : 7 minutes, dans la plage utilisateur de 6 à 9 minutes.
+duration_seconds: 420

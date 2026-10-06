@@ -1,0 +1,48 @@
+# Planning draft — not approved, not spend consent.
+status: draft_planning_only_pending_priced_batch_consent
+prompt_id: ref_loc_001_angles_01
+project_id: project_la_pomme
+entity_id: loc_001
+entity_type: location
+job_kind: reference_illustration
+sheet_type: location_layout
+prompt: |-
+  Create ONE landscape location reference sheet of the SAME small, intimate modern
+  apartment living room shown in the reference image, seen from exactly FOUR camera
+  angles arranged as a clean 2 x 2 grid of four equal panels with thin even gaps,
+  no text, labels, numbers, arrows or watermark.
+  TOP LEFT: wide view from the entrance doorway on the left, looking into the room
+  (same viewpoint as the reference). TOP RIGHT: reverse wide view from beside the
+  TV wall on the right, looking back toward the L-shaped sofa, the amber lamp behind
+  it and the entrance. BOTTOM LEFT: view from the sofa toward the TV wall, the low
+  TV cabinet and the bookshelf. BOTTOM RIGHT: view from the window side looking
+  back into the room toward the entrance, with the night window behind the camera.
+
+  The room is EMPTY: no people, no animals, no figure in any panel. Preserve the
+  layout and furniture of the reference exactly and consistently in all four views:
+  open entrance on the left with a coat hook; dark grey L-shaped fabric sofa with
+  cushions and a knitted throw, left-centre; rectangular wooden coffee table at the
+  centre with a dark mug, a small bowl, a remote and a few books, lower shelf with
+  books; dark patterned rug on warm wooden parquet; small amber table lamp behind the
+  sofa on the left; large potted plant beside it; tall bookshelf with books and small
+  framed pictures on the right wall; flat TV on a low wooden cabinet on the right wall,
+  facing the sofa; floor-to-ceiling window with curtains at the back on a night city of
+  lit apartment towers. Same proportions and positions between panels.
+
+  Lighting identical to the reference: night, dominant dark olive/green ambience, the
+  TV as a cold greenish light on the right, the small warm amber lamp behind the sofa,
+  soft city glow from the window. Same graphic language: semi-anime illustration with
+  realistic proportions, fine visible contours, painterly faceted shadows, lightly
+  textured painted surfaces. Not a photograph, not a 3D render. Readable furniture
+  shapes, no extra rooms, no added furniture or objects, no family photos.
+reference_path_base: projects/la-pomme
+references:
+  - order: 1
+    entity_id: loc_001
+    entity_type: location
+    path: art-direction/Unknown.png
+    sha256: e7f162790e20fa4079a1f638eb6c87495834c5254869f0ef7f5df885d42c3d7f
+    role: location_layout_lighting_and_style_source_ignore_the_man
+notes:
+  - Reverse and hidden angles are plausible completions, pending user review.
+  - Man in the reference is not to be depicted.

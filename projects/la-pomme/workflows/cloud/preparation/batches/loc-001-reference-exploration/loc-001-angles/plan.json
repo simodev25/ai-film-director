@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "tier": "preparation",
+  "modality": "image",
+  "model": "bytedance-seed/seedream-5-0-flash",
+  "route": "/api/v1/images",
+  "project_id": "project_la_pomme",
+  "prompt": "Create ONE landscape location reference sheet of the SAME small, intimate modern\napartment living room shown in the reference image, seen from exactly FOUR camera\nangles arranged as a clean 2 x 2 grid of four equal panels with thin even gaps,\nno text, labels, numbers, arrows or watermark.\nTOP LEFT: wide view from the entrance doorway on the left, looking into the room\n(same viewpoint as the reference). TOP RIGHT: reverse wide view from beside the\nTV wall on the right, looking back toward the L-shaped sofa, the amber lamp behind\nit and the entrance. BOTTOM LEFT: view from the sofa toward the TV wall, the low\nTV cabinet and the bookshelf. BOTTOM RIGHT: view from the window side looking\nback into the room toward the entrance, with the night window behind the camera.\n\nThe room is EMPTY: no people, no animals, no figure in any panel. Preserve the\nlayout and furniture of the reference exactly and consistently in all four views:\nopen entrance on the left with a coat hook; dark grey L-shaped fabric sofa with\ncushions and a knitted throw, left-centre; rectangular wooden coffee table at the\ncentre with a dark mug, a small bowl, a remote and a few books, lower shelf with\nbooks; dark patterned rug on warm wooden parquet; small amber table lamp behind the\nsofa on the left; large potted plant beside it; tall bookshelf with books and small\nframed pictures on the right wall; flat TV on a low wooden cabinet on the right wall,\nfacing the sofa; floor-to-ceiling window with curtains at the back on a night city of\nlit apartment towers. Same proportions and positions between panels.\n\nLighting identical to the reference: night, dominant dark olive/green ambience, the\nTV as a cold greenish light on the right, the small warm amber lamp behind the sofa,\nsoft city glow from the window. Same graphic language: semi-anime illustration with\nrealistic proportions, fine visible contours, painterly faceted shadows, lightly\ntextured painted surfaces. Not a photograph, not a 3D render. Readable furniture\nshapes, no extra rooms, no added furniture or objects, no family photos.",
+  "pricing_checked_at": "2026-10-05",
+  "job_kind": "reference_illustration",
+  "entity_type": "location",
+  "entity_id": "loc_001",
+  "reference_scope": "exploratory",
+  "prompt_id": "ref_loc_001_angles_01",
+  "attempt_number": 1,
+  "estimated_cost_usd": 0.018,
+  "parameters": {
+    "resolution": "1K",
+    "aspect_ratio": "16:9"
+  },
+  "references": [
+    {
+      "role": "reference",
+      "uploaded_path": "la_pomme_loc_refexplore_loc_001_e7f162790e20fa40.png",
+      "entity_id": "loc_001",
+      "entity_type": "location",
+      "asset_path": "art-direction/Unknown.png",
+      "sha256": "e7f162790e20fa4079a1f638eb6c87495834c5254869f0ef7f5df885d42c3d7f"
+    }
+  ],
+  "target_evidence_sha256": "af3937fcfac028e8fd649de6a69537105e493f0dd739658e6ce250f6f41d632d"
+}

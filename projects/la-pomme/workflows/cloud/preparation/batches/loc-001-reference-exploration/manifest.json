@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "batch": "loc-001-reference-exploration",
+  "project": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme",
+  "project_id": "project_la_pomme",
+  "tier": "preparation",
+  "scope": {
+    "scene_ids": [],
+    "entity_ids": [
+      "loc_001"
+    ]
+  },
+  "scope_sha256": "58c5826f9fdf287ed68412b722bf4879a41b2e1197ca1ad91c32bdef51129e90",
+  "batch_file_sha256": "5fd2aa9ea9cf55c4336c828bac56e17602b5ed8994ac47bcf3d32ee3a4a548f8",
+  "prepared_at": "2026-10-06T07:42:57+00:00",
+  "generation_tested": false,
+  "jobs": [
+    {
+      "job_id": "loc-001-angles",
+      "modality": "image",
+      "status": "blocked",
+      "blocker": "BatchError: job already approved; prepare a new batch for a new attempt"
+    },
+    {
+      "job_id": "loc-001-floor-plan",
+      "modality": "image",
+      "job_dir": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/workflows/cloud/preparation/batches/loc-001-reference-exploration/loc-001-floor-plan",
+      "attempt_number": 2,
+      "estimated_cost_usd": 0.018,
+      "uploads": [
+        {
+          "order": 1,
+          "role": "reference",
+          "entity_id": "loc_001",
+          "asset_path": "art-direction/Unknown.png",
+          "sha256": "e7f162790e20fa4079a1f638eb6c87495834c5254869f0ef7f5df885d42c3d7f",
+          "uploaded_path": "la_pomme_loc_refexplore_loc_001_e7f162790e20fa40.png",
+          "staged_file": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/workflows/cloud/preparation/batches/loc-001-reference-exploration/uploads/la_pomme_loc_refexplore_loc_001_e7f162790e20fa40.png"
+        }
+      ],
+      "plan_sha256": "cae60e0dd6ecdbe59a54f8f8dea376470063e9a333b091a692937676b89859b3",
+      "status": "prepared",
+      "prepared": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/workflows/cloud/preparation/batches/loc-001-reference-exploration/loc-001-floor-plan/prepared.api.json",
+      "prepared_file_sha256": "e0509b61d5e10d2e25205e960a0744e89a56857286a91cb5766e3c10a2b81e13",
+      "workflow_sha256": "31239df97cfae8e527522b031bcf02c64d584b97ba133486657c31fefe28eadc"
+    }
+  ]
+}

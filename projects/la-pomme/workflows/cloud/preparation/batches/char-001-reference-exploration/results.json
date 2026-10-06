@@ -1,0 +1,10 @@
+{
+  "jobs": [
+    {
+      "job_id": "char-001-turnaround-exploration",
+      "prompt_id": "fbe7c67f-895e-4333-8181-ce1967d46d49",
+      "status": "completed",
+      "outputs": ["/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/references/generated/char_001/attempt-01/fbe7c67f_000.png"]
+    }
+  ]
+}

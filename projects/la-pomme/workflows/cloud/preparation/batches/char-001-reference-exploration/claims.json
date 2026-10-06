@@ -1,0 +1,16 @@
+{
+  "batch": "char-001-reference-exploration",
+  "transport": "comfy-mcp run_workflow(wait=false, confirm_spend=false)",
+  "jobs": [
+    {
+      "job_id": "char-001-turnaround-exploration",
+      "plan_sha256": "f5afe56d37b4522e63fb1df5d3ad3e50f22742eacdde95a7efed789f4afe04c8",
+      "attempt_number": 1,
+      "reserved_usd": "0.02",
+      "estimated_cost_usd": 0.018,
+      "workflow_path": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/workflows/cloud/preparation/batches/char-001-reference-exploration/char-001-turnaround-exploration/prepared.api.json",
+      "claimed_at": "2026-10-05T21:28:34+00:00",
+      "status": "claimed_before_transport"
+    }
+  ]
+}

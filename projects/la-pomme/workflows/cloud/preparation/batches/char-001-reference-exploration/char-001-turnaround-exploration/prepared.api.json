@@ -1,0 +1,50 @@
+{
+  "10": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "la_pomme_refexplore_char_001_7e85faaddab814f5.png"
+    },
+    "_meta": {
+      "title": "Approved adult portrait - existing source only"
+    }
+  },
+  "20": {
+    "class_type": "OpenRouterStudioImage",
+    "inputs": {
+      "model": "bytedance-seed/seedream-5-0-flash",
+      "model.prompt": "Create ONE landscape character turnaround image of the exact same adult man\nshown in the supplied reference portrait, repeated in exactly FOUR full-body\nviews arranged in a single horizontal row. From LEFT TO RIGHT, the views are:\nFRONT facing the viewer; LEFT THREE-QUARTER with his anatomical left side\nvisible and his nose pointing toward image-left; LEFT PROFILE showing his\nanatomical left side, nose pointing toward image-left; BACK facing away.\nThese view names are instructions only: do not print any words in the image.\n\nAll four figures must be the SAME individual, not variations or different men.\nMatch the portrait's angular adult face, jaw and nose structure, tired eyes and\nunder-eye shadows, dark-brown short tousled hair with irregular locks, and\nshort beard/stubble. Preserve the apparent adult age and natural proportions\nof the reference without assigning an exact age, ethnicity, numerical height,\nor new exact iris colour. Keep fatigue visible without caricature. Do not\nbeautify, rejuvenate, smooth away the under-eye shadows, groom the hair into a\ndifferent hairstyle, add muscular bulk, or turn him into a fashion model.\n\nIn every view retain the same anthracite suit jacket and matching trousers,\nlight-grey shirt with open collar, no tie, and the visible waist/belt treatment\nof the portrait. Preserve the visible jacket cut, shirt opening, restrained\nfabric folds and clothing colours; do not replace the shirt with ivory or\nwhite, or turn the suit green. For the unseen lower legs and feet, use a\nrestrained exploratory completion: trousers continuing the same anthracite\nfabric and simple matte-black dress shoes, identical in all four views, with\nno conspicuous branding or decorative additions. The shoes and unseen\ntailoring are NEW visual proposals, not details established by the portrait.\n\nNeutral standing comparison pose in each view: feet comfortably planted,\narms relaxed beside the body with hands visible and empty, shoulders relaxed,\nhead aligned with the view, subdued neutral expression. Do not copy the\nleaning doorway pose, pocketed hand, or downward head tilt from the portrait.\nKeep all four figures at the same drawn scale with head tops and soles aligned,\nequal spacing, clear separation, and enough margin above the hair and below\nboth shoes. Show complete bodies from hair to soles without cropping or\noverlap. Use a consistent eye-level, low-distortion comparison presentation.\n\nMatch the reference's realistic-proportion semi-anime drawn rendering: fine\nvisible dark contours, restrained painterly cel facets and natural anatomical\nvolumes, not a photograph, plastic 3D render or chibi. Retain the muted\nMatrix-influenced olive/charcoal graphic sensibility subtly in the painted\nshadow treatment, without recolouring the clothing or washing the skin green.\nPlace the figures on a uniform plain NEUTRAL GREY background with soft,\ndiffuse, even illumination identical across all four views. Make the face,\nbeard, jacket, shirt, hands and trousers clearly readable for comparison,\nincluding dark fabric detail. Do not copy the portrait's dramatic nocturnal\nlighting, amber rim light, deep black shadows, doorway, apartment, furniture,\nwindows or city background. No scene, narrative action, cats, extra people,\nprops, new accessories, text, labels, borders, panel dividers or watermark.",
+      "model.size": "",
+      "model.resolution": "1K",
+      "model.aspect_ratio": "16:9",
+      "model.n": 1,
+      "model.seed": -1,
+      "model.reference_images.reference_1": [
+        "10",
+        0
+      ],
+      "model.provider_options_json": "{\"only\":[\"seed\"],\"allow_fallbacks\":false,\"options\":{\"seed\":{}}}",
+      "strict_validation": true,
+      "save_raw_artifacts": true,
+      "reference_max_megapixels": 16.0,
+      "request_timeout_seconds": 600,
+      "studio_reference_manifest": "",
+      "rerun_nonce": 0
+    },
+    "_meta": {
+      "title": "PAID Seedream - technical scaffold, no spend consent"
+    }
+  },
+  "30": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "20",
+        0
+      ],
+      "filename_prefix": "la-pomme/cloud/preparation/batches/char-001-reference-exploration/char-001-turnaround-exploration/attempt_01"
+    },
+    "_meta": {
+      "title": "Separate exploratory reference output - not a shot"
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "110": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "__AWAIT_UPLOAD_OWN_CAT_IDENTITY__.png"
+    },
+    "_meta": {
+      "title": "Reference 1 — own cat identity, approved source derivative"
+    }
+  },
+  "120": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "__AWAIT_UPLOAD_ADULT_STYLE_ONLY__.png"
+    },
+    "_meta": {
+      "title": "Reference 2 — approved adult portrait, graphic style only"
+    }
+  },
+  "200": {
+    "class_type": "OpenRouterStudioImage",
+    "inputs": {
+      "model": "bytedance-seed/seedream-5-0-flash",
+      "model.prompt": "__TECHNICAL_SCAFFOLD_ONLY_DO_NOT_GENERATE__",
+      "model.size": "",
+      "model.resolution": "1K",
+      "model.aspect_ratio": "16:9",
+      "model.n": 1,
+      "model.seed": -1,
+      "model.reference_images.reference_1": [
+        "110",
+        0
+      ],
+      "model.reference_images.reference_2": [
+        "120",
+        0
+      ],
+      "model.provider_options_json": "{\"only\":[\"seed\"],\"allow_fallbacks\":false,\"options\":{\"seed\":{}}}",
+      "strict_validation": true,
+      "save_raw_artifacts": true,
+      "reference_max_megapixels": 16.0,
+      "request_timeout_seconds": 600,
+      "studio_reference_manifest": "",
+      "rerun_nonce": 0
+    },
+    "_meta": {
+      "title": "PAID Seedream — two-reference project scaffold, no paid consent"
+    }
+  },
+  "300": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "200",
+        0
+      ],
+      "filename_prefix": "la-pomme/cloud/preparation/batches/cats-reference-exploration/char-003-turnaround/attempt_01"
+    },
+    "_meta": {
+      "title": "One PNG sheet per job — exploratory illustration, not a shot"
+    }
+  }
+}

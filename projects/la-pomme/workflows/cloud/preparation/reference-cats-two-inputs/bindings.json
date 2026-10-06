@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "declared_node_ids": {"image": "200", "output": "300", "loaders": ["110", "120"]},
+  "binding": {
+    "node_id": "200",
+    "class_type": "OpenRouterStudioImage",
+    "input_map": {"model": "model", "prompt": "model.prompt", "resolution": "model.resolution", "aspect_ratio": "model.aspect_ratio"},
+    "references": [
+      {"node_id": "110", "input_key": "image", "target_input": "model.reference_images.reference_1", "role": "reference"},
+      {"node_id": "120", "input_key": "image", "target_input": "model.reference_images.reference_2", "role": "reference"}
+    ]
+  },
+  "exact_model": "bytedance-seed/seedream-5-0-flash",
+  "tier": "preparation",
+  "route": "/api/v1/images",
+  "provider_slug": "seed",
+  "topology_policy": "new_project_owned_design_then_preserve_all_nodes_and_links",
+  "provenance": "Explicit new design for the requested two cats together: 110 identity loader, 120 style-only loader, 200 selected paid image node, 300 PNG output. These IDs are declared by this design, not guessed from or inserted into another workflow. The existing one-input reference-exploration scaffold is read-only and unchanged.",
+  "technical_authorization_verbatim": "go fait les 2 en meme temps",
+  "technical_authorization_scope": "prepare_two_exploratory_cat_sheets_in_one_batch_not_upload_or_spend_consent",
+  "seed_policy": {"input": "model.seed", "literal": -1, "source": "live_default_preserved_not_explicit_plan_parameter", "reason": "No seed requested; config does not declare a seed parameter capability. Explicit seed requests remain blocked by the actual adapter."},
+  "unsupported_unrequested_parameters": ["width", "height", "frames", "fps", "audio_input"],
+  "paid_job_approval": null,
+  "actual_cost_usd": null,
+  "generation_tested": false,
+  "live_workflow_validation": "pending_main_session_after_upload_and_reprepare"
+}

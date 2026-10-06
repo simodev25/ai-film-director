@@ -1,0 +1,53 @@
+{
+  "approved": true,
+  "scope": "paid_generation_job",
+  "approved_at": "2026-10-06",
+  "tier": "preparation",
+  "model": "bytedance-seed/seedream-5-0-flash",
+  "route": "/api/v1/images",
+  "project_id": "project_la_pomme",
+  "scope_sha256": "58c5826f9fdf287ed68412b722bf4879a41b2e1197ca1ad91c32bdef51129e90",
+  "job_kind": "reference_illustration",
+  "scene_id": null,
+  "shot_id": null,
+  "entity_id": "loc_001",
+  "segment_id": null,
+  "prompt_id": "ref_loc_001_floor_plan_03",
+  "parameters": {
+    "resolution": "1K",
+    "aspect_ratio": "1:1"
+  },
+  "ordered_references": [
+    {
+      "role": "reference",
+      "uploaded_path": "la_pomme_locplan3_refexplore_loc_001_caf19cc6cc0cd2be.png",
+      "entity_id": "loc_001",
+      "entity_type": "location",
+      "asset_path": "references/schematic/loc_001/floor-plan-schematic-v2-clean.png",
+      "sha256": "caf19cc6cc0cd2be30ad6d50b04ed79aac69aadafb9bb1deb7cd0f8a504ea9e3"
+    },
+    {
+      "role": "reference",
+      "uploaded_path": "la_pomme_locplan3_refexplore_loc_001_3f20008515ce38fc.png",
+      "entity_id": "loc_001",
+      "entity_type": "location",
+      "asset_path": "references/generated/loc_001/attempt-01-angles/crops/panel-top-right.png",
+      "sha256": "3f20008515ce38fcb64ce5b687c4e4c02f1bf75e022b9d66f81e7627c4ecc486"
+    }
+  ],
+  "count": 1,
+  "attempt_number": 4,
+  "estimated_cost_usd": 0.018,
+  "ceiling_usd": 0.02,
+  "workflow_sha256": "0a80180bbb6b210050fd019cbc0c2ee0f3aff80b7d2062566637db167853437a",
+  "plan_sha256": "368e22e100964ced3d6893425ca8f77eb18cf714fbba8ee3feb86f8d2c9c3dc0",
+  "estimate_sha256": "48e8433f650308fd94518d6f561610db998e7ff95542f6c76d3865bd2abd37d2",
+  "decision_sha256": "4c9986d73a483940f63389035b27aeec3b633736dd1ae9f17000a1d97df235c2",
+  "consent_reference": "ses_ef27d5cdcffefU62W3ufHMHm2L ; 2026-10-06 ; question: « Autorises-tu l'import local du plan schématique sans texte et de la vue du salon puis, si le workflow est validé, ce rendu IA du plan : Seedream 5.0 Flash en Préparation, 1K carré (1:1), une seule tentative, coût estimé 0,018 $ et plafond 0,02 $, sans reprise automatique ? » ; réponse utilisateur verbatim « Oui, lancer le rendu » ; batch loc-001-floor-plan-render ; job loc-001-floor-plan-03 tentative 4 ; plan 368e22e10096",
+  "consent_user_verbatim": "Oui, lancer le rendu",
+  "consent_question": "Autorises-tu l'import local du plan schématique sans texte et de la vue du salon puis, si le workflow est validé, ce rendu IA du plan : Seedream 5.0 Flash en Préparation, 1K carré (1:1), une seule tentative, coût estimé 0,018 $ et plafond 0,02 $, sans reprise automatique ?",
+  "consent_bundle_ceiling_usd": 0.02,
+  "reference_scope": "exploratory",
+  "canonical_stage_completion": false,
+  "target_evidence_sha256": "a6143b707401045bd6f283711c6a1ed4204a8c871a79660b4fe668c419351081"
+}

@@ -1,0 +1,52 @@
+{
+  "job_id": "loc-001-floor-plan",
+  "plan_sha256": "cae60e0dd6ecdbe59a54f8f8dea376470063e9a333b091a692937676b89859b3",
+  "comfy_prompt_id": "aa717fcb-9d5d-439d-bb11-0ea80ba692b0",
+  "reported_status": "completed",
+  "studio_db": "/Users/mbensass/ComfyUI-Installs/simo/ComfyUI/user/__openrouter_studio/jobs.sqlite3",
+  "read_at": "2026-10-06T07:43:40+00:00",
+  "studio_match": {
+    "local_job_id": "1d2b8662-7846-416f-8f7b-c736d795aa1f",
+    "provider_job_id": null,
+    "media_type": "image",
+    "model_id": "bytedance-seed/seedream-5-0-flash",
+    "status": "completed",
+    "created_at": "2026-10-06T07:43:15.560828+00:00",
+    "output_path": "/Users/mbensass/ComfyUI-Shared/output/openrouter_studio/20261006T074328Z-bytedance-seed-seedream-5-0-flash-6df58810-1.jpg",
+    "estimated_cost": null,
+    "actual_cost": 0.018,
+    "error": null
+  },
+  "studio_lookup": {
+    "prompt_sha256": "9470d2f16f3d6578cffe2771086ad960bbbbe2b5751daecb36072aef379ffdf9",
+    "candidates": [
+      {
+        "local_job_id": "1d2b8662-7846-416f-8f7b-c736d795aa1f",
+        "provider_job_id": null,
+        "media_type": "image",
+        "model_id": "bytedance-seed/seedream-5-0-flash",
+        "status": "completed",
+        "created_at": "2026-10-06T07:43:15.560828+00:00",
+        "output_path": "/Users/mbensass/ComfyUI-Shared/output/openrouter_studio/20261006T074328Z-bytedance-seed-seedream-5-0-flash-6df58810-1.jpg",
+        "estimated_cost": null,
+        "actual_cost": 0.018,
+        "error": null
+      }
+    ]
+  },
+  "tier": "preparation",
+  "model": "bytedance-seed/seedream-5-0-flash",
+  "attempt_number": 2,
+  "ordered_references": [
+    {
+      "role": "reference",
+      "uploaded_path": "la_pomme_loc_refexplore_loc_001_e7f162790e20fa40.png",
+      "entity_id": "loc_001",
+      "entity_type": "location",
+      "asset_path": "art-direction/Unknown.png",
+      "sha256": "e7f162790e20fa4079a1f638eb6c87495834c5254869f0ef7f5df885d42c3d7f"
+    }
+  ],
+  "estimated_cost_usd": 0.018,
+  "actual_cost_usd": "0.018"
+}

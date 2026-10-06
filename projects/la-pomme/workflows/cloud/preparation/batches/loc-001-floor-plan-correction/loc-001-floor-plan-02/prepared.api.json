@@ -1,0 +1,63 @@
+{
+  "110": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "la_pomme_locplan_refexplore_loc_001_3f20008515ce38fc.png"
+    },
+    "_meta": {
+      "title": "Reference 1 — own cat identity, approved source derivative"
+    }
+  },
+  "120": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "la_pomme_locplan_refexplore_loc_001_ea80a9ec1bafa43c.png"
+    },
+    "_meta": {
+      "title": "Reference 2 — approved adult portrait, graphic style only"
+    }
+  },
+  "200": {
+    "class_type": "OpenRouterStudioImage",
+    "inputs": {
+      "model": "bytedance-seed/seedream-5-0-flash",
+      "model.prompt": "Create ONE strict top-down ORTHOGRAPHIC floor plan of the living room shown in the\ntwo reference images: camera exactly vertical above the room, ceiling removed,\nno perspective, no visible wall faces, no tilt. Walls drawn as thick dark outlines\nseen from above. No people, no animals, no text, labels, numbers, dimensions,\narrows, compass or legend.\n\nREFERENCE IMAGE 1 is a wide view of this room taken from the entrance; REFERENCE\nIMAGE 2 is a closer view of the same room. Both show the SAME room: reproduce\nexactly their furniture, proportions and positions, seen from above. Orientation\nof the plan: the window wall at the TOP, the entrance side (where the camera stood)\nat the BOTTOM, the TV wall on the RIGHT, the sofa side on the LEFT.\n\nPlace, as in the references: the large floor-to-ceiling window with curtains centred\non the TOP wall; the entrance door at the BOTTOM-LEFT corner, opening inward; the dark\ngrey L-shaped sofa on the LEFT half: one long section running from bottom to top\nalong the left side with its seat facing RIGHT toward the TV, joined at the top-left\ncorner to a section running along the top toward the centre with its seat facing\nDOWN, cushions and the knitted throw on it; behind the sofa in the TOP-LEFT corner\na small side table with the warm amber lamp and a large potted plant beside it; the\nrectangular wooden coffee table in the CENTRE, in front of the sofa's corner, with a\ndark mug, a small bowl, a remote and a few books, on a dark patterned rectangular rug;\non the RIGHT wall a long low wooden TV cabinet with the flat TV facing LEFT toward the\nsofa, a small plant at its lower end; a tall bookshelf against the right wall near the\nTOP-RIGHT corner with a small plant at its foot; warm wooden parquet everywhere.\nSame furniture count and scale as the references; nothing added.\n\nPainted illustration in the same graphic language as the references: fine visible\ncontours, flat painted tones, dark grey sofa, warm wood, dark rug, soft even light\nso every piece is legible; small warm glow at the lamp, the TV seen from above as a\nthin dark rectangle with a faint cool-green edge. Room centred in a 16:9 frame.",
+      "model.size": "",
+      "model.resolution": "1K",
+      "model.aspect_ratio": "16:9",
+      "model.n": 1,
+      "model.seed": -1,
+      "model.reference_images.reference_1": [
+        "110",
+        0
+      ],
+      "model.reference_images.reference_2": [
+        "120",
+        0
+      ],
+      "model.provider_options_json": "{\"only\":[\"seed\"],\"allow_fallbacks\":false,\"options\":{\"seed\":{}}}",
+      "strict_validation": true,
+      "save_raw_artifacts": true,
+      "reference_max_megapixels": 16.0,
+      "request_timeout_seconds": 600,
+      "studio_reference_manifest": "",
+      "rerun_nonce": 0
+    },
+    "_meta": {
+      "title": "PAID Seedream — two-reference project scaffold, no paid consent"
+    }
+  },
+  "300": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "200",
+        0
+      ],
+      "filename_prefix": "la-pomme/cloud/preparation/batches/loc-001-floor-plan-correction/loc-001-floor-plan-02/attempt_03"
+    },
+    "_meta": {
+      "title": "One PNG sheet per job — exploratory illustration, not a shot"
+    }
+  }
+}

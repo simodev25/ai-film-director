@@ -1,0 +1,31 @@
+version: 1
+name: char-001-profile-correction
+tier: preparation
+pricing_checked_at: '2026-10-05'
+upload_prefix: la_pomme_refexplore
+scope:
+  scene_ids: []
+  entity_ids: [char_001]
+templates:
+  image:
+    graph: workflows/cloud/preparation/reference-exploration/scaffold.api.json
+    bindings: workflows/cloud/preparation/reference-exploration/bindings.json
+node_catalogs:
+  image: workflows/cloud/preparation/reference-exploration/node-catalog.selected.live.json
+jobs:
+  - job_id: char-001-profile-correction
+    modality: image
+    job_kind: reference_illustration
+    reference_scope: exploratory
+    entity_type: character
+    entity_id: char_001
+    prompt_file: references/drafts/char_001-profile-correction.prompt.yaml
+    prompt_key: prompt
+    parameters:
+      resolution: 1K
+      aspect_ratio: '9:16'
+    references:
+      - asset: art-direction/Homme fatigué dans un appartement nocturne.png
+        role: reference
+        entity_id: char_001
+        entity_type: character

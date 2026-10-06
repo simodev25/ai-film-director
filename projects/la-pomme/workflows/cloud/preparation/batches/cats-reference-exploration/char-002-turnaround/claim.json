@@ -1,0 +1,10 @@
+{
+  "job_id": "char-002-turnaround",
+  "plan_sha256": "f0da41b1c2f2e4f20a3cd139e8c27ea17d7a9b3622736dd013e4a5bde46e60e7",
+  "attempt_number": 1,
+  "reserved_usd": "0.02",
+  "estimated_cost_usd": 0.018,
+  "workflow_path": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/workflows/cloud/preparation/batches/cats-reference-exploration/char-002-turnaround/prepared.api.json",
+  "claimed_at": "2026-10-05T22:09:04+00:00",
+  "status": "claimed_before_transport"
+}

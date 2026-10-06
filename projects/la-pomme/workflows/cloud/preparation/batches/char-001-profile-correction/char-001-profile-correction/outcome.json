@@ -1,0 +1,52 @@
+{
+  "job_id": "char-001-profile-correction",
+  "plan_sha256": "6dc58858a069d4c780f3725a4e5c76e5b4ea9768784b600609053dd87450886e",
+  "comfy_prompt_id": "4a1494bf-f5ef-4e8c-80a6-3a635523ebfb",
+  "reported_status": "completed",
+  "studio_db": "/Users/mbensass/ComfyUI-Installs/simo/ComfyUI/user/__openrouter_studio/jobs.sqlite3",
+  "read_at": "2026-10-05T21:44:31+00:00",
+  "studio_match": {
+    "local_job_id": "f1056bac-3edf-48de-b2d7-ad9a1340c4d6",
+    "provider_job_id": null,
+    "media_type": "image",
+    "model_id": "bytedance-seed/seedream-5-0-flash",
+    "status": "completed",
+    "created_at": "2026-10-05T21:43:30.189442+00:00",
+    "output_path": "/Users/mbensass/ComfyUI-Shared/output/openrouter_studio/20261005T214351Z-bytedance-seed-seedream-5-0-flash-2bc5a7fd-1.jpg",
+    "estimated_cost": null,
+    "actual_cost": 0.018,
+    "error": null
+  },
+  "studio_lookup": {
+    "prompt_sha256": "d15de87257cb32139ad42c3f54b6b5c1252ff7dfb6380565ff50af772e6a2b53",
+    "candidates": [
+      {
+        "local_job_id": "f1056bac-3edf-48de-b2d7-ad9a1340c4d6",
+        "provider_job_id": null,
+        "media_type": "image",
+        "model_id": "bytedance-seed/seedream-5-0-flash",
+        "status": "completed",
+        "created_at": "2026-10-05T21:43:30.189442+00:00",
+        "output_path": "/Users/mbensass/ComfyUI-Shared/output/openrouter_studio/20261005T214351Z-bytedance-seed-seedream-5-0-flash-2bc5a7fd-1.jpg",
+        "estimated_cost": null,
+        "actual_cost": 0.018,
+        "error": null
+      }
+    ]
+  },
+  "tier": "preparation",
+  "model": "bytedance-seed/seedream-5-0-flash",
+  "attempt_number": 2,
+  "ordered_references": [
+    {
+      "role": "reference",
+      "uploaded_path": "la_pomme_refexplore_char_001_7e85faaddab814f5.png",
+      "entity_id": "char_001",
+      "entity_type": "character",
+      "asset_path": "art-direction/Homme fatigué dans un appartement nocturne.png",
+      "sha256": "7e85faaddab814f55012065755fc28d2651891567b642ad11053551d9aee1314"
+    }
+  ],
+  "estimated_cost_usd": 0.018,
+  "actual_cost_usd": "0.018"
+}

@@ -1,0 +1,24 @@
+# Base commune de comparaison, pas un découpage actif ni une autorisation.
+# Proposition narrative : 70 futurs plans de 6 s = 420 s.
+# Images : 70 keyframes + provision de 12 illustrations de modèles/références.
+# Les 12 illustrations ne sont ni des assets approuvés ni de nouveaux IDs.
+duration_seconds: 420
+images: 82
+# Moyenne forfaitaire d'inputs par image ; ce n'est pas 246 images générées.
+references_per_image: 3
+video_fraction: 1.0
+# Sons isolés NON verbaux Seed Audio uniquement ; aucune parole/TTS.
+# 60 s de sources, à composer/réutiliser localement, pas 420 s de bande-son.
+audio_seconds: 60
+# Enveloppe théorique de planification et prompts, non coût LLM observé.
+# Hypothèse de contextes standard ; ne pas agréger en requête >=272k.
+text_input_tokens: 100000
+text_output_tokens: 20000
+# Multiplicateurs moyens de volume : reprises 0 %, 25 %, 75 %.
+# Scénarios comptables seulement ; ne déclenchent aucune reprise.
+attempts:
+  low: 1.0
+  mean: 1.25
+  high: 1.75
+# Réserve de coûts distincte de la provision de reprises ; pas un plafond choisi.
+contingency_fraction: 0.10

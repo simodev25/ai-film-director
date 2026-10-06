@@ -1,0 +1,11 @@
+{
+  "id": "SaveImage", "name": "SaveImage", "display_name": "Save Image",
+  "description": "Saves the input images to your ComfyUI output directory.",
+  "category": "image", "output_types": ["IMAGE"], "output_node": true,
+  "is_api_node": false, "deprecated": false, "pack": "core", "labels": [], "cloud_disabled": false,
+  "inputs": [
+    {"name": "images", "type": "IMAGE", "required": true, "is_link": true, "section": "required", "choices": [], "options": {"min": null, "max": null, "step": null, "default": null}},
+    {"name": "filename_prefix", "type": "STRING", "required": true, "is_link": false, "section": "required", "choices": [], "options": {"min": null, "max": null, "step": null, "default": "ComfyUI"}}
+  ],
+  "outputs": [{"name": "images", "type": "IMAGE"}]
+}

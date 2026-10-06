@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "batch": "char-001-profile-correction",
+  "project": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme",
+  "project_id": "project_la_pomme",
+  "tier": "preparation",
+  "scope": {
+    "scene_ids": [],
+    "entity_ids": [
+      "char_001"
+    ]
+  },
+  "scope_sha256": "7f842ea276265e05d255b83970ee42a65a02397621f82bbccbb2c2b8a22146b8",
+  "batch_file_sha256": "cc09502cdc14463d17823651713ed31e208bc02c966b54812b9334157cc7a782",
+  "prepared_at": "2026-10-05T21:39:14+00:00",
+  "generation_tested": false,
+  "jobs": [
+    {
+      "job_id": "char-001-profile-correction",
+      "modality": "image",
+      "job_dir": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/workflows/cloud/preparation/batches/char-001-profile-correction/char-001-profile-correction",
+      "attempt_number": 2,
+      "estimated_cost_usd": 0.018,
+      "uploads": [
+        {
+          "order": 1,
+          "role": "reference",
+          "entity_id": "char_001",
+          "asset_path": "art-direction/Homme fatigué dans un appartement nocturne.png",
+          "sha256": "7e85faaddab814f55012065755fc28d2651891567b642ad11053551d9aee1314",
+          "uploaded_path": "la_pomme_refexplore_char_001_7e85faaddab814f5.png",
+          "staged_file": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/workflows/cloud/preparation/batches/char-001-profile-correction/uploads/la_pomme_refexplore_char_001_7e85faaddab814f5.png"
+        }
+      ],
+      "plan_sha256": "6dc58858a069d4c780f3725a4e5c76e5b4ea9768784b600609053dd87450886e",
+      "status": "prepared",
+      "prepared": "/Users/mbensass/projetPreso/ai-film-director/projects/la-pomme/workflows/cloud/preparation/batches/char-001-profile-correction/char-001-profile-correction/prepared.api.json",
+      "prepared_file_sha256": "b9c1e1e198835afc3df6c910e2113f3c4727bbb8b543f30d5e13c1e90f36ecd8",
+      "workflow_sha256": "0e3904ee3e0db28448d2c76328710fbcb90a2695a89d5903c2188fb9aec63057"
+    }
+  ]
+}

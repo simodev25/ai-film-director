@@ -1,0 +1,52 @@
+{
+  "job_id": "char-001-turnaround-exploration",
+  "plan_sha256": "f5afe56d37b4522e63fb1df5d3ad3e50f22742eacdde95a7efed789f4afe04c8",
+  "comfy_prompt_id": "fbe7c67f-895e-4333-8181-ce1967d46d49",
+  "reported_status": "completed",
+  "studio_db": "/Users/mbensass/ComfyUI-Installs/simo/ComfyUI/user/__openrouter_studio/jobs.sqlite3",
+  "read_at": "2026-10-05T21:29:36+00:00",
+  "studio_match": {
+    "local_job_id": "3c49ba4a-9bfd-4df4-b290-4b4bc1e2fb7f",
+    "provider_job_id": null,
+    "media_type": "image",
+    "model_id": "bytedance-seed/seedream-5-0-flash",
+    "status": "completed",
+    "created_at": "2026-10-05T21:28:41.000305+00:00",
+    "output_path": "/Users/mbensass/ComfyUI-Shared/output/openrouter_studio/20261005T212855Z-bytedance-seed-seedream-5-0-flash-66f37fb2-1.jpg",
+    "estimated_cost": null,
+    "actual_cost": 0.018,
+    "error": null
+  },
+  "studio_lookup": {
+    "prompt_sha256": "d5095864cf45f143f1ee26cdfca0e8a635379934ad956457d783168cd141f248",
+    "candidates": [
+      {
+        "local_job_id": "3c49ba4a-9bfd-4df4-b290-4b4bc1e2fb7f",
+        "provider_job_id": null,
+        "media_type": "image",
+        "model_id": "bytedance-seed/seedream-5-0-flash",
+        "status": "completed",
+        "created_at": "2026-10-05T21:28:41.000305+00:00",
+        "output_path": "/Users/mbensass/ComfyUI-Shared/output/openrouter_studio/20261005T212855Z-bytedance-seed-seedream-5-0-flash-66f37fb2-1.jpg",
+        "estimated_cost": null,
+        "actual_cost": 0.018,
+        "error": null
+      }
+    ]
+  },
+  "tier": "preparation",
+  "model": "bytedance-seed/seedream-5-0-flash",
+  "attempt_number": 1,
+  "ordered_references": [
+    {
+      "role": "reference",
+      "uploaded_path": "la_pomme_refexplore_char_001_7e85faaddab814f5.png",
+      "entity_id": "char_001",
+      "entity_type": "character",
+      "asset_path": "art-direction/Homme fatigué dans un appartement nocturne.png",
+      "sha256": "7e85faaddab814f55012065755fc28d2651891567b642ad11053551d9aee1314"
+    }
+  ],
+  "estimated_cost_usd": 0.018,
+  "actual_cost_usd": "0.018"
+}
