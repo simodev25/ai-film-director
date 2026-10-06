@@ -25,10 +25,22 @@ Le serveur n'écoute que sur la machine locale ; il ne s'agit pas d'un service
 authentifié à exposer sur Internet. Les fichiers des projets sont accessibles
 aux autres processus/utilisateurs de la machine capables d'atteindre ce port.
 
-## Les cinq vues
+## Les vues
 
 - **Vue d'ensemble** : aperçu du projet, présence des artefacts, scènes, plans,
   médias et points à vérifier.
+- **Suivi de production** : prochaine étape de la méthode, parcours par phase
+  (écriture → monde → découpage → images → animation → finition), budget
+  (plafond de planification et montant engagé lu en lecture seule dans
+  `budget/cloud-ledger.sqlite3`), timeline proportionnelle aux durées des plans,
+  tableau plan par plan (prompt image, keyframe, prompt vidéo, vidéo, son) et
+  bible visuelle (planches par personnage, lieu et accessoire, essais, vues
+  dérivées, notes de revue et réponses d'approbation citées du registre).
+- **Storyboard** : les scènes du scénario dans l'ordre, chacune avec ses cases
+  (numéro, plan lié, caméra, action, durée, dessin s'il existe). Une scène sans
+  storyboard affiche ses intentions visuelle et sonore, des cases vides et le
+  lien vers son texte. Les dessins de storyboard ne comptent jamais comme
+  keyframes ni comme rendus de plan.
 - **Scènes & plans** : storyboard regroupé par scène, avec accès aux versions,
   prompts, personnages, lieux et accessoires d'un plan.
 - **Médiathèque** : images, vidéo et audio présents sur disque ; recherche par

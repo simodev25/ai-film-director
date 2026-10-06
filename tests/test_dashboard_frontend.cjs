@@ -163,3 +163,82 @@ test('a render used as input remains a source render, not a new render of the co
   assert.equal(evaluate('filteredMedia().length'),1);
   assert.equal(evaluate('inputRelation(state.project.media[0],state.project.shots[1]).relation'),'explicit');
 });
+
+const productionFixture = () => ({id:'fixture',title:'Fixture',duration_seconds:20,
+  stages:[{id:'story',label:'Histoire',phase:'writing',status:'present',count:1},{id:'screenplay',label:'Scénario',phase:'writing',status:'present',count:1},{id:'reference_sheets',label:'Planches',phase:'world',status:'present',count:2,documented_approvals:1},{id:'image_media',label:'Keyframes',phase:'images',status:'present',count:2},{id:'video_media',label:'Vidéos',phase:'motion',status:'missing',count:0}],
+  scenes:[{id:'scene_A',title:'Scène A',number:1,shot_ids:['shot_1','shot_2']}],
+  shots:[{id:'shot_1',scene_id:'scene_A',sequence:1,start_seconds:0,duration_seconds:8,needs_motion:true,prompts:[{path:'p1.yaml',kind:'image_prompt'},{path:'v1.yaml',kind:'video_prompt'}],characters:['char_A']},
+         {id:'shot_2',scene_id:'scene_A',sequence:2,start_seconds:8,duration_seconds:6,needs_motion:false,prompts:[],characters:[]}],
+  entities:[{id:'char_A',kind:'character',name:'char_A',media_ids:[]}],
+  media:[{id:'renders/a.png',path:'renders/shot_1/4b8f21a1_000.png',url:'/media/fixture/a.png',kind:'image',role:'shot',shot_ids:['shot_1'],approved:true},
+         {id:'renders/b.png',path:'renders/shot_2/b.png',url:'/media/fixture/b.png',kind:'image',role:'shot',shot_ids:['shot_2'],review_status:'rejected_geometry'},
+         {id:'refs/sheet.png',path:'references/generated/char_A/attempt-01/aa11bb22_000.png',url:'/media/fixture/s.png',kind:'image',role:'reference',entity_ids:['char_A'],reference_approvals:[{path:'references/approved.yaml',approved_at:'2026-10-05',consent_verbatim:'oui',entity_id:'char_A',order:1}]},
+         {id:'refs/front.png',path:'references/generated/char_A/attempt-01/crops/front.png',url:'/media/fixture/f.png',kind:'image',role:'reference',entity_ids:['char_A'],derived_from:'refs/sheet.png',view:'front'}],
+  artifacts:[{path:'references/generated/char_A/attempt-01/review.md',kind:'note',data:'<b>Revue</b>'}],warnings:[],
+  budget:{decision:{selected_tier:'preparation',max_spend_usd:30},ledger:{available:true,jobs:3,committed_usd:0.054,jobs_without_actual_cost:0}}});
+
+test('production view: next stage, approvals, budget and shot board are derived honestly', () => {
+  const {evaluate}=app();
+  evaluate(`state.project=${JSON.stringify(productionFixture())};`);
+  assert.equal(evaluate('nextStage().id'),'video_media');
+  assert.equal(evaluate('shotProgress(state.project.shots[0]).keyframe'),'done');
+  assert.equal(evaluate('shotProgress(state.project.shots[1]).keyframe'),'bad');
+  assert.equal(evaluate('shotProgress(state.project.shots[1]).video'),'na');
+  assert.equal(evaluate('shotProgress(state.project.shots[0]).video'),'todo');
+  assert.equal(evaluate('shotLabel(state.project.shots[1])'),'S01 · P02');
+  assert.equal(evaluate(`mediaLabel(state.project.media[0])`),'renders · shot_1');
+  assert.equal(evaluate(`mediaLabel(state.project.media[3])`),'char_A · attempt-01 · front');
+  const html=evaluate('productionView()');
+  for(const expected of ['Où en est le film','Vidéos','0,054 $','30,00 $','S01 · P01','Timeline du film','1 approuvée au registre']) assert.ok(html.includes(expected),expected);
+  assert.ok(!html.includes('undefined') && !html.includes('NaN'));
+});
+
+test('production view without shots shows an honest empty timeline and the visual bible', () => {
+  const {evaluate}=app();
+  const fixture=productionFixture();fixture.shots=[];fixture.scenes=[];
+  evaluate(`state.project=${JSON.stringify(fixture)};`);
+  const html=evaluate('productionView()');
+  assert.ok(html.includes('le découpage en plans n’existe pas encore'));
+  assert.ok(!html.includes('Tableau des plans'));
+  assert.ok(html.includes('char_A'));
+  assert.ok(evaluate('overviewView()').includes('La bible visuelle'));
+});
+
+test('notes are rendered as escaped plain text and derived views never show their own approval', () => {
+  const {evaluate,elements}=app();
+  evaluate(`state.project=${JSON.stringify(productionFixture())};showModal('artifact','references/generated/char_A/attempt-01/review.md');`);
+  assert.ok(elements.get('#inspector-content').innerHTML.includes('&lt;b&gt;Revue'));
+  evaluate(`showModal('media','refs/front.png')`);
+  const html=elements.get('#inspector-content').innerHTML;
+  assert.ok(html.includes('Vue dérivée'));
+  assert.ok(!html.includes('Approbation documentée'));
+  evaluate(`showModal('entity','char_A')`);
+  assert.ok(elements.get('#inspector-content').innerHTML.includes('« oui »'));
+});
+
+test('storyboard view: panels by scene, drawings are not keyframes, scenes without panels show their brief', () => {
+  const {evaluate,elements}=app();
+  const fixture=productionFixture();
+  fixture.scenes.push({id:'scene_B',title:'EXT. RUE — NUIT',number:2,characters:['char_A'],visual_intent:'Pluie <i>battante</i>',notes:['screenplay/scene_B.md'],shot_ids:[]});
+  fixture.panels=[{id:'panel_1',scene_id:'scene_A',shot_id:'shot_1',order:1,composition:'Plan large',camera:'Travelling avant',action:'Il entre',media_ids:['sb/panel_1.png'],characters:['char_A'],source:'storyboard/storyboard.yaml'},
+                  {id:'panel_2',scene_id:'scene_A',shot_id:'shot_x',order:2,composition:'Gros plan <b>',media_ids:[],source:'storyboard/storyboard.yaml'}];
+  fixture.media.push({id:'sb/panel_1.png',path:'storyboard/panel_1.png',url:'/media/fixture/sb.png',kind:'image',role:'storyboard',shot_ids:['shot_1'],panel_ids:['panel_1']});
+  fixture.shots[0].media_ids=['sb/panel_1.png'];
+  evaluate(`state.project=${JSON.stringify(fixture)};`);
+  const html=evaluate('storyboardView()');
+  for(const expected of ['Le film, case par case','STORYBOARD À FAIRE','Pluie &lt;i&gt;battante&lt;/i&gt;','Gros plan &lt;b&gt;','CAM · Travelling avant','/media/fixture/sb.png','Lire la scène']) assert.ok(html.includes(expected),expected);
+  assert.ok(!html.includes('undefined')&&!html.includes('NaN'));
+  assert.equal(evaluate("shotImages(state.project.shots[0]).map(m=>m.id).join(',')"),'renders/a.png');
+  evaluate(`showModal('panel','panel_2')`);
+  const modal=elements.get('#inspector-content').innerHTML;
+  assert.ok(modal.includes('pas encore dans la liste des plans'));
+  assert.ok(modal.includes('ni une keyframe'));
+  evaluate(`showModal('shot','shot_1')`);
+  assert.ok(elements.get('#inspector-content').innerHTML.includes('<h3>Storyboard</h3>'));
+});
+
+test('storyboard view on an empty project stays honest', () => {
+  const {evaluate}=app();
+  evaluate(`state.project={id:'x',scenes:[],panels:[],shots:[],media:[],entities:[],artifacts:[],stages:[]};`);
+  assert.ok(evaluate('storyboardView()').includes('Pas encore de scénario ni de storyboard'));
+});

@@ -19,7 +19,7 @@ async function main() {
   let socket;
   try {
     const debugURL = await new Promise((resolve,reject)=>{
-      let log='';const timer=setTimeout(()=>reject(new Error('Chrome startup timed out')),12000);
+      let log='';const timer=setTimeout(()=>reject(new Error("Chrome startup timed out")),30000);
       chrome.on('error',reject);
       chrome.stderr.on('data',chunk=>{log+=chunk.toString();const m=log.match(/DevTools listening on (ws:\/\/\S+)/);if(m){clearTimeout(timer);resolve(m[1]);}});
     });
@@ -51,9 +51,15 @@ async function main() {
     const capture=async name=>{const r=await call('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});const p=path.join(output,name);fs.writeFileSync(p,Buffer.from(r.data,'base64'));return p;};
     await evaluate(`Promise.all([...document.querySelectorAll('.hero img')].map(i=>i.complete?Promise.resolve():new Promise(r=>{i.addEventListener('load',r,{once:true});i.addEventListener('error',r,{once:true})})))`);
     console.log('Desktop screenshot:',await capture('atelier-desktop.png'));
-    for(const view of ['scenes','media','relations','sources']){
+    for(const view of ['production','storyboard','scenes','media','relations','sources']){
       await evaluate(`document.querySelector('#navigation [data-view="${view}"]').click()`);
       assert.ok(await evaluate(`document.querySelector('#content').textContent.length>80`));
+      if(view==='production'||view==='storyboard'){
+        await evaluate(`Promise.all([...document.images].map(i=>i.complete?Promise.resolve():new Promise(r=>{i.addEventListener('load',r,{once:true});i.addEventListener('error',r,{once:true})})))`);
+        const height=await evaluate('Math.min(6000,document.documentElement.scrollHeight)');
+        const r=await call('Page.captureScreenshot',{format:'png',captureBeyondViewport:true,clip:{x:0,y:0,width:1440,height,scale:1}});
+        const file=path.join(output,`atelier-${view}.png`);fs.writeFileSync(file,Buffer.from(r.data,'base64'));console.log('Screenshot:',file);
+      }
       console.log('View rendered:',view);
     }
     await evaluate(`document.querySelector('#navigation [data-view="relations"]').click()`);

@@ -7,6 +7,7 @@ Only IDs declared in narrative/entity documents become narrative/entity records.
 from __future__ import annotations
 
 import datetime as dt
+from contextlib import closing
 import json
 import math
 import os
@@ -30,21 +31,32 @@ MEDIA_TYPES = {
     ".flac": "audio",
 }
 DOCUMENT_SUFFIXES = {".yaml", ".yml", ".json"}
+NOTE_SUFFIXES = {".md"}
+MAX_NOTE_CHARACTERS = 200_000
 DOCUMENT_DIRS = {
     "story", "screenplay", "characters", "locations", "props", "storyboard",
     "shots", "prompts", "renders", "production", "production-tests", "audio",
     "final", "continuity", "references", "reference_assets",
+    "art-direction", "art_direction", "model-sheets", "model_sheets",
 }
+# Media below these top-level folders are technical copies (upload staging,
+# workflow scaffolds), not film material; they are neither listed nor served.
+TECHNICAL_MEDIA_DIRS = {"workflows"}
+ART_DIRECTION_DIRS = {"art-direction", "art_direction"}
+# (id, label, phase), in the order of the film method. A stage present on disk
+# is never treated as an approval.
 STAGES = (
-    ("project", "Projet"), ("story", "Histoire"), ("budget", "Budget"),
-    ("screenplay", "Scénario"), ("character", "Personnages"),
-    ("character_sheet", "Fiches visuelles"),
-    ("location", "Décors"), ("prop", "Accessoires"),
-    ("storyboard", "Storyboard"), ("shot", "Plans"),
-    ("image_prompt", "Prompts image"), ("image_media", "Images sur disque"),
-    ("video_prompt", "Prompts vidéo"), ("video_media", "Vidéos sur disque"),
-    ("audio_prompt", "Prompts audio"), ("audio_media", "Audio sur disque"),
-    ("continuity", "Continuité"), ("render", "Montage"),
+    ("project", "Projet", "writing"), ("story", "Histoire", "writing"),
+    ("budget", "Budget", "writing"), ("screenplay", "Scénario", "writing"),
+    ("character", "Personnages", "world"), ("character_sheet", "Fiches visuelles", "world"),
+    ("location", "Décors", "world"), ("prop", "Accessoires", "world"),
+    ("art_direction", "Direction artistique", "world"),
+    ("reference_sheets", "Planches de référence", "world"),
+    ("storyboard", "Storyboard", "cutting"), ("shot", "Plans", "cutting"),
+    ("image_prompt", "Prompts image", "images"), ("image_media", "Keyframes", "images"),
+    ("video_prompt", "Prompts vidéo", "motion"), ("video_media", "Vidéos", "motion"),
+    ("audio_prompt", "Prompts audio", "finishing"), ("audio_media", "Audio", "finishing"),
+    ("continuity", "Continuité", "finishing"), ("render", "Montage", "finishing"),
 )
 MAX_DOCUMENT_BYTES = 4 * 1024 * 1024
 INPUT_MEDIA_KEYS = {
@@ -160,6 +172,31 @@ def _records(data, plural, id_key):
             isinstance(row.get(id_key), str) and row[id_key]]
 
 
+def _number(value):
+    """Integer from an int or a digit string ("1"); anything else is unknown."""
+    if isinstance(value, bool):
+        return None
+    if isinstance(value, int):
+        return value
+    if isinstance(value, str) and value.strip().isdigit():
+        return int(value.strip())
+    return None
+
+
+def _describe(value, depth=0):
+    """Readable text for a free-form field that may be a string, list or mapping."""
+    if depth > 3 or value is None or isinstance(value, bool):
+        return ""
+    if isinstance(value, (str, int, float)):
+        return str(value)
+    if isinstance(value, list):
+        return " · ".join(filter(None, (_describe(item, depth + 1) for item in value)))
+    if isinstance(value, dict):
+        return " · ".join(f"{key} : {text}" for key, item in value.items()
+                          if (text := _describe(item, depth + 1)))
+    return ""
+
+
 def _iso(timestamp):
     return dt.datetime.fromtimestamp(timestamp, dt.timezone.utc).isoformat()
 
@@ -189,6 +226,8 @@ def _kind(path: str, data=None):
         return "record"
     if area == "characters" and "sheets" in parts:
         return "character_sheet"
+    if area in ART_DIRECTION_DIRS:
+        return "art_direction"
     return {"characters": "character", "locations": "location", "props": "prop",
             "shots": "shot", "final": "render"}.get(area, area if area in
              {"story", "screenplay", "storyboard", "continuity"} else "record")
@@ -295,6 +334,17 @@ class Catalog:
     def _artifact(self, path, relative):
         artifact = {"path": relative, "kind": _kind(relative), "data": None,
                     "valid": None, "errors": []}
+        if path.suffix.lower() in NOTE_SUFFIXES:
+            # Notes are shown verbatim as text; never interpreted as approvals.
+            artifact["kind"] = "note"
+            try:
+                if path.stat().st_size > MAX_DOCUMENT_BYTES:
+                    raise ValueError("Document exceeds size limit")
+                artifact["data"] = json_safe(path.read_text(encoding="utf-8")[:MAX_NOTE_CHARACTERS])
+            except (OSError, UnicodeError, ValueError):
+                artifact["valid"] = False
+                artifact["errors"] = ["Unreadable or oversized note"]
+            return artifact
         try:
             if path.stat().st_size > MAX_DOCUMENT_BYTES:
                 raise ValueError("Document exceeds size limit")
@@ -334,6 +384,8 @@ class Catalog:
             try:
                 modified.append(path.stat().st_mtime)
                 if suffix in MEDIA_TYPES:
+                    if parts[0] in TECHNICAL_MEDIA_DIRS:
+                        continue
                     media[relative] = {
                         "id": relative, "path": relative,
                         "url": "/media/" + quote(root.name, safe="") + "/" + quote(relative, safe="/"),
@@ -343,7 +395,8 @@ class Catalog:
                         "status": None, "review_status": None, "approved": None,
                         "production_final": None, "film_final": None,
                         "archived": "archive" in parts, "review_records": [],
-                        "usage_records": [], "_has_source": False,
+                        "usage_records": [], "reference_approvals": [],
+                        "derived_from": None, "view": None, "notes": [], "panel_ids": [], "_has_source": False,
                     }
                 elif suffix in DOCUMENT_SUFFIXES:
                     eligible = parts[0] in DOCUMENT_DIRS or (len(parts) == 1 and
@@ -352,6 +405,9 @@ class Catalog:
                                 path.stem in {"estimate", "decision", "assumptions"})
                     if eligible:
                         artifacts.append(self._artifact(path, relative))
+                elif suffix in NOTE_SUFFIXES and (parts[0] in DOCUMENT_DIRS or (
+                        len(parts) == 2 and parts[0] == "budget")):
+                    artifacts.append(self._artifact(path, relative))
             except OSError:
                 warnings.append(f"{relative}: file unavailable")
         components = {}
@@ -374,7 +430,7 @@ class Catalog:
             if artifact["errors"]:
                 warnings.append(f"{artifact['path']}: " + "; ".join(artifact["errors"]))
 
-        scenes, shots, entities = {}, {}, {}
+        scenes, shots, entities, panels = {}, {}, {}, {}
         metadata, story, budget = {}, {}, {}
         for artifact in artifacts:
             kind, data = artifact["kind"], artifact["data"]
@@ -394,7 +450,39 @@ class Catalog:
                         "id": sid, "title": _text(row.get("title"), row.get("heading"), sid),
                         "description": _text(row.get("description"), row.get("action")),
                         "location_id": _text(row.get("location_id")) or None, "shot_ids": [],
+                        "number": _number(row.get("scene_number")),
+                        "characters": _ids(row.get("characters", row.get("character_ids"))),
+                        "time": _text(row.get("time")) or None,
+                        "visual_intent": _describe(row.get("visual_intent")) or None,
+                        "audio_intent": _describe(row.get("audio_intent")) or None,
+                        "panel_ids": [], "notes": [],
                     }
+            elif kind == "storyboard":
+                for index, row in enumerate(_records(data, "panels", "panel_id"), 1):
+                    pid = row["panel_id"]
+                    if pid in panels:
+                        warnings.append(f"{artifact['path']}: duplicate panel ID {pid}")
+                        continue
+                    duration = row.get("duration_seconds", row.get("duration"))
+                    panels[pid] = {
+                        "id": pid, "scene_id": _text(row.get("scene_id")) or None,
+                        "shot_id": _text(row.get("shot_id")) or None,
+                        "order": _number(row.get("panel_number", row.get("sequence", row.get("order")))) or index,
+                        "title": _text(row.get("title"), row.get("subject")) or None,
+                        "composition": _describe(row.get("composition")) or None,
+                        "camera": _describe(row.get("camera")) or None,
+                        "action": _describe(row.get("action")) or None,
+                        "lighting": _describe(row.get("lighting")) or None,
+                        "continuity": _describe(row.get("continuity")) or None,
+                        "emotion": _describe(row.get("emotion", row.get("intent"))) or None,
+                        "sound": _describe(row.get("sound", row.get("audio"))) or None,
+                        "characters": _ids(row.get("characters", row.get("character_ids"))),
+                        "location_id": _text(row.get("location_id")) or None,
+                        "needs_motion": row.get("needs_motion") if isinstance(row.get("needs_motion"), bool) else None,
+                        "duration_seconds": duration if isinstance(duration, (int, float)) and not isinstance(duration, bool) else None,
+                        "source": artifact["path"], "media_ids": [],
+                    }
+                    self._link_panel(root, artifact["path"], row, panels[pid], media)
             elif kind == "shot":
                 for row in _records(data, "shots", "shot_id"):
                     sid = row["shot_id"]
@@ -402,11 +490,15 @@ class Catalog:
                         warnings.append(f"{artifact['path']}: duplicate shot ID {sid}")
                         continue
                     duration = row.get("duration_seconds", row.get("duration"))
+                    start, sequence = row.get("start_seconds"), row.get("sequence")
                     shots[sid] = {
                         "id": sid, "scene_id": _text(row.get("scene_id")) or None,
                         "title": _text(row.get("title"), row.get("subject"), sid),
                         "description": _text(row.get("description"), row.get("action")),
                         "duration_seconds": duration if isinstance(duration, (int, float)) and not isinstance(duration, bool) else None,
+                        "start_seconds": start if isinstance(start, (int, float)) and not isinstance(start, bool) else None,
+                        "sequence": sequence if isinstance(sequence, int) and not isinstance(sequence, bool) else None,
+                        "needs_motion": row.get("needs_motion") if isinstance(row.get("needs_motion"), bool) else None,
                         "characters": _ids(row.get("characters", row.get("character_ids"))),
                         "location_id": _text(row.get("location_id")) or None,
                         "props": _ids(row.get("prop_ids", row.get("props"))),
@@ -422,8 +514,18 @@ class Catalog:
                     entities[eid] = {
                         "id": eid, "kind": kind, "name": _text(row.get("name"), eid),
                         "description": _text(row.get("description"), identity.get("appearance"), row.get("role")),
-                        "media_ids": [],
+                        "media_ids": [], "source": artifact["path"],
                     }
+        # IDs declared only in the story registry (before entity files exist) are
+        # real project IDs; they get no invented name or description.
+        for key, kind in (("characters", "character"), ("locations", "location"), ("props", "prop")):
+            declared = story.get(key)
+            for row in declared if isinstance(declared, list) else []:
+                eid = row if isinstance(row, str) else row.get(kind + "_id") if isinstance(row, dict) else None
+                if isinstance(eid, str) and eid and eid not in entities:
+                    name = row.get("name") if isinstance(row, dict) else None
+                    entities[eid] = {"id": eid, "kind": kind, "name": _text(name, eid),
+                                     "description": "", "media_ids": [], "source": "story/story.yaml"}
         for shot in shots.values():
             scene = scenes.get(shot["scene_id"])
             if scene:
@@ -447,10 +549,35 @@ class Catalog:
                         shots[sid]["prompts"].append(artifact)
                     else:
                         warnings.append(f"{artifact['path']}: unknown shot {sid}")
-            self._link_document(root, artifact, media, shots, entities, warnings, components, prompt_sources)
+            if artifact["kind"] != "storyboard":
+                # Storyboard frames are linked per panel; they are not shot renders.
+                self._link_document(root, artifact, media, shots, entities, warnings, components, prompt_sources)
+        self._link_reference_registry(artifacts, media, entities)
+        self._attach_notes(artifacts, media)
+        for artifact in artifacts:
+            if artifact["kind"] == "note" and PurePosixPath(artifact["path"]).parts[0] == "screenplay":
+                stem = PurePosixPath(artifact["path"]).name
+                for scene in scenes.values():
+                    if stem == scene["id"] + ".md" or stem.startswith(scene["id"] + "."):
+                        scene["notes"].append(artifact["path"])
+        for panel in panels.values():
+            scene = scenes.get(panel["scene_id"])
+            if scene:
+                scene["panel_ids"].append(panel["id"])
+            elif panel["scene_id"]:
+                warnings.append(f"{panel['source']}: panel {panel['id']} has unknown scene {panel['scene_id']}")
+            if panel["shot_id"] and shots and panel["shot_id"] not in shots:
+                warnings.append(f"{panel['source']}: panel {panel['id']} has unknown shot {panel['shot_id']}")
 
         for item in media.values():
             reference_dir = any(part in {"references", "reference_assets"} for part in PurePosixPath(item["path"]).parts)
+            if item["relation"] == "unlinked" and PurePosixPath(item["path"]).parts[0] == "storyboard":
+                matched = self._filename_ids(item["path"], panels)
+                if matched:
+                    item.update(role="storyboard", relation="filename", panel_ids=matched)
+                    for pid in matched:
+                        panels[pid]["media_ids"].append(item["id"])
+                    item["shot_ids"] = [panels[p]["shot_id"] for p in matched if panels[p]["shot_id"] in shots]
             if item["relation"] == "unlinked":
                 item["shot_ids"] = self._filename_ids(item["path"], shots) if not reference_dir else []
                 item["entity_ids"] = self._filename_ids(item["path"], entities)
@@ -479,19 +606,40 @@ class Catalog:
                 warnings.append(f"{item['path']}: unlinked media (no declared association)")
 
         stages = []
-        for stage_id, label in STAGES:
+        for stage_id, label, phase in STAGES:
             matching = [a for a in artifacts if a["kind"] == stage_id]
+            if stage_id == "storyboard" and matching:
+                stages.append({"id": stage_id, "label": label, "phase": phase,
+                               "status": "invalid" if any(a["valid"] is False for a in matching) else "present",
+                               "count": len(panels) or len(matching)})
+                continue
+            if stage_id == "art_direction":
+                present = [a for a in artifacts if PurePosixPath(a["path"]).parts[0] in ART_DIRECTION_DIRS]
+                present += [m for m in media.values() if PurePosixPath(m["path"]).parts[0] in ART_DIRECTION_DIRS]
+                stages.append({"id": stage_id, "label": label, "phase": phase,
+                               "status": "present" if present else "missing", "count": len(present)})
+                continue
+            if stage_id == "reference_sheets":
+                present = [m for m in media.values() if m["role"] == "reference" and m["kind"] == "image"
+                           and not m["archived"] and not m["derived_from"]
+                           and PurePosixPath(m["path"]).parts[0] not in ART_DIRECTION_DIRS]
+                stages.append({"id": stage_id, "label": label, "phase": phase,
+                               "status": "present" if present else "missing", "count": len(present),
+                               "documented_approvals": sum(1 for m in present if m["reference_approvals"])})
+                continue
             if stage_id.endswith("_media"):
                 media_kind = stage_id.removesuffix("_media")
                 present = [item for item in media.values() if item["kind"] == media_kind
                            and not item["archived"] and
                            (media_kind == "audio" or item["role"] == "shot")]
-                stages.append({"id": stage_id, "label": label,
+                stages.append({"id": stage_id, "label": label, "phase": phase,
                                "status": "present" if present else "missing", "count": len(present)})
                 continue
-            stages.append({"id": stage_id, "label": label,
+            stages.append({"id": stage_id, "label": label, "phase": phase,
                            "status": "invalid" if any(a["valid"] is False for a in matching) else
                            "present" if matching else "missing", "count": len(matching)})
+        if budget:
+            budget["ledger"] = self._ledger(root)
         media_list = list(media.values())
         return {
             "id": root.name, "title": _text(metadata.get("title"), story.get("title"), root.name),
@@ -501,6 +649,7 @@ class Catalog:
             "duration_seconds": metadata.get("duration_seconds") if isinstance(metadata.get("duration_seconds"), (int, float)) and not isinstance(metadata.get("duration_seconds"), bool) else None,
             "description": _text(metadata.get("description"), story.get("logline"), story.get("premise"), metadata.get("production_scope")),
             "scenes": list(scenes.values()), "shots": list(shots.values()),
+            "panels": sorted(panels.values(), key=lambda row: (row["order"] if isinstance(row["order"], (int, float)) else 0)),
             "entities": list(entities.values()), "media": media_list, "artifacts": artifacts,
             "stages": stages, "warnings": list(dict.fromkeys(warnings)), "budget": budget or None,
             "progress": round(100 * sum(stage["count"] > 0 for stage in stages) / len(stages)),
@@ -516,6 +665,150 @@ class Catalog:
         # Exact ID tokens in filename/parent directories, not prefix collisions.
         return [identifier for identifier in records if re.search(
             r"(?<![A-Za-z0-9])" + re.escape(identifier) + r"(?![A-Za-z0-9])", path)]
+
+    def _link_panel(self, root, base, row, panel, media):
+        """Media named inside a panel (outside reference/input keys) are that
+        panel's storyboard frames: never shot renders, never approved by it."""
+        def resolve(value):
+            if not isinstance(value, str) or Path(value).suffix.lower() not in MEDIA_TYPES:
+                return None
+            for prefix in (self.root.name + "/" + root.name + "/", root.name + "/"):
+                if value.startswith(prefix):
+                    value = value[len(prefix):]
+                    break
+            for candidate in (value, (PurePosixPath(base).parent / value).as_posix()):
+                if candidate in media:
+                    return candidate
+            return None
+
+        def walk(value, depth=0):
+            if depth > 10:
+                return
+            if isinstance(value, dict):
+                for key, child in value.items():
+                    if key not in INPUT_MEDIA_KEYS:
+                        walk(child, depth + 1)
+            elif isinstance(value, list):
+                for child in value:
+                    walk(child, depth + 1)
+            else:
+                relative = resolve(value)
+                if relative:
+                    item = media[relative]
+                    item["role"], item["relation"] = "storyboard", "explicit"
+                    item["panel_ids"] = list(dict.fromkeys(item["panel_ids"] + [panel["id"]]))
+                    if panel["shot_id"]:
+                        item["shot_ids"] = list(dict.fromkeys(item["shot_ids"] + [panel["shot_id"]]))
+                    if relative not in panel["media_ids"]:
+                        panel["media_ids"].append(relative)
+        walk(row)
+
+    @staticmethod
+    def _link_reference_registry(artifacts, media, entities):
+        """A registry row (entity_id + path + approved_at) documents an approval of
+        that exact file only. Its derived views are linked, never approved."""
+        def media_path(value, base):
+            if not isinstance(value, str):
+                return None
+            for candidate in (value, (PurePosixPath(base).parent / value).as_posix()):
+                if candidate in media:
+                    return candidate
+            return None
+
+        def walk(value, base, depth=0):
+            if depth > 30:
+                return
+            if isinstance(value, list):
+                for child in value:
+                    walk(child, base, depth + 1)
+                return
+            if not isinstance(value, dict):
+                return
+            entity_id = value.get("entity_id")
+            relative = media_path(value.get("path"), base)
+            approved_at = value.get("approved_at")
+            if isinstance(entity_id, str) and entity_id in entities and relative and approved_at:
+                item = media[relative]
+                record = {"path": base, "approved_at": str(approved_at), "entity_id": entity_id,
+                          "consent_verbatim": _text(value.get("consent_verbatim")) or None,
+                          "sheet_type": _text(value.get("sheet_type")) or None,
+                          "order": value.get("order") if isinstance(value.get("order"), int)
+                          and not isinstance(value.get("order"), bool) else None}
+                if record not in item["reference_approvals"]:
+                    item["reference_approvals"].append(record)
+                item["entity_ids"] = list(dict.fromkeys(item["entity_ids"] + [entity_id]))
+                item["role"], item["relation"] = "reference", "explicit"
+                for view in value.get("views") if isinstance(value.get("views"), list) else []:
+                    if isinstance(view, dict):
+                        derived = media_path(view.get("asset_path") or view.get("path"), base)
+                        if derived and derived != relative:
+                            child = media[derived]
+                            child["derived_from"] = relative
+                            child["view"] = _text(view.get("view")) or None
+                            child["entity_ids"] = list(dict.fromkeys(child["entity_ids"] + [entity_id]))
+                            child["role"], child["relation"] = "reference", "explicit"
+            for child in value.values():
+                walk(child, base, depth + 1)
+
+        for artifact in artifacts:
+            if artifact["kind"] != "note":
+                walk(artifact["data"], artifact["path"])
+
+    @staticmethod
+    def _attach_notes(artifacts, media):
+        """Notes beside a media file (or beside the attempt of a crop) are shown
+        with it as context to read; they are never parsed as approvals."""
+        notes = {}
+        for artifact in artifacts:
+            if artifact["kind"] == "note":
+                notes.setdefault(PurePosixPath(artifact["path"]).parent.as_posix(), []).append(artifact["path"])
+        for item in media.values():
+            folder = PurePosixPath(item["path"]).parent
+            item["notes"] = sorted(notes.get(folder.as_posix(), []) + (
+                notes.get(folder.parent.as_posix(), []) if folder.name == "crops" else []))
+
+    @staticmethod
+    def _ledger(root):
+        """Read-only summary of budget/cloud-ledger.sqlite3. Unknown stays unknown."""
+        import sqlite3
+        from decimal import Decimal, InvalidOperation
+
+        path = root / "budget" / "cloud-ledger.sqlite3"
+        if not path.is_file() or path.is_symlink():
+            return None
+
+        def money(value):
+            try:
+                amount = Decimal(str(value))
+                return amount if amount.is_finite() else None
+            except (InvalidOperation, ValueError):
+                return None
+
+        try:
+            with closing(sqlite3.connect(path.resolve().as_uri() + "?mode=ro", uri=True, timeout=1)) as db:
+                tables = {row[0] for row in db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
+                jobs = db.execute("SELECT reserved, actual, status FROM jobs").fetchall() if "jobs" in tables else []
+                external = db.execute("SELECT actual, hold FROM external_jobs").fetchall() if "external_jobs" in tables else []
+                account = db.execute("SELECT metadata FROM account").fetchone() if "account" in tables else None
+        except Exception:
+            return {"available": False}
+        try:
+            opening = money(json.loads(account[0]).get("opening_hold_usd")) if account else None
+        except (ValueError, TypeError, AttributeError):
+            opening = None
+        actual = [money(row[1]) for row in jobs if row[1] is not None]
+        pending = [money(row[0]) for row in jobs if row[1] is None]
+        external_values = [money(row[0] if row[0] is not None else row[1]) for row in external]
+        values = actual + pending + external_values
+        committed = None if opening is None or any(v is None for v in values) else opening + sum(values, Decimal(0))
+        return {
+            "available": True, "jobs": len(jobs),
+            "completed_jobs": sum(1 for row in jobs if row[2] == "completed"),
+            "actual_known_usd": float(sum((v for v in actual if v is not None), Decimal(0))),
+            "jobs_without_actual_cost": len(pending), "external_jobs": len(external),
+            "opening_hold_usd": float(opening) if opening is not None else None,
+            "committed_usd": float(committed) if committed is not None else None,
+        }
 
     def _link_document(self, root, artifact, media, shots, entities, warnings, components, prompt_sources):
         def resolve(value):

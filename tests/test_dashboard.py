@@ -406,6 +406,130 @@ class CatalogTests(DashboardFixture):
         self.assertEqual(reference["usage_records"][0]["shot_ids"], ["shot_atelier_2"])
 
 
+class ReferenceStageTests(DashboardFixture):
+    """Pre-screenplay projects: story registry IDs, model sheets, notes, ledger."""
+
+    def setUp(self):
+        super().setUp()
+        self.film = self.root / "sheets-film"
+        self.write(self.film, "story/story.yaml", {
+            "story_id": "story_sheets", "title": "Planches", "logline": "Un test.", "premise": "Test.",
+            "acts": [], "characters": ["char_001", "char_002"], "locations": ["loc_001"],
+        })
+        self.write(self.film, "budget/decision.yaml", {"selected_tier": "preparation", "max_spend_usd": 30})
+        self.binary(self.film, "references/generated/char_001/attempt-01/aa11bb22_000.png", b"sheet")
+        self.binary(self.film, "references/generated/char_001/attempt-01/crops/front.png", b"crop")
+        self.binary(self.film, "references/generated/char_001/attempt-01/review.md", "# Revue\nApprouvé ?".encode())
+        self.binary(self.film, "references/generated/char_002/attempt-01/cc33dd44_000.png", b"candidate")
+        self.binary(self.film, "workflows/cloud/batch/uploads/char_001_upload.png", b"technical copy")
+        self.write(self.film, "references/approved-references.yaml", {"references": [{
+            "order": 1, "entity_id": "char_001", "entity_type": "character",
+            "path": "references/generated/char_001/attempt-01/aa11bb22_000.png",
+            "approved_at": "2026-10-05", "consent_verbatim": "oui",
+            "views": [{"view": "front", "asset_path": "references/generated/char_001/attempt-01/crops/front.png"}],
+        }]})
+
+    def ledger(self, rows, opening="0"):
+        import sqlite3
+        path = self.film / "budget" / "cloud-ledger.sqlite3"
+        with contextlib.closing(sqlite3.connect(path)) as db:
+            db.execute("CREATE TABLE account (id INTEGER PRIMARY KEY, metadata TEXT NOT NULL)")
+            db.execute("CREATE TABLE jobs (plan_hash TEXT PRIMARY KEY, consent TEXT, target TEXT, attempt INTEGER, reserved TEXT, actual TEXT, status TEXT, record TEXT)")
+            db.execute("INSERT INTO account VALUES (1, ?)", (json.dumps({"opening_hold_usd": opening}),))
+            for i, (reserved, actual, status) in enumerate(rows):
+                db.execute("INSERT INTO jobs VALUES (?,?,?,?,?,?,?,?)", (f"h{i}", f"c{i}", "t", i, reserved, actual, status, "{}"))
+            db.commit()
+        return path
+
+    def test_story_registry_entities_registry_approval_and_derived_views(self):
+        project = self.catalog.get_project("sheets-film")
+        entities = {row["id"]: row for row in project["entities"]}
+        self.assertEqual(set(entities), {"char_001", "char_002", "loc_001"})
+        self.assertEqual(entities["char_001"]["name"], "char_001")
+        self.assertEqual(entities["char_001"]["description"], "")
+        media = {row["path"]: row for row in project["media"]}
+        sheet = media["references/generated/char_001/attempt-01/aa11bb22_000.png"]
+        self.assertEqual(sheet["role"], "reference")
+        self.assertEqual(sheet["reference_approvals"][0]["consent_verbatim"], "oui")
+        crop = media["references/generated/char_001/attempt-01/crops/front.png"]
+        self.assertEqual(crop["derived_from"], sheet["path"])
+        self.assertEqual(crop["reference_approvals"], [])
+        candidate = media["references/generated/char_002/attempt-01/cc33dd44_000.png"]
+        self.assertEqual(candidate["reference_approvals"], [])
+        self.assertIsNone(candidate["approved"])
+        self.assertEqual(sheet["notes"], ["references/generated/char_001/attempt-01/review.md"])
+        self.assertEqual(crop["notes"], ["references/generated/char_001/attempt-01/review.md"])
+        note = next(row for row in project["artifacts"] if row["kind"] == "note")
+        self.assertIn("Approuvé ?", note["data"])
+        self.assertNotIn("approved", json.dumps(sheet["review_records"]))
+        stages = {row["id"]: row for row in project["stages"]}
+        self.assertEqual(stages["reference_sheets"]["count"], 2)
+        self.assertEqual(stages["reference_sheets"]["documented_approvals"], 1)
+        self.assertEqual(stages["screenplay"]["status"], "missing")
+        self.assertTrue(all("phase" in row for row in project["stages"]))
+
+    def test_workflow_upload_copies_are_not_film_media(self):
+        project = self.catalog.get_project("sheets-film")
+        self.assertFalse(any(row["path"].startswith("workflows/") for row in project["media"]))
+        with self.assertRaises((ValueError, FileNotFoundError)):
+            self.catalog.media_file("sheets-film", "workflows/cloud/batch/uploads/char_001_upload.png")
+
+    def test_ledger_is_read_only_and_unknown_costs_stay_unknown(self):
+        path = self.ledger([("0.02", "0.018", "completed"), ("0.02", "0.018", "completed")])
+        before = path.read_bytes()
+        ledger = self.catalog.get_project("sheets-film")["budget"]["ledger"]
+        self.assertEqual(ledger["jobs"], 2)
+        self.assertAlmostEqual(ledger["committed_usd"], 0.036)
+        self.assertEqual(path.read_bytes(), before)
+        self.assertFalse((self.film / "budget" / "cloud-ledger.sqlite3-journal").exists())
+        path.unlink()
+        self.ledger([("0.02", None, "submitted")], opening="not-a-number")
+        ledger = Catalog(self.root, cache_seconds=0).get_project("sheets-film")["budget"]["ledger"]
+        self.assertIsNone(ledger["committed_usd"])
+        self.assertEqual(ledger["jobs_without_actual_cost"], 1)
+
+    def test_shot_timing_fields_are_exposed_without_invention(self):
+        shot = next(row for row in self.catalog.get_project(self.project_id)["shots"] if row["id"] == "shot_atelier_1")
+        self.assertEqual(shot["sequence"], 1)
+        self.assertIsNone(shot["start_seconds"])
+        self.assertIsNone(shot["needs_motion"])
+
+
+class StoryboardTests(DashboardFixture):
+    def test_panels_scene_notes_and_storyboard_frames_are_not_shot_renders(self):
+        self.write(self.first, "storyboard/storyboard.yaml", {"storyboard_id": "sb", "panels": [
+            {"panel_id": "panel_a", "scene_id": "scene_atelier", "shot_id": "shot_atelier_1",
+             "composition": "Plan large", "camera": {"movement": "travelling", "lens": "35mm"},
+             "action": "Elle entre.", "image": "frames/panel_a.png",
+             "references": ["assets/alice.png"]},
+            {"panel_id": "panel_b", "scene_id": "scene_unknown", "shot_id": "shot_atelier_1", "composition": "Gros plan"},
+        ]})
+        self.binary(self.first, "storyboard/frames/panel_a.png", b"drawing")
+        self.binary(self.first, "storyboard/panel_b_sketch.png", b"drawing b")
+        self.binary(self.first, "screenplay/scene_atelier.md", "# Scène".encode())
+        project = self.catalog.get_project(self.project_id)
+        panels = {row["id"]: row for row in project["panels"]}
+        self.assertEqual(panels["panel_a"]["camera"], "lens : 35mm · movement : travelling")
+        self.assertEqual(panels["panel_a"]["media_ids"], ["storyboard/frames/panel_a.png"])
+        self.assertEqual(panels["panel_b"]["media_ids"], ["storyboard/panel_b_sketch.png"])
+        media = {row["path"]: row for row in project["media"]}
+        frame = media["storyboard/frames/panel_a.png"]
+        self.assertEqual((frame["role"], frame["relation"]), ("storyboard", "explicit"))
+        self.assertEqual(media["storyboard/panel_b_sketch.png"]["relation"], "filename")
+        self.assertEqual(media["assets/alice.png"]["role"], "reference")
+        scene = project["scenes"][0]
+        self.assertEqual(scene["panel_ids"], ["panel_a"])
+        self.assertEqual(scene["notes"], ["screenplay/scene_atelier.md"])
+        self.assertTrue(any("scene_unknown" in warning for warning in project["warnings"]))
+        stages = {row["id"]: row for row in project["stages"]}
+        self.assertEqual(stages["storyboard"]["count"], 2)
+        self.assertEqual(stages["image_media"]["count"], 2)
+
+    def test_scene_number_accepts_digit_strings_only(self):
+        from dashboard.catalog import _number
+        self.assertEqual((_number("3"), _number(4), _number(True), _number("III")), (3, 4, None, None))
+
+
 class ServerTests(DashboardFixture):
     def setUp(self):
         super().setUp()
